@@ -1,0 +1,14 @@
+[level.config]
+name = "Labryinth"
+allowed_blocks = ["move", "exit"]
+check = ["player-at-exit"]
+
+[level.map]
+layout = """
+%%%%%%%%%%
+%       P%
+% %%%%%%%%
+% %    %E%
+%   %%   %
+%%%%%%%%%%
+"""

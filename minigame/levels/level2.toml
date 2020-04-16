@@ -1,0 +1,13 @@
+[level.config]
+name = "Around the Bend"
+allowed_blocks = ["move", "collect", "exit"]
+check = ["player-collects-all", "player-at-exit"]
+
+[level.map]
+layout = """
+%%%%%%%
+%P   .%
+%%%%% %
+%E   .%
+%%%%%%%
+"""
