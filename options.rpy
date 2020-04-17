@@ -17,12 +17,18 @@ init -1000 python:
     class UnscriptedCoreConfigError(Exception):
         """Could not load the build configuration."""
 
-    # If the build configuration is missing, raise an exception.
-    if not renpy.loadable("core/build.toml"):
+    # Call the default build config from the core if the build.toml file at top doesn't exist.
+    uconf_path = "build.toml"
+    if not renpy.loadable(uconf_path):
+        print("[WARN] Build configuration is missing. Loading the default settings...")
+        uconf_path = "core/build.toml"
+
+    # If the default build configuration is missing, raise an exception.
+    if not renpy.loadable(uconf_path):
         raise UnscriptedCoreConfigError("The build configuration for Unscripted is not loadable.")
 
     # If the config field is missing from the build.toml file, raise an exception.
-    with renpy.file("core/build.toml") as uconf_file:
+    with renpy.file(uconf_path) as uconf_file:
         toml_load = toml.load(uconf_file)
         if "config" not in toml_load:
             raise UnscriptedCoreConfigError("The build configuration is missing the 'config' key.")
@@ -165,6 +171,7 @@ init python:
 
     # Grab any other compiled file and toss it into the script package.
     build.classify("game/**.rpyc", 'scripts')
+    build.classify("game/build.toml", 'scripts')
 
     # Target and bundle all of the Unscripted Core source files together in a convenient place.
     if not uconf["demo"]["demo"]:
