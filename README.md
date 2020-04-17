@@ -15,9 +15,31 @@ Unscripted Core contains the source code for most, if not all, of the logic for 
 - Utility functions such as getting a username, getting Feather icons, etc.
 - User interfaces and splash screen animations
 
+### Why are assets not included?
+
+Assets, as defined in the game license, are not held under the same license and must be treated differently:
+
+> 7. Only the source code files associated with the Unscripted Core shall be distributed on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
+>
+>       a. Likewise, the Unscripted Story, image assets and background music must not be bundled with the Unscripted Core as outline in Subsections 3, 4, and 5, unless given explicit, written permission from The Team.
+>
+>       i. If permission has been granted to bundle the aforementioned assets, the written the notice must be attached to the project and clearly labeled.
+
 ## Getting started
 
 To get started, clone this repository into a Ren'Py project or Unscripted mod in the `core` folder. The files will automatically be compiled with Unscripted.
+
+### Installing dependencies
+
+Unscripted Core (and the game, subsequently) rely on some Python packages to operate properly. The required dependencies are listed in requirements.txt.
+
+To install these dependencies, run the following\*:
+
+```
+pip install -r path/to/core/requirements.txt --target game/python-packages
+```
+
+> \*Note: Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages by Python 2-compatible. Run the pip command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
 
 ## License
 
