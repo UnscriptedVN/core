@@ -299,9 +299,11 @@ screen navigation():
             textbutton _("Load") action ShowMenu("load")
 
             if main_menu:
-                if enable_dreams:
+                if uconf["features"]["enable_dreams"]:
                     textbutton _("Dreams") action ShowMenu("dreams")
-                textbutton _("Report a Bug") action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_yt_url))
+
+                if uconf["features"]["enable_youtrack_link"]:
+                    textbutton _("Report a Bug") action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_yt_url))
 
             textbutton _("Settings") action ShowMenu("preferences")
 
@@ -314,8 +316,6 @@ screen navigation():
                 textbutton _("Desktop ") action ShowTransient("ASDesktopShellView")
 
                 key "d" action ShowTransient("ASDesktopShellView")
-
-            # textbutton _("About") action ShowMenu("about")
 
             if renpy.variant("pc"):
 
@@ -875,27 +875,28 @@ screen minigame_settings():
                 textbutton "Faster (1.25x)" action SetField(persistent, "mg_speed", 0.75)
                 textbutton "Fastest (1.5x)" action SetField(persistent, "mg_speed", 0.5)
 
-        vbox:
-            spacing 10
+        if uconf["features"]["enable_minigame_adv_mode"]:
             vbox:
-                label "Advanced Mode"
-                text "Advanced Mode allows you to play the minigame by writing scripts and programs in Python instead of the default user interface.":
-                    style "pref_text"
+                spacing 10
+                vbox:
+                    label "Advanced Mode"
+                    text "Advanced Mode allows you to play the minigame by writing scripts and programs in Python instead of the default user interface.":
+                        style "pref_text"
 
-            vbox:
-                style_prefix "check"
-                textbutton "Use advanced mode" action ToggleField(persistent, "mg_adv_mode")
+                vbox:
+                    style_prefix "check"
+                    textbutton "Use advanced mode" action ToggleField(persistent, "mg_adv_mode")
 
-            vbox:
-                style_prefix "standard"
-                textbutton "Open Scripts Folder" action Function(open_directory, config.savedir + "/minigame")
-                text "Save directory: " + config.savedir + "/minigame":
-                    style "pref_text"
-            vbox:
-                style_prefix "standard"
-                textbutton "Documentation" action Function(open_api_docs)
-                text "Documentation is also available in Help.":
-                    style "pref_text"
+                vbox:
+                    style_prefix "standard"
+                    textbutton "Open Scripts Folder" action Function(open_directory, config.savedir + "/minigame")
+                    text "Save directory: " + config.savedir + "/minigame":
+                        style "pref_text"
+                vbox:
+                    style_prefix "standard"
+                    textbutton "Documentation" action Function(open_api_docs)
+                    text "Documentation is also available in Help.":
+                        style "pref_text"
 
 screen extras_settings():
     style_prefix "pref"
@@ -1165,7 +1166,8 @@ screen help():
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
                 textbutton _("Extras") action SetScreenVariable("tab", "extras")
-                textbutton _("Documentation") action Function(open_api_docs)
+                if uconf["features"]["enable_minigame_adv_mode"]:
+                    textbutton _("Documentation") action Function(open_api_docs)
                 textbutton _("License") action SetScreenVariable("tab", "license")
 
                 if GamepadExists():

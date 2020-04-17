@@ -10,23 +10,31 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-# Basic configuration info such as the product name, version, and save
-# directory.
+# Load the Unscripted build configuration defined in build.toml.
+init -1000 python:
+    import toml
+
+    class UnscriptedCoreConfigError(Exception):
+        """Could not load the build configuration."""
+
+    # If the build configuration is missing, raise an exception.
+    if not renpy.loadable("core/build.toml"):
+        raise UnscriptedCoreConfigError("The build configuration for Unscripted is not loadable.")
+
+    # If the config field is missing from the build.toml file, raise an exception.
+    with renpy.file("core/build.toml") as uconf_file:
+        toml_load = toml.load(uconf_file)
+        if "config" not in toml_load:
+            raise UnscriptedCoreConfigError("The build configuration is missing the 'config' key.")
+
+        # Store the Unscripted configuration as uconf, which is referenced in other places.
+        uconf = toml_load["config"]
+
+# Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")
 define config.version = "1.2.0"
 define build.name = "Unscripted"
 define config.save_directory = "net.marquiskurt.unscripted"
-
-# Special Unscripted-specific configurations
-# ==========================================
-# These configurations are used to enable/disable specific features of the
-# Unscripted game.
-
-# Is this the demo?
-define demo_mode = False
-
-# Should the Dreams modding functionality be enabled?
-define enable_dreams = False
 
 # GUI Information
 define gui.show_name = True
@@ -40,8 +48,7 @@ define config.has_voice = False
 
 define config.default_music_volume = 0.5
 
-# Default settings for the "Emphasize ambience/sound effects" setting
-# In Settings > Sound.
+# Default settings for the "Emphasize ambience/sound effects" setting in Settings > Sound.
 define config.emphasize_audio_channels = ['sound', 'ambient']
 define config.emphasize_audio_volume = 0.5
 define config.emphasize_audio_time = 0.5
@@ -76,8 +83,8 @@ define config.save_json_callbacks = [save_player, save_chaptername]
 define config.all_character_callbacks = [match_inventory_scheme]
 
 # Image and layering information.
-define config.search_prefixes = [ "", "System/", "assets/", "assets/images/" , "gui/" ]
-define config.layers = [ 'background', 'master', 'effects', 'transient', 'screens', 'overlay' ]
+define config.search_prefixes = ["", "System/", "assets/", "assets/images/" , "gui/"]
+define config.layers = ['background', 'master', 'effects', 'transient', 'screens', 'overlay']
 init:
     $ config.tag_layer['effect'] = 'effects'
     $ config.tag_layer['bg'] = 'background'
@@ -85,26 +92,24 @@ init:
 # Build instructions for Ren'Py.
 init python:
 
-    # Create the archives that will be compiled with the game.
-    # Scripts will contain the story code, logic contains all of
-    # the Unscripted Core logic, and assets contains all of the
-    # required images, audio files, etc.
+    # Create the archives that will be compiled with the game. Scripts will contain the story code,
+    # logic contains all of the Unscripted Core logic, and assets contains all of the required
+    # images, audio files, etc.
     build.archive("scripts", "all")
     build.archive("assets", "all")
     build.archive("logic", "all")
 
-    # To maintain compatibility with the license, a new archive is
-    # added to bundle the source code to Unscripted Core. This archive
-    # will not appear in the demo version of the game as this code
-    # shouldn't be accessible or licensed in a demo state.
-    if not demo_mode:
+    # To maintain compatibility with the license, a new archive is added to bundle the source code
+    # to Unscripted Core. This archive will not appear in the demo version of the game as this code
+    # shouldn't be accessible or licensed in a demo state, unless the demo_bundle_core flag in the
+    # build settings is enabled. The source code is also available on GitHub at the following link:
+    # https://github.com/UnscriptedVN/core.
+    if not uconf["demo"]["demo"] or uconf["demo"]["demo_bundle_core"]:
         build.archive("source", "all")
 
-    # Target any of the AliceOS-specific files first.
-    # The compiled targets and assets will be added to the logic
-    # archive, while the source code will be added to the source
-    # archive.
-    if not demo_mode:
+    # Target any of the AliceOS-specific files first. The compiled targets and assets will be added
+    # to the logic archive, while the source code will be added to the source archive.
+    if (not uconf["demo"]["demo"]) or uconf["demo"]["demo_bundle_core"]:
         build.classify('game/System/**.aoscservice/**.rpy', "source")
         build.classify('game/System/**.aosapp/**.rpy', "source")
 
@@ -114,12 +119,13 @@ init python:
     build.classify('game/Applications/**.aosapp/**', 'logic')
     build.classify('game/System/**', 'logic')
 
-    # Separate all of the logic-specific files before the scripts.
-    # This should make the modding process easier since all of
-    # the story scripts will be contained in scripts.rpa.
+    # Separate all of the logic-specific files before the scripts. This should make the modding
+    # process easier since all of the story scripts will be contained in scripts.rpa.
     build.classify("game/core/**.rpyc", 'logic')
-    build.classify("game/core/credits/**.kts", 'logic')
 
+    # Bundle the Kotlin scripts in the credits folder since they are required for the credits
+    # scenes.
+    build.classify("game/core/credits/**.kts", 'logic')
 
     # Bundle all of the assets together into a single package
     build.classify('game/assets/**', "assets")
@@ -128,13 +134,12 @@ init python:
     build.classify('game/story/**.toml', "scripts")
     build.classify("game/core/**.toml", 'logic')
 
-    # If this is the complete game, bundle all the compiled story
-    # files together.
-    if not demo_mode:
+    # If this is the complete game, bundle all the compiled story files together.
+    if not uconf["demo"]["demo"]:
         build.classify('game/story/**.rpyc', "scripts")
 
-    # Otherwise, omit the files that don't pertain to the full game.
-    # The demo only goes up to the first three days.
+    # Otherwise, omit the files that don't pertain to the full game. The demo only goes up to the
+    # amount of days specified in the build configuration (config.demo.demo_max_count).
     else:
         # Grab all the labels with 'script_ch' first.
         story_labels = filter(lambda a: a.startswith("script_ch"),
@@ -151,7 +156,7 @@ init python:
 
             # Exclude it if that script is not part of the demo and go to
             # the next file.
-            if chapter_number > 2:
+            if chapter_number > uconf["demo"]["demo_max_count"]:
                 build.classify(file_location, None)
                 continue
 
@@ -161,13 +166,15 @@ init python:
     # Grab any other compiled file and toss it into the script package.
     build.classify("game/**.rpyc", 'scripts')
 
-    # Target and bundle all of the Unscripted Core source files
-    # together in a convenient place.
-    if not demo_mode:
+    # Target and bundle all of the Unscripted Core source files together in a convenient place.
+    if not uconf["demo"]["demo"]:
         build.classify("game/core/**.rpy", "source")
+        build.classify("game/core/**.txt", "source")
+        build.classify("game/core/**.md", "source")
 
-    # Remove caches, thumbnail databases, and Ren'Py script source
-    # files that aren't part of the Unscripted Core.
+
+    # Remove caches, thumbnail databases, and Ren'Py script source files that aren't part of the
+    # Unscripted Core.
     build.classify('**~', None)
     build.classify('**.bak', None)
     build.classify('**/.**', None)
@@ -197,7 +204,7 @@ init python:
 
     # Mark as documentation. If this build is the demo, exclude the
     # source code license.
-    if demo_mode:
+    if uconf["demo"]["demo"]:
         build.classify('**/MPL.txt', None)
 
     build.documentation('*.html')

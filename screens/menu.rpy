@@ -43,7 +43,7 @@ screen main_menu():
             vbox:
                 text "Unscripted":
                     style "main_menu_title"
-                if demo_mode:
+                if uconf["demo"]["demo"]:
                     text "DEMO":
                         xalign 1.0
                         style "main_menu_version"
@@ -55,9 +55,9 @@ screen main_menu():
         yalign 0.9
         xsize 300
 
-        use navigation_button(icon="plus", title="Start Demo" if demo_mode else "Start Game", action=Start())
+        use navigation_button(icon="plus", title="Start Demo" if uconf["demo"]["demo"] else "Start Game", action=Start())
         use navigation_button(icon="folder", title="Load Game", action=ShowMenu('load'))
-        if enable_dreams:
+        if uconf["features"]["enable_dreams"]:
             use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
         use navigation_button(icon="settings", title="Settings", action=ShowMenu('preferences'))
         use navigation_button(icon="help-circle", title="Help", action=ShowMenu('help'))

@@ -1,0 +1,39 @@
+#
+# Unscripted Build Configuration
+# Unscripted Core
+#
+# Created by Marquis Kurt on 04/16/20.
+# Copyright © 2020 Marquis Kurt. All rights reserved.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+
+# Feature Configuration
+# The following settings control the different features in the game.
+[config.features]
+
+# Whether we want to enable to 'Dreams' functionality of the game. Dreams are small mods that are
+# designed to be playable with a default Unscripted configuration.
+enable_dreams = false
+
+# Whether we want to enable the 'Report a Bug' link in the game menu.
+enable_youtrack_link = true
+
+# Whether we want to enable the Advanced Mode option for the minigame.
+enable_minigame_adv_mode = true
+
+# Demo Configuration
+# The following settings control the demo build of the game.
+[config.demo]
+
+# Whether the version we are building is the demo version of the game.
+demo = true
+
+# The maximum number of days to play through, starting from zero (total count - 1). For example,
+# for the first three days, the demo_max_count would be two.
+demo_max_count = 2
+
+# Whether we want to include the Unscripted Core source code with the game in the demo mode.
+demo_bundle_core = false
