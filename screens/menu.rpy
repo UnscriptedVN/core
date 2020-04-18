@@ -47,6 +47,10 @@ screen main_menu():
                     text "DEMO":
                         xalign 1.0
                         style "main_menu_version"
+                elif uconf["features"]["channel"] == "beta":
+                    text "BETA":
+                        xalign 1.0
+                        style "main_menu_version"
 
         null height 16
 
@@ -93,7 +97,8 @@ style main_menu_title:
 style main_menu_version:
     properties gui.text_properties("version")
     size 18
-    color "#666666"
+    color "#E5E4E2"
+    outlines [(0.5, "#333333")]
     text_align 0.5
     xalign 0.5
 

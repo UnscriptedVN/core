@@ -402,7 +402,8 @@ screen game_menu(title, scroll=None):
 
     label title
 
-    text "[config.name!t] v[config.version]\n© 2020 Marquis Kurt. All rights reserved."
+    $ _channel = uconf["features"]["channel"]
+    text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
