@@ -14,7 +14,7 @@ init -1 python:
     import webbrowser
 
     def open_yt_url():
-        url = "https://1n.pm/5twP3" if "dev_beta" in config.version else "https://1n.pm/AsuXE"
+        url = "https://1n.pm/" + ("5twP3" if uconf["features"]["channel"] == "beta" else "AsuXE")
         webbrowser.open(url)
 
 # MARK: Main menu

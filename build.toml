@@ -24,6 +24,9 @@ enable_youtrack_link = true
 # Whether we want to enable the Advanced Mode option for the minigame.
 enable_minigame_adv_mode = true
 
+# The build channel for this release. Should be either "stable", "beta", or another string value.
+channel = "stable"
+
 # Demo Configuration
 # The following settings control the demo build of the game.
 [config.demo]
