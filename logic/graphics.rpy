@@ -37,6 +37,7 @@ image bg town arcade = "images/bg/town/arcade.jpg"
 image bg nature outlook = "images/bg/nature/outlook.jpg"
 image bg nature outlook_morning = "images/bg/nature/outlook_morning.jpg"
 image bg nature riverside_apmidi = "images/bg/nature/riverside_afternoon.jpg"
+image bg nature beach_night = "images/bg/nature/beach_night.jpg"
 
 image bg apartment morning = "images/bg/apartment/living_morning.jpg"
 image bg apartment day = "images/bg/apartment/living_day.jpg"
