@@ -915,9 +915,10 @@ screen extras_settings():
                    persistent._clear(progress=True)
                    renpy.utter_restart()
 
-            textbutton _("Enable Discord Presence") action ToggleField(persistent, "use_discord")
-            text "When Discord is open and rich presence is enabled, Unscripted will connect and display information when playing.\n\nChanges to this setting apply upon restarting.":
-                style "pref_text"
+            if uconf["discord"]["enable_rpc"]:
+                textbutton _("Enable Discord Presence") action ToggleField(persistent, "use_discord")
+                text "When Discord is open and rich presence is enabled, Unscripted will connect and display information when playing.\n\nChanges to this setting apply upon restarting.":
+                    style "pref_text"
 
         vbox:
             style_prefix "standard"
