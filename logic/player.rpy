@@ -13,10 +13,18 @@
 init -10 python:
 
     class StoryMap(renpy.store.object):
-        """
-            The base object for a story map. The story map
-            contains information about a player's intentions
-            and choices.
+        """The class representation of a story map.
+
+        The story map contains all of the information the player sets in a given playthrough. This
+            usually includes the type of game being made, the language that game is written in,
+            the current route of the game, etc.
+
+        Attributes:
+            game_type (str): The type of game being created
+            language (str): The language the game will be written in
+            route (str): The route the player is currently on
+            choices (dict): The different choices made in a given route
+            emails (dict): The emails send in a given run and whether the player has checked them
         """
 
         game_type = "platformer"
@@ -26,34 +34,24 @@ init -10 python:
         emails = { }
 
         def update_email(self, email_number, checked=False):
-            """
-                Record whether or not the player has checked an email
-                with a give number.
+            """Record whether or not the player has checked an email with a give number.
 
-                Args:
-                    email_number: The number corresponding to the email.
-                    checked: Whether the player has checked the email.
+            Arguments:
+                email_number (int): The number corresponding to the email.
+                checked (bool): Whether the player has checked the email.
             """
             self.emails[email_number] = checked
 
         def __eq__(self, other):
-            """
-                Determine whether two StoryMap objects are
-                equal.
-            """
+            """Determine whether two StoryMap objects are equal."""
             return isinstance(other, StoryMap) and self.__dict__ == other.__dict__
 
         def __ne__(self, other):
-            """
-                Determine whether two StoryMap objects are
-                not equal.
-            """
+            """Determine whether two StoryMap objects are not equal."""
             return not self.__eq__(other)
 
         def __init__(self):
-            """
-                Construct an empty StoryMap.
-            """
+            """Construct an empty StoryMap."""
             self.game_type = "platformer"
             self.language = "Python"
             self.route = ""
@@ -62,10 +60,18 @@ init -10 python:
             pass
 
     class Player(renpy.store.object):
-        """
-            The base object for a player. The Player object contains
-            information regarding the character's experience and
-            information.
+        """The class representation of a Player object (not to be confused with Fira's CSPlayer).
+
+        The player class is a master object that contains all of the preferences the player has set
+            for a given run. This includes the player's name, current inventory, preferred
+            pronouns, etc.
+
+        Attributes:
+            name (str): The player's name.
+            current_inventory (list): A list containing what the player is currently carrying.
+            current_inbox (list): A list containing the player's current email inbox.
+            pronouns (dict): A dictionary containing the preferred pronouns in subject, object, and
+                possessive form.
         """
 
         name = "MC"
@@ -80,8 +86,11 @@ init -10 python:
         def serialize(self):
             """Get a serializable version of this class.
 
-            This may be useful in cases where the Player object cannot
-            be inherently serialized due to the StoryMap instance.
+            This may be useful in cases where the Player object cannot be inherently serialized due
+                to the StoryMap instance.
+
+            Returns:
+                self_dict (dict): The serialized dictionary version of this class.
             """
             self_dict = self.__dict__.copy()
             story_map_dict = self.story_map.__dict__.copy()
@@ -91,16 +100,16 @@ init -10 python:
         def update_language(self, lang="Python"):
             """Set the programming language for the story.
 
-            Args:
-                lang: The language to update to.
+            Arguments:
+                lang (str): The language to update to.
             """
             player.story_map.language = lang
 
         def update_pronouns(self, identify_as="male"):
             """Update the player's pronouns.
 
-            Args:
-                identify_as: The pronoun type to identify as (male, female, they)
+            Arguments:
+                identify_as (str): The pronoun type to identify as (male, female, they)
             """
             if identify_as not in ["male", "female", "they"]:
                 raise KeyError("Could not find pronoun set for %s" % (identify_as))
@@ -117,11 +126,10 @@ init -10 python:
             self.pronouns['possessive'] = poss
 
         def __init__(self, name):
-            """
-                Construct the Player object.
+            """Construct the Player object.
 
-                Args:
-                    name: The name of the Player.
+            Arguments:
+                name (str): The name of the Player.
             """
 
             self.name = name
@@ -135,15 +143,9 @@ init -10 python:
             }
 
         def __eq__(self, other):
-            """
-                Determine whether a Player object is the same
-                as another.
-            """
+            """Determine whether a Player object is the same as another."""
             return isinstance(other, Player) and self.__dict__ == other.__dict__
 
         def __ne__(self, other):
-            """
-                Determine whether a Player object is different
-                from another.
-            """
+            """Determine whether a Player object is different from another."""
             return not self.__eq__(other)
