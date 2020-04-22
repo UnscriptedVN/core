@@ -24,7 +24,7 @@ screen main_menu():
     tag menu
     style_prefix "main_menu"
 
-    if persistent.use_discord:
+    if uconf["discord"]["enable_rpc"] and persistent.use_discord:
         timer 0.10 action Function(discord.update_presence, title="Idle", detail="Main Menu")
 
     add gui.main_menu_background

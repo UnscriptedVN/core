@@ -27,6 +27,16 @@ enable_minigame_adv_mode = true
 # The build channel for this release. Should be either "stable", "beta", or another string value.
 channel = "stable"
 
+# Discord Configuration
+# The following settings control the Discord rich presence functionality.
+[config.discord]
+
+# Whether we want to enable Discord rich presence.
+enable_rpc = true
+
+# The Client ID from the Discord application in Discord Developers portal.
+client_id = "000000000000000000"
+
 # Demo Configuration
 # The following settings control the demo build of the game.
 [config.demo]

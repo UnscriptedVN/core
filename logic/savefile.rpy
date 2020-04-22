@@ -1,14 +1,14 @@
-# 
+#
 # savefile.rpy
 # Unscripted Core
-# 
+#
 # Created by Marquis Kurt on 01/08/20.
 # Copyright © 2020 Marquis Kurt. All rights reserved.
-# 
+#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
+#
 
 init -10 python:
     import os
@@ -32,6 +32,6 @@ label after_load:
 
         # Update the presence to display the chapter name and
         # player name.
-        if persistent.use_discord:
+        if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             change_playing_state()
     return

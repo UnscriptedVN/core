@@ -23,7 +23,7 @@ label splashscreen:
     stop music
     python:
         # Update the rich presence.
-        if persistent.use_discord:
+        if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Just started playing"); discord.refresh_client()
 
         # Disable skipping.
@@ -44,7 +44,7 @@ label splashscreen:
     python:
         # Try to connect to Discord again if it failed the first
         # time.
-        if persistent.use_discord:
+        if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.connect()
     return
 
@@ -52,13 +52,15 @@ label before_main_menu:
     python:
         # Update the rich presence to indicate idling on the main
         # menu.
-        if persistent.use_discord:
+        if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Idle - Main Menu")
     return
 
 label quit:
     python:
         # Disconnect from Discord, if possible.
-        if persistent.use_discord and 'discord' in vars():
+        if uconf["discord"]["enable_rpc"] \
+            and persistent.use_discord \
+            and 'discord' in vars():
             discord.disconnect()
     return

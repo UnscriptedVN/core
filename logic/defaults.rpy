@@ -25,7 +25,7 @@ default default_chapter_names = [
 ]
 
 # Settings
-default persistent.use_discord = True
+default persistent.use_discord = uconf["discord"]["enable_rpc"]
 default persistent.lexend_width = 1
 default persistent.use_detailed_saves = False
 
