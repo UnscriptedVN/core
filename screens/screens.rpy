@@ -1085,13 +1085,12 @@ screen help():
                 xalign 0.5
                 style_prefix "pref_tab_group"
 
-                textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
-                textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
-                textbutton _("Extras") action SetScreenVariable("tab", "extras")
+                textbutton _("About") action SetScreenVariable("tab", "about")
+                textbutton _("License") action SetScreenVariable("tab", "license")
                 if uconf["features"]["enable_minigame_adv_mode"]:
                     textbutton _("Documentation") action Function(open_api_docs)
-                textbutton _("License") action SetScreenVariable("tab", "license")
-
+                textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
+                textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
                 if GamepadExists():
                     textbutton _("Gamepad") action SetScreenVariable("tab", "gamepad")
 
@@ -1101,10 +1100,10 @@ screen help():
                 use mouse_help
             elif tab == "gamepad":
                 use gamepad_help
-            elif tab == "extras":
-                use extras_help
             elif tab == "license":
                 use license_help
+            elif tab == "about":
+                use about_help
 
 
 screen keyboard_help():
@@ -1153,6 +1152,13 @@ screen keyboard_help():
         label "V"
         text _("Toggles assistive {a=https://www.renpy.org/l/voicing}self-voicing{/a}.")
 
+    hbox:
+        label "D"
+        text _("Opens the AliceOS Desktop.")
+
+    hbox:
+        label "E"
+        text _("Opens the inventory HUD.")
 
 screen mouse_help():
 
@@ -1205,23 +1211,6 @@ screen gamepad_help():
 
     textbutton _("Calibrate") action GamepadCalibrate()
 
-screen extras_help():
-
-    hbox:
-        label "D"
-        text _("Opens the AliceOS Desktop.")
-
-    hbox:
-        label "`"
-        text _("Opens the Terminal.")
-
-    hbox:
-        label "E"
-        text _("Opens the inventory HUD.")
-
-    text _("This game uses AliceOS [AS_SYS_INFO[COMMON_NAME]] ([AS_SYS_INFO[VERSION]]) [AS_SYS_INFO[BUILD_ID]]."):
-        style "help_small_text"
-
 screen license_help():
 
     default license = ""
@@ -1238,11 +1227,44 @@ screen license_help():
         text "[license]":
             style "help_license_text"
 
+screen about_help():
+    hbox:
+        xalign 0.5
+        spacing 4
+        add "gui/icon.png":
+            size (64, 64)
+        text "Unscripted":
+            font "gui/font/lexend/Deca-Regular.ttf"
+            size 64
+    text "A visual novel about software development":
+        xalign 0.5
+        text_align 0.5
+    null height 16
+    hbox:
+        label "Game Version"
+        text "[config.version]"
+    hbox:
+        $ _cv = uconf["features"]["channel"]
+        label "Release Channel"
+        text "[_cv!c] %s"  % ("(demo)" if uconf["demo"]["demo"] else "")
+    hbox:
+        python:
+            import uvn_fira
+            _fv = uvn_fira.__version__
+        label "Fira API Version"
+        text "[_fv]"
+    hbox:
+        label "AliceOS Version"
+        text "[AS_SYS_INFO[COMMON_NAME]] ([AS_SYS_INFO[VERSION]]) [AS_SYS_INFO[BUILD_ID]]"
+    hbox:
+        $ _rv = renpy.version().replace("Ren'Py", "")
+        label "Ren'Py Version"
+        text "[_rv]"
+
 style help_button is gui_button
 style help_button_text is gui_button_text
 style help_label is gui_label
 style help_label_text is gui_label_text
-style help_text is gui_text
 style help_vbox is gui_vbox
 
 style help_button:
@@ -1261,6 +1283,9 @@ style help_label_text:
     xalign 1.0
     text_align 1.0
     font AS_FONTS_DIR + "Bold.ttf"
+
+style help_text is gui_text:
+    size gui.text_size
 
 style help_license_text is help_text:
     font "gui/font/JetBrainsMono-Regular.ttf"
