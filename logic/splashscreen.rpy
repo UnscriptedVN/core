@@ -23,6 +23,10 @@ label splashscreen:
     stop music
     python:
         # Update the rich presence.
+        if 'uconf' not in vars():
+            print("[ERR] uconf isn't defined.")
+            raise UnscriptedCoreConfigError("The build configuration for Unscripted is missing.")
+
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Just started playing"); discord.refresh_client()
 
@@ -58,8 +62,10 @@ label before_main_menu:
 
 label quit:
     python:
-        # Disconnect from Discord, if possible.
-        if uconf["discord"]["enable_rpc"] \
+        if 'uconf' not in vars():
+            print("[ERR] Build configuration is missing or could not be loaded.")
+        if 'uconf' in vars() \
+            and uconf["discord"]["enable_rpc"] \
             and persistent.use_discord \
             and 'discord' in vars():
             discord.disconnect()

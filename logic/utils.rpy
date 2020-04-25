@@ -120,10 +120,14 @@ init -10 python:
         """Send an update to the Discord Rich Presence client and update
         the rich presence state.
         """
-        discord.update_presence(title="Chapter %s | %s" % (store.chapter_count + 1,
-                                                           store.chapter_name),
+        rt = store.player.story_map.route or ""
+        ch_text = "Chapter %s | %s" % (store.chapter_count + 1, store.chapter_name)
+        discord.update_presence(title="with " + rt + " (Ch. %s)" % (store.chapter_count + 1)
+                                    if rt else ch_text,
                                 detail="as %s" % (store.player.name),
-                                image="ch%s_1024" % (store.chapter_count or "null"))
+                                image="ch%s_1024" % (store.chapter_count or "null"),
+                                large_text = "Chapter %s: %s"
+                                % (store.chapter_count + 1, store.chapter_name))
 
     # MARK: History
     def get_history_name(who):

@@ -69,13 +69,15 @@ init -10 python:
             """
             details = "" if "detail" not in kwargs else kwargs["detail"]
             img = "game_icon_1024" if "image" not in kwargs else kwargs["image"]
+            text = "" if "large_text" not in kwargs else kwargs["large_text"]
 
             self.client.update_presence(
                 ** {
                     'state': title,
                     'details': details,
                     'start_timestamp': self.start,
-                    'large_image_key': img
+                    'large_image_key': img,
+                    'large_image_text': text
                 }
             )
             self.refresh_client()
