@@ -121,13 +121,16 @@ init -10 python:
         the rich presence state.
         """
         rt = store.player.story_map.route or ""
-        ch_text = "Chapter %s | %s" % (store.chapter_count + 1, store.chapter_name)
+        ch_text = "Starting a new game"
+        ch_img = "chnull_1024"
+        if "chapter_count" in store.__dict__:
+            ch_text = "Chapter %s | %s" % (store.chapter_count + 1, store.chapter_name)
+            ch_img = "ch%s_1024" % (store.chapter_count)
         discord.update_presence(title="with " + rt + " (Ch. %s)" % (store.chapter_count + 1)
                                     if rt else ch_text,
                                 detail="as %s" % (store.player.name),
-                                image="ch%s_1024" % (store.chapter_count or "null"),
-                                large_text = "Chapter %s: %s"
-                                % (store.chapter_count + 1, store.chapter_name))
+                                image=ch_img,
+                                large_text=ch_text)
 
     # MARK: History
     def get_history_name(who):
