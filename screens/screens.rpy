@@ -119,10 +119,11 @@ screen choice(items):
 
     vbox:
         for i in items:
-            textbutton i.caption action i.action
+            if i.caption:
+                textbutton i.caption action i.action
 
     if choice_timeout:
-        timer choice_timeout action Return()
+        timer choice_timeout action Return(len(items) - 1)
 
 
 ## When this is true, menu captions will be spoken by the narrator. When false,
