@@ -205,9 +205,13 @@ init -10 python:
         Arguments:
             path (str): The path to open in the system's file browser.
         """
-        if renpy.windows:
-            check_call(["explorer", "/select", path])
-        elif renpy.macintosh:
-            check_call(["open", path])
-        else:
-            check_call(["xdg-open", path])
+        try:
+            if renpy.windows:
+                os.startfile(path.replace("/", "\\"))
+            elif renpy.macintosh:
+                check_call(["open", path])
+            else:
+                check_call(["xdg-open", path])
+        except Exception as e:
+            renpy.notify("Couldn't open folder.")
+            print("[ERR]: Couldn't open %s\nError message: %s" % (path, e.message))
