@@ -116,7 +116,7 @@ screen mg_editor(config, vm_writer, lvl=0):
 
                                 if "collect" in config.allowed:
                                     vbox:
-                                        button action NullAction():
+                                        button action Function(vm_writer.collect):
                                             add MG_CONFIG["assets_path"] + "gui/button_collect.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Get coin":

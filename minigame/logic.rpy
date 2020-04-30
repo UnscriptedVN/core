@@ -62,7 +62,7 @@ init 10 python:
 
                 for coin in coins:
                     self.writer.set(coin)
-                    self.writer.push("World.coins", coins.index(coin))
+                    self.writer.push("world_coins", coins.index(coin))
 
             renpy.call_screen("mg_editor", self.map, self.writer, self.level)
 
