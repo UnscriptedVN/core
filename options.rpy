@@ -13,6 +13,11 @@
 # Load the Unscripted build configuration defined in build.toml.
 init -1000 python:
     import toml
+    import logging
+
+    logging.basicConfig(format='%(asctime)s - [%(levelname)s] %(message)s',
+                        level=logging.INFO,
+                        filename="uvn.log")
 
     class UnscriptedCoreConfigError(Exception):
         """Could not load the build configuration."""
@@ -20,21 +25,24 @@ init -1000 python:
     # Call the default build config from the core if the build.toml file at top doesn't exist.
     uconf_path = "build.toml"
     if not renpy.loadable(uconf_path):
-        print("[WARN] Build configuration is missing. Loading the default settings...")
+        logging.warn("Build configuration is missing. Loading the default settings.")
         uconf_path = "core/build.toml"
 
     # If the default build configuration is missing, raise an exception.
     if not renpy.loadable(uconf_path):
+        logging.critical("Build configuration at %s not found or not loadable." % (uconf_path))
         raise UnscriptedCoreConfigError("The build configuration for Unscripted is not loadable.")
 
     # If the config field is missing from the build.toml file, raise an exception.
     with renpy.file(uconf_path) as uconf_file:
         toml_load = toml.load(uconf_file)
         if "config" not in toml_load:
+            logging.error("Build configuration is either empty or corrupt.")
             raise UnscriptedCoreConfigError("The build configuration is missing the 'config' key.")
 
         # Store the Unscripted configuration as uconf, which is referenced in other places.
         uconf = toml_load["config"]
+        logging.info("Loaded build configuration at " + uconf_path)
 
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")

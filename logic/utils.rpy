@@ -12,6 +12,7 @@
 
 init -10 python:
     import os
+    import logging
     from subprocess import check_call
 
     class InventoryMismatchError(Exception):
@@ -107,6 +108,7 @@ init -10 python:
             name: The name of the Feather icon.
         """
         if not renpy.loadable("assets/feather/%s.png" % (name)):
+            logging.error("Icon %s cannot be found or doesn't exist." % (name))
             raise FeatherAssetError("Icon %s cannot be found or doesn't exist." % (name))
         return "assets/feather/%s.png" % (name)
 
@@ -131,6 +133,10 @@ init -10 python:
                                 detail="as %s" % (store.player.name),
                                 image=ch_img,
                                 large_text=ch_text)
+        if "chapter_count" in store.__dict__:
+            logging.info("Updated presence for Chapter %s." % (store.chapter_count + 1))
+        else:
+            logging.warn("Chapter count is unknown, but presence updated anyway.")
 
     # MARK: History
     def get_history_name(who):
@@ -208,10 +214,13 @@ init -10 python:
         try:
             if renpy.windows:
                 os.startfile(path.replace("/", "\\"))
+                logging.info("Opened %s in Explorer." % (path))
             elif renpy.macintosh:
                 check_call(["open", path])
+                logging.info("Opened %s in Finder." % (path))
             else:
                 check_call(["xdg-open", path])
+                logging.info("Opened %s in file manager." % (path))
         except Exception as e:
             renpy.notify("Couldn't open folder.")
-            print("[ERR]: Couldn't open %s\nError message: %s" % (path, e.message))
+            renpy.error("Couldn't open %s\nError message: %s" % (path, e.message))

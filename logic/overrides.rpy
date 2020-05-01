@@ -18,23 +18,24 @@ init -10 python:
 
 init 10 python:
     import os
+    import logging
     from uvn_fira.core import generate_template
 
     # If the minigame folder is missing from the save directory, create the necessary
     # folders and copy over the Python scripts.
     if "minigame" not in os.listdir(config.savedir):
-        print("[WARN] Minigame folder is missing from save directory. Re-creating...")
+        logging.warn("Minigame folder is missing from save directory. Re-creating...")
         os.mkdir(os.path.join(config.savedir, "minigame"))
 
     if "compiled" not in os.listdir(config.savedir + "/minigame"):
-        print("[WARN] Compilation folder is missing from save directory. Re-creating...")
+        logging.warn("Compilation folder is missing from save directory. Re-creating...")
         os.mkdir(os.path.join(config.savedir, "minigame/compiled"))
 
     only_levels = lambda a: a.endswith(".toml") and a.startswith("core/minigame/levels/level")
 
     for level in range(len(filter(only_levels, renpy.list_files()))):
         if "level%s.py" % (level) not in os.listdir(os.path.join(config.savedir, "minigame")):
-            print("[WARN] Script for level %s is missing. Creating from a new template..." % (level))
+            logging.warn("Script for level %s is missing. Creating from a new template..." % (level))
             generate_template(os.path.join(config.savedir, "minigame/")
                                 + "level%s.py" % (level),
                               level)

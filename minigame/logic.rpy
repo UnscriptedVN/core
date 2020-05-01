@@ -13,6 +13,7 @@
 init 10 python:
 
     import os
+    import logging
     from uvn_fira.core import CSNadiaVM, CSNadiaVMWriterBuilder, CSWorldConfigReader
 
     class MinigameLogicHandler(object):
@@ -41,8 +42,11 @@ init 10 python:
 
             try:
                 exec executable in py_sandbox()
+                logging.info("Compiled code to %s" % (os.path.join(config.savedir,
+                                                                   "minigame/compiled")
+                                                      + "/lvl%s.nvm" % (self.level)))
             except Exception as e:
-                print(e)
+                logging.error("Error in advanced mode compilation: %s" % (e.message))
                 renpy.call_screen("ASNotificationAlert", "Compile Error", e.message)
                 return
 
@@ -88,5 +92,6 @@ init 10 python:
                         renpy.call_screen("ASNotificationAlert",
                                         "Uh oh!",
                                         "It looks like you didn't reach the goal. Try again!")
+                        logging.warn("Minigame preview returned code %s" % (mg_return_code))
                     else:
                         solved = True

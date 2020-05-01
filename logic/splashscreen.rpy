@@ -22,9 +22,11 @@ image team = "gui/splash.png"
 label splashscreen:
     stop music
     python:
+        import logging
+
         # Update the rich presence.
         if 'uconf' not in vars():
-            print("[ERR] uconf isn't defined.")
+            logging.error("uconf isn't defined.")
             raise UnscriptedCoreConfigError("The build configuration for Unscripted is missing.")
 
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
@@ -62,8 +64,10 @@ label before_main_menu:
 
 label quit:
     python:
+        import logging
+
         if 'uconf' not in vars():
-            print("[ERR] Build configuration is missing or could not be loaded.")
+            logging.error("Build configuration is missing or could not be loaded.")
         if 'uconf' in vars() \
             and uconf["discord"]["enable_rpc"] \
             and persistent.use_discord \
