@@ -42,7 +42,8 @@ init -1000 python:
 
         # Store the Unscripted configuration as uconf, which is referenced in other places.
         uconf = toml_load["config"]
-        logging.info("Loaded build configuration at " + uconf_path)
+        logging.info("Loaded build configuration at " + uconf_path + ".")
+        logging.info("New session started.")
 
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")

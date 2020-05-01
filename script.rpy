@@ -12,6 +12,8 @@
 
 label start:
     python:
+        import logging
+
         # Reset the names to question marks.
         cname = zname = mname = kname = mname = "???"
 
@@ -21,10 +23,12 @@ label start:
         # Get the player's name, pronouns, and language and create a new Player object.
         player_name, player_pronouns, player_language = renpy.call_screen("ProfileNameView")
         player = Player(player_name)
+        logging.info("Created player %s." % (player_name))
 
         # Update the player's personal pronouns and the player's programming language.
         player.update_pronouns(player_pronouns)
         player.update_language(player_language)
+        logging.info("Pronouns and language for player %s updated." % (player_name))
 
         # Clear the AliceOS inventory.
         for item in inventory.export():
