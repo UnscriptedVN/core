@@ -15,9 +15,12 @@ init -1000 python:
     import toml
     import logging
 
+    log_filename = "uvn.log" if not renpy.macintosh else config.savedir \
+        + "/../../Logs/net.marquiskurt.unscripted.log"
+
     logging.basicConfig(format='%(asctime)s - [%(levelname)s] %(message)s',
                         level=logging.INFO,
-                        filename="uvn.log")
+                        filename=log_filename)
 
     class UnscriptedCoreConfigError(Exception):
         """Could not load the build configuration."""

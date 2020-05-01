@@ -849,6 +849,12 @@ screen extras_settings():
             text "Clicking this button will open AliceOS's App Manager and let you manage permissions of apps in-game.":
                 style "pref_text"
 
+            null height 8
+
+            textbutton "Open Logs" action Function(open_directory, log_filename)
+            text "Clicking this button will open the Unscripted logs, which may be useful for troubleshooting.":
+                style "pref_text"
+
 style pref_tab_group is hbox
 style pref_tab_group_button is gui_button
 style pref_tab_group_button_text is gui_text

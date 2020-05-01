@@ -223,4 +223,4 @@ init -10 python:
                 logging.info("Opened %s in file manager." % (path))
         except Exception as e:
             renpy.notify("Couldn't open folder.")
-            renpy.error("Couldn't open %s\nError message: %s" % (path, e.message))
+            logging.error("Couldn't open %s\nError message: %s" % (path, e.message))
