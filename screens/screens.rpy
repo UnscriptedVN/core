@@ -14,6 +14,7 @@ init offset = -1
 
 init -1 python:
     import webbrowser
+    import logging
 
     def open_api_docs():
         """Open the API documentation for Advanced Mode of the minigame."""
@@ -123,7 +124,8 @@ screen choice(items):
                 textbutton i.caption action i.action
 
     if choice_timeout:
-        timer choice_timeout action Return(len(items) - 1)
+        timer choice_timeout action [Function(logging.warn, "Choice timed out. Selecting last choice automatically."),
+                                     Return(len(items) - 1)]
 
 
 ## When this is true, menu captions will be spoken by the narrator. When false,
@@ -315,10 +317,17 @@ screen game_menu(title, scroll=None):
 
                     transclude
 
+    add "assets/gui/player.png":
+        size (48, 48)
+        xalign 1.0
+        xoffset -16
+        ypos 8
+
     add "assets/gui/icon.png":
         size (48, 48)
         xpos 16
         ypos 8
+
     use navigation
 
     label title

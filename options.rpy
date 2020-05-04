@@ -46,6 +46,13 @@ init -1000 python:
         # Store the Unscripted configuration as uconf, which is referenced in other places.
         uconf = toml_load["config"]
         logging.info("Loaded build configuration at " + uconf_path + ".")
+
+        # If Unscripted was started in developer mode (either from the Ren'Py launcher or from the)
+        # SDK, change the channel to "Canary".
+        if config.developer:
+            uconf["features"]["channel"] = "canary"
+            logging.info("Channel set to 'canary' because the client is in developer mode.")
+
         logging.info("New session started.")
 
 # Basic configuration info such as the product name, version, and save directory.
