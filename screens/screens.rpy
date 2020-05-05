@@ -35,7 +35,13 @@ screen say(who, what):
 
             window:
                 style "namebox"
-                text who id "who"
+                hbox:
+                    spacing 8
+                    add "gui/history/" + get_history_name(who) + ".png":
+                        size (24, 24)
+                        xalign 0.0
+
+                    text who id "who"
 
         text what id "what"
 
@@ -62,7 +68,7 @@ style window:
     yalign gui.textbox_yalign
     ysize gui.textbox_height
 
-    background Image("gui/textbox/textbox.png", xalign=0.5, yalign=1.0)
+    background Image("gui/textbox.png", xalign=0.5, yalign=1.0, yoffset=4)
 
 style namebox:
     xpos gui.name_xpos
@@ -82,7 +88,6 @@ style say_label:
     size 20
 
 style say_dialogue is normal
-
 
 # MARK: Input
 
@@ -988,8 +993,9 @@ style pref_tab_group_button_text is gui_button_text:
     color "#ffffff"
     selected_font AS_FONTS_DIR + "Medium.ttf"
     size 16
-# MARK: History
 
+
+# MARK: History
 screen history():
 
     tag menu

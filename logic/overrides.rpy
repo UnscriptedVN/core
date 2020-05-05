@@ -43,4 +43,4 @@ init 10 python:
 
 init 1000:
     # Override the Desktop image picture.
-    define AS_DESKTOP_IMG = "gui/as_desktop_img.png"
+    define AS_DESKTOP_IMG = "gui/randart/1.png"
