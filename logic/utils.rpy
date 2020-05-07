@@ -13,6 +13,7 @@
 init -10 python:
     import os
     import logging
+    import collections
     from subprocess import check_call
 
     class InventoryMismatchError(Exception):
@@ -97,7 +98,10 @@ init -10 python:
 
             # Ensure that the checks worked correctly.
             ainv = inventory.export(filter=lambda i: i.itemId)
-            if pinv != ainv:
+            if collections.Counter(pinv) != collections.Counter(ainv):
+                logging.error("Inventories don't match: %s vs. %s",
+                              pinv,
+                              ainv)
                 raise InventoryMismatchError("The inventory state manager failed to update.")
 
     # MARK: Feather
