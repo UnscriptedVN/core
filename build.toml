@@ -18,14 +18,21 @@
 # designed to be playable with a default Unscripted configuration.
 enable_dreams = false
 
-# Whether we want to enable the 'Report a Bug' link in the game menu.
-enable_youtrack_link = true
-
 # Whether we want to enable the Advanced Mode option for the minigame.
 enable_minigame_adv_mode = true
 
 # The build channel for this release. Should be either "stable", "beta", or another string value.
 channel = "stable"
+
+# Analytics Configuration
+# The following settings control the bug reporting and (possible) analytics collection.
+[config.analytics]
+
+# Whether we want to enable the 'Report a Bug' link in the game menu.
+enable_bug_reports = true
+
+# The links to navigate to when clicking "Report a Bug".
+links = {stable = "https://1n.pm/AsuXE", beta = "https://1n.pm/5twP3"}
 
 # Discord Configuration
 # The following settings control the Discord rich presence functionality.

@@ -226,8 +226,8 @@ screen navigation():
                 if uconf["features"]["enable_dreams"]:
                     textbutton _("Dreams") action ShowMenu("dreams")
 
-                if uconf["features"]["enable_youtrack_link"]:
-                    textbutton _("Report a Bug") action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_yt_url))
+                if uconf["analytics"]["enable_bug_reports"]:
+                    textbutton _("Report a Bug") action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_issues_url))
 
             textbutton _("Settings") action ShowMenu("preferences")
 

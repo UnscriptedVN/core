@@ -13,9 +13,10 @@
 init -1 python:
     import webbrowser
 
-    def open_yt_url():
-        url = "https://1n.pm/" + ("5twP3" if uconf["features"]["channel"] == "beta" else "AsuXE")
-        webbrowser.open(url)
+    def open_issues_url():
+        """Open the issue tracker to file a bug report."""
+        url_key = "beta" if uconf["features"]["channel"] == "beta" else "stable"
+        webbrowser.open(uconf["analytics"]["links"][url_key])
 
 # MARK: Main menu
 
