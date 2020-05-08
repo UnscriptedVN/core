@@ -13,6 +13,35 @@
 init offset = 5
 
 init python:
+    def update_position(player, direction):
+        transforms = {
+            "north": (-1, 0),
+            "south": (1, 0),
+            "west": (0, -1),
+            "east": (0, 1)
+        }
+
+        print(player)
+        trans_x, trans_y = transforms.get(direction, "east")
+        curr_x, curr_y = player
+        pplayer = curr_x + trans_x, curr_y + trans_y
+        return pplayer
+
+    def smart_collect(vm_writer, data, curr_pos):
+        """Run a smarter version of vm.collect.
+
+        Arguments:
+            vm_writer (CSNadiaVMWriterBuilder): The VM writer to write commands with.
+            data (CSWorldDataGenerator): The world data.
+            pos (tuple): The current world position of the player.
+        """
+        coins = data.coins().as_list()
+        if curr_pos in coins:
+            index = coins.index(curr_pos)
+            vm_writer.pop("world_coins", index)
+            vm_writer.push("inventory", index)
+        vm_writer.collect()
+
     def py_sandbox():
         """Create a list of allowed Python modules for use with the Advanced Mode.
 

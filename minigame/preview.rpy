@@ -43,6 +43,7 @@ label mg_preview(vm, world):
     pause 0.5
 
     python:
+        import logging
         element_image_names = {
             "WALL": "mg_wall",
             "COIN": "mg_coin",
@@ -84,6 +85,7 @@ label mg_preview(vm, world):
         # Run through the VM loop while there are still instructions.
         while vm.has_more_instructions():
             current_instruction = vm.preview_next_instruction()
+            logging.info("Current instruction in VM stack: %s", current_instruction)
             vm.next()
 
             # If the current instruction is a game-related instruction and not a VM management
@@ -96,6 +98,7 @@ label mg_preview(vm, world):
                         or world.data.to_grid().element_at(vx, vy) == "WALL":
                         continue
 
+                    logging.info("New position set: %s", mg_player_pos)
                     mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
                     mg_preview_player_pos = mg_player_x, mg_player_y
                     renpy.show("mg_player",
@@ -112,15 +115,21 @@ label mg_preview(vm, world):
 
         # Increase the return code if there's an issue.
         if "player-at-exit" in world.checks and mg_player_pos != mg_exit_pos:
+            logging.warning("Check player-at-exit failed: %s (player) vs. %s (exit)",
+                            mg_player_pos,
+                            mg_exit_pos)
             mg_return_code = 1
         if "player-collects-all" in world.checks and len(
                 list(filter(lambda a: a is not None, vm.get("world_coins")))
             ) > 0:
-            print(vm.get("world_coins"))
+            logging.warning("Check player-collects-all failed: %s (world coins) vs. %s (inventory)",
+                            vm.get("world_coins"),
+                            vm.get("inventory"))
             mg_return_code = 1
 
         # Play the closing animations and re-enable the quick menu.
         if mg_return_code != 0:
+            logging.warning("More than one check failed. Marking minigame run as incomplete.")
             renpy.show("mg_player_cry",
                         at_list=[minigame_player_pos(mg_preview_player_pos[0],
                                                      mg_preview_player_pos[1])],

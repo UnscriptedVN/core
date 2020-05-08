@@ -20,6 +20,7 @@ screen mg_editor(config, vm_writer, lvl=0):
 
     default grid = config.data.to_grid()
     default player_position = grid.first("PLAYER")
+    default var_ppos = grid.first("PLAYER")
     default world_matrix = grid.grid
     default tile_size = MG_CONFIG["tile_size"]
     default dimensions = config.data.size()
@@ -88,25 +89,25 @@ screen mg_editor(config, vm_writer, lvl=0):
                                 hbox:
                                     xfill False
                                     vbox:
-                                        button action Function(vm_writer.move, "north"):
+                                        button action [Function(vm_writer.move, "north"), SetScreenVariable("var_ppos", update_position(var_ppos, "north"))]:
                                             add MG_CONFIG["assets_path"] + "gui/button_move_up.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Move north":
                                             xalign 0.5 size 12
                                     vbox:
-                                        button action Function(vm_writer.move, "south"):
+                                        button action [Function(vm_writer.move, "south"), SetScreenVariable("var_ppos", update_position(var_ppos, "south"))]:
                                             add MG_CONFIG["assets_path"] + "gui/button_move_down.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Move south":
                                             xalign 0.5 size 12
                                     vbox:
-                                        button action Function(vm_writer.move, "west"):
+                                        button action [Function(vm_writer.move, "west"), SetScreenVariable("var_ppos", update_position(var_ppos, "west"))]:
                                             add MG_CONFIG["assets_path"] + "gui/button_move_left.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Move west":
                                             xalign 0.5 size 12
                                     vbox:
-                                        button action Function(vm_writer.move, "east"):
+                                        button action [Function(vm_writer.move, "east"), SetScreenVariable("var_ppos", update_position(var_ppos, "east"))]:
                                             add MG_CONFIG["assets_path"] + "gui/button_move_right.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Move east":
@@ -116,7 +117,7 @@ screen mg_editor(config, vm_writer, lvl=0):
 
                                 if "collect" in config.allowed:
                                     vbox:
-                                        button action Function(vm_writer.collect):
+                                        button action Function(smart_collect, vm_writer, config.data, var_ppos):
                                             add MG_CONFIG["assets_path"] + "gui/button_collect.png":
                                                 size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
                                         text "Get coin":

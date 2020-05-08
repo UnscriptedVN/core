@@ -57,7 +57,7 @@ init -1000 python:
 
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")
-define config.version = "1.2.2"
+define config.version = "1.2.3"
 define build.name = "Unscripted"
 define config.save_directory = "net.marquiskurt.unscripted"
 
