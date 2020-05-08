@@ -801,6 +801,25 @@ screen minigame_settings():
         box_wrap True
         spacing 10
 
+        if uconf["features"]["enable_minigame_adv_mode"]:
+            vbox:
+                spacing 10
+                vbox:
+                    label "Game Mode"
+                    vbox:
+                        style_prefix "radio"
+                        textbutton "Basic mode" action SetField(persistent, "mg_adv_mode", False)
+                        text "Basic mode uses a GUI with buttons to solve puzzles. The GUI compiles the NadiaVM code for you.":
+                            style "pref_text"
+                        textbutton "Advanced mode" action SetField(persistent, "mg_adv_mode", True)
+                        text "Advanced mode lets you write code to solve puzzles, either using the {a=https://fira.marquiskurt.net}Fira API{/a} and Python or another tool and NadiaVM.":
+                            style "pref_text"
+                    null height 2
+                    if persistent.mg_adv_mode:
+                        add "assets/gui/previews/mg_advanced.png"
+                    else:
+                        add "assets/gui/previews/mg_basic.png"
+
         vbox:
             label "Preview Animation Speed"
             text "When showing the code running step-by-step, run at the provided speed."
@@ -813,33 +832,29 @@ screen minigame_settings():
                 textbutton "Sonic Rainboom (~10x)" action SetField(persistent, "mg_speed", 0.1)
 
         vbox:
-            spacing 10
             style_prefix "check"
-            label "Virtual Machine"
-            textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
-            text "Enabling this option will reduce the spacing between commands in the virtual machine input preview window.":
-                style "pref_text"
-
-            textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
-            text "Enabling this option will show all virtual machine commands in the preview window.":
-                style "pref_text"
-
-            textbutton "Prefer pre-compiled code" action ToggleField(persistent, "mg_vm_prefer_prebuilt")
-            text "When this option is enabled and minigame scenes are replayed, if a VM file already exists from that level, run that code first.":
-                style "pref_text"
-
-        if uconf["features"]["enable_minigame_adv_mode"]:
+            label "Basic Editor"
             vbox:
                 spacing 10
                 vbox:
-                    label "Advanced Mode"
-                    text "Advanced Mode allows you to play the minigame by writing scripts and programs in Python instead of the default user interface.":
+                    textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
+                    text "Enabling this option will reduce the spacing between commands in the VM preview pane in Basic Mode.":
+                        style "pref_text"
+                vbox:
+                    textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
+                    text "Enabling this option will show all virtual machine commands in the VM preview pane.":
                         style "pref_text"
 
+        vbox:
+            label "Advanced"
+
+            vbox:
+                spacing 10
                 vbox:
                     style_prefix "check"
-                    textbutton "Use advanced mode" action ToggleField(persistent, "mg_adv_mode")
-
+                    textbutton "Force Python compiler" action ToggleField(persistent, "mg_vm_force_editor")
+                    text "Show the editor preview and compile using Python, even if VM code exists.":
+                        style "pref_text"
                 vbox:
                     style_prefix "standard"
                     textbutton "Open Scripts Folder" action Function(open_directory, config.savedir + "/minigame")

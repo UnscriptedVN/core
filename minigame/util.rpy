@@ -106,8 +106,6 @@ init python:
         return vertical and not_end
 
     def visible_command(ins):
-        if persistent.mg_vm_show_all:
-            return True
         return not ins.startswith("alloc") \
             and not ins.startswith("push") \
             and not ins.startswith("pop") \

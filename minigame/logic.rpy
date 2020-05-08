@@ -23,10 +23,16 @@ init 10 python:
                                            exists=renpy.loadable,
                                            load=renpy.file)
             self.vm_path = config.savedir + "/minigame/compiled/" + ("lvl%s.nvm" % (self.level))
+            if persistent.mg_adv_mode:
+                self.vm_path = self.vm_path.replace("lvl", "adv_lvl")
+            else:
+                self.vm_path = self.vm_path.replace("lvl", "bas_lvl")
+
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
             vm_files = os.listdir(config.savedir + "/minigame/compiled/")
-            if "lvl%s.nvm" % (level) in vm_files:
+            fn_name = self.vm_path.split("/")[-1:][0]
+            if fn_name in vm_files:
                 self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
             else:
                 logging.warning("VM file for level %s will need to be compiled first.", self.level)
@@ -75,14 +81,16 @@ init 10 python:
         def run(self):
             solved = False
             run_editor = True
-            if persistent.mg_vm_prefer_prebuilt:
-                logging.info("Reading from existing VM code at %s", self.vm_path)
+
+            if not persistent.mg_vm_force_editor:
                 vm_files = os.listdir(config.savedir + "/minigame/compiled/")
-                if "lvl%s.nvm" % (self.level) not in vm_files:
+                fn_name = self.vm_path.split("/")[-1:][0]
+                if fn_name not in vm_files:
                     logging.warning("Cannot load requested VM file. Calling editor...")
                 else:
                     run_editor = False
-                    renpy.notify("Reading existing gameplay code...")
+                    logging.info("Reading from existing VM code at %s", self.vm_path)
+
             while not solved:
                 if run_editor:
                     if persistent.mg_adv_mode:
@@ -98,6 +106,6 @@ init 10 python:
                         renpy.call_screen("ASNotificationAlert",
                                         "Uh oh!",
                                         "It looks like you didn't reach the goal. Try again!")
-                        logging.warn("Minigame preview returned code %s" % (mg_return_code))
                     else:
                         solved = True
+                        logging.info("Minigame level succeeded.")

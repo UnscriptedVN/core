@@ -203,8 +203,14 @@ screen mg_editor(config, vm_writer, lvl=0):
                             vbox:
                                 spacing _mg_spacing
                                 for ins in code:
-                                    if visible_command(ins):
-                                        text "[ins]"
+                                    if persistent.mg_vm_show_all:
+                                        text "[ins]":
+                                            if not visible_command(ins):
+                                                style "mg_vm_viewport_hidden_text"
+                                    else:
+                                        if visible_command(ins):
+                                            text "[ins]"
+        null height 16
         null height 16
 
 

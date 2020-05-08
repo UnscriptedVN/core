@@ -61,3 +61,5 @@ style mg_vm_viewport_text is gui_text:
     font "gui/font/JetBrainsMono-Regular.ttf"
     size 20
 
+style mg_vm_viewport_hidden_text is mg_vm_viewport_text:
+    color "#999999"
