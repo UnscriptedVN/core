@@ -22,14 +22,12 @@ init 10 python:
             self.map = CSWorldConfigReader("core/minigame/levels/level%s.toml" % (level),
                                            exists=renpy.loadable,
                                            load=renpy.file)
-
-            path = [config.savedir,
-                    "minigame",
-                    "compiled",
-                    "%s_lvl%s.nvm"
-                        % ("adv" if persistent.mg_adv_mode else "base",self.level)
-                    ]
-            self.vm_path = os.path.join(path)
+            self.vm_path = os.path.join(config.savedir,
+                                        "minigame",
+                                        "compiled",
+                                        "%s_lvl%s.nvm"
+                                            % ("adv" if persistent.mg_adv_mode else "base",self.level)
+                                        )
 
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
