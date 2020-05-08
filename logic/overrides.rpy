@@ -27,17 +27,18 @@ init 10 python:
         logging.warn("Minigame folder is missing from save directory. Re-creating...")
         os.mkdir(os.path.join(config.savedir, "minigame"))
 
-    if "compiled" not in os.listdir(config.savedir + "/minigame"):
+    if "compiled" not in os.listdir(os.path.join(config.savedir, "minigame")):
         logging.warn("Compilation folder is missing from save directory. Re-creating...")
-        os.mkdir(os.path.join(config.savedir, "minigame/compiled"))
+        os.mkdir(os.path.join(config.savedir, "minigame", "compiled"))
 
     only_levels = lambda a: a.endswith(".toml") and a.startswith("core/minigame/levels/level")
 
     for level in range(len(filter(only_levels, renpy.list_files()))):
         if "level%s.py" % (level) not in os.listdir(os.path.join(config.savedir, "minigame")):
             logging.warn("Script for level %s is missing. Creating from a new template..." % (level))
-            generate_template(os.path.join(config.savedir, "minigame/")
-                                + "level%s.py" % (level),
+            generate_template(os.path.join(config.savedir,
+                                           "minigame",
+                                           "level%s.py" % (level)),
                               level)
 
 

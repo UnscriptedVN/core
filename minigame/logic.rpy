@@ -22,15 +22,18 @@ init 10 python:
             self.map = CSWorldConfigReader("core/minigame/levels/level%s.toml" % (level),
                                            exists=renpy.loadable,
                                            load=renpy.file)
-            self.vm_path = os.path.join(config.savedir,
-                                        "/minigame/compiled/",
-                                        ("%s_lvl%s.nvm"
-                                         % ("adv" if persistent.mg_adv_mode else "base",
-                                            self.level)))
+
+            path = [config.savedir,
+                    "minigame",
+                    "compiled",
+                    "%s_lvl%s.nvm"
+                        % ("adv" if persistent.mg_adv_mode else "base",self.level)
+                    ]
+            self.vm_path = os.path.join(path)
 
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
-            vm_files = os.listdir(os.path.join(config.savedir, "minigame/compiled/"))
+            vm_files = os.listdir(os.path.join(config.savedir, "minigame", "compiled"))
             fn_name = os.path.basename(self.vm_path)
             if fn_name in vm_files:
                 self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
@@ -83,7 +86,7 @@ init 10 python:
             run_editor = True
 
             if not persistent.mg_vm_force_editor:
-                vm_files = os.listdir(os.path.join(config.savedir, "minigame/compiled/"))
+                vm_files = os.listdir(os.path.join(config.savedir, "minigame", "compiled"))
                 fn_name = os.path.basename(self.vm_path)
                 if fn_name not in vm_files:
                     logging.warning("Cannot load requested VM file. Calling editor...")
