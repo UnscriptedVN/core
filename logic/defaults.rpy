@@ -31,3 +31,6 @@ default persistent.use_detailed_saves = False
 
 default persistent.mg_speed = 1.0
 default persistent.mg_adv_mode = False
+default persistent.mg_condensed_font = False
+default persistent.mg_vm_show_all = False
+default persistent.mg_vm_prefer_prebuilt = False

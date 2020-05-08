@@ -22,13 +22,14 @@ init 10 python:
             self.map = CSWorldConfigReader("core/minigame/levels/level%s.toml" % (level),
                                            exists=renpy.loadable,
                                            load=renpy.file)
-            self.writer = CSNadiaVMWriterBuilder(os.path.join(config.savedir, "minigame/compiled/")
-                                                              + ("lvl%s.nvm" % (level)))
+            self.vm_path = config.savedir + "/minigame/compiled/" + ("lvl%s.nvm" % (self.level))
+            self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
-            if renpy.loadable(config.savedir + "/minigame/compiled/lvl%s.nvm" % (level)):
-                self.vm = CSNadiaVM(os.path.join(config.savedir, "minigame/compiled/")
-                    + ("lvl%s.nvm" % (level)),
-                    self.map.data.to_grid().first("PLAYER"))
+            vm_files = os.listdir(config.savedir + "/minigame/compiled/")
+            if "lvl%s.nvm" % (level) in vm_files:
+                self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
+            else:
+                logging.warning("VM file for level %s will need to be compiled first.", self.level)
 
         def _compile_advanced(self):
             renpy.call_screen("mg_editor", self.map, self.writer, self.level)
@@ -42,17 +43,13 @@ init 10 python:
 
             try:
                 exec executable in py_sandbox()
-                logging.info("Compiled code to %s" % (os.path.join(config.savedir,
-                                                                   "minigame/compiled")
-                                                      + "/lvl%s.nvm" % (self.level)))
+                logging.info("Compiled code to %s", self.vm_path)
             except Exception as e:
                 logging.error("Error in advanced mode compilation: %s" % (e.message))
                 renpy.call_screen("ASNotificationAlert", "Compile Error", e.message)
                 return
 
-            self.vm = CSNadiaVM(os.path.join(config.savedir, "minigame/compiled/")
-                    + ("lvl%s.nvm" % (self.level)),
-                    self.map.data.to_grid().first("PLAYER"))
+            self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
 
         def _compile_basic(self):
             if self.writer.instructions:
@@ -70,22 +67,31 @@ init 10 python:
 
             renpy.call_screen("mg_editor", self.map, self.writer, self.level)
 
-            self.vm = CSNadiaVM(os.path.join(config.savedir, "minigame/compiled/")
-                    + ("lvl%s.nvm" % (self.level)),
-                    self.map.data.to_grid().first("PLAYER"))
+            self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
 
         def _preview(self):
             return renpy.call_in_new_context("mg_preview", self.vm, self.map)
 
         def run(self):
             solved = False
-            while not solved:
-                if persistent.mg_adv_mode:
-                    self._compile_advanced()
+            run_editor = True
+            if persistent.mg_vm_prefer_prebuilt:
+                logging.info("Reading from existing VM code at %s", self.vm_path)
+                vm_files = os.listdir(config.savedir + "/minigame/compiled/")
+                if "lvl%s.nvm" % (self.level) not in vm_files:
+                    logging.warning("Cannot load requested VM file. Calling editor...")
                 else:
-                    self._compile_basic()
+                    run_editor = False
+                    renpy.notify("Reading existing gameplay code...")
+            while not solved:
+                if run_editor:
+                    if persistent.mg_adv_mode:
+                        self._compile_advanced()
+                    else:
+                        self._compile_basic()
 
                 if "vm" in self.__dict__:
+                    logging.info("Starting preview...")
                     self._preview()
 
                     if mg_return_code != 0:

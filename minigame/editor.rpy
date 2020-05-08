@@ -188,6 +188,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                                     null width tile_size
 
             if not persistent.mg_adv_mode:
+                $ _mg_spacing = -16 if persistent.mg_condensed_font else 4
                 vbox:
                     text "Virtual Machine Input"
 
@@ -200,12 +201,10 @@ screen mg_editor(config, vm_writer, lvl=0):
                             style_prefix "mg_vm_viewport"
 
                             vbox:
+                                spacing _mg_spacing
                                 for ins in code:
                                     if visible_command(ins):
                                         text "[ins]"
-
-            # null width 4
-
         null height 16
 
 

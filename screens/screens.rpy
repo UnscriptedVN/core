@@ -808,8 +808,25 @@ screen minigame_settings():
             vbox:
                 style_prefix "radio"
                 textbutton "Normal (1x)" action SetField(persistent, "mg_speed", 1.0)
-                textbutton "Faster (1.25x)" action SetField(persistent, "mg_speed", 0.75)
-                textbutton "Fastest (1.5x)" action SetField(persistent, "mg_speed", 0.5)
+                textbutton "Faster (~1.5x)" action SetField(persistent, "mg_speed", 0.75)
+                textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
+                textbutton "Sonic Rainboom (~10x)" action SetField(persistent, "mg_speed", 0.1)
+
+        vbox:
+            spacing 10
+            style_prefix "check"
+            label "Virtual Machine"
+            textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
+            text "Enabling this option will reduce the spacing between commands in the virtual machine input preview window.":
+                style "pref_text"
+
+            textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
+            text "Enabling this option will show all virtual machine commands in the preview window.":
+                style "pref_text"
+
+            textbutton "Prefer pre-compiled code" action ToggleField(persistent, "mg_vm_prefer_prebuilt")
+            text "When this option is enabled and minigame scenes are replayed, if a VM file already exists from that level, run that code first.":
+                style "pref_text"
 
         if uconf["features"]["enable_minigame_adv_mode"]:
             vbox:

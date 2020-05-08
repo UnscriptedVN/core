@@ -20,8 +20,6 @@ init python:
             "west": (0, -1),
             "east": (0, 1)
         }
-
-        print(player)
         trans_x, trans_y = transforms.get(direction, "east")
         curr_x, curr_y = player
         pplayer = curr_x + trans_x, curr_y + trans_y
@@ -108,6 +106,8 @@ init python:
         return vertical and not_end
 
     def visible_command(ins):
+        if persistent.mg_vm_show_all:
+            return True
         return not ins.startswith("alloc") \
             and not ins.startswith("push") \
             and not ins.startswith("pop") \

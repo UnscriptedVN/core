@@ -56,10 +56,7 @@ style mg_vm_input is gui_frame:
 
 style mg_vm_viewport is ASInterfaceScrollbar
 style mg_vm_viewport_vscrollbar is ASInterfaceScrollbar_vscrollbar
-
-style mg_vm_viewport_vbox is gui_vbox:
-    spacing 4
-
+style mg_vm_viewport_vbox is gui_vbox
 style mg_vm_viewport_text is gui_text:
     font "gui/font/JetBrainsMono-Regular.ttf"
     size 20

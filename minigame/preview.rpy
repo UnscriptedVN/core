@@ -107,7 +107,7 @@ label mg_preview(vm, world):
                             zorder=3)
                 elif current_instruction == "collect":
                     renpy.hide("matrix_COIN_%s_%s" % (vm.pos()))
-                    renpy.with_statement(dissolve)
+                    renpy.with_statement(Dissolve(0.5 * persistent.mg_speed))
                 else:
                     pass
 
@@ -129,7 +129,7 @@ label mg_preview(vm, world):
 
         # Play the closing animations and re-enable the quick menu.
         if mg_return_code != 0:
-            logging.warning("More than one check failed. Marking minigame run as incomplete.")
+            logging.warning("Not all checks succeeded. Marking minigame run as incomplete.")
             renpy.show("mg_player_cry",
                         at_list=[minigame_player_pos(mg_preview_player_pos[0],
                                                      mg_preview_player_pos[1])],
