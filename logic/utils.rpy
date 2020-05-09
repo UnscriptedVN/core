@@ -208,6 +208,7 @@ init -10 python:
 
         return options.get(font_id, "Deca")
 
+init -500 python:
     def open_directory(path):
         # Source: https://stackoverflow.com/a/16204023
         """Open the directory with the system's file browser.

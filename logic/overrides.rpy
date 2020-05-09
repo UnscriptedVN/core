@@ -10,12 +10,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-init -10 python:
-    # Remove the mouse scroll rollback function in the game when not in
-    # developer mode to prevent accidental triggers on laptops.
-    if not config.developer:
-        config.keymap["rollback"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK']
-
 init 10 python:
     import os
     import logging
