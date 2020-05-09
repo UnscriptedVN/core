@@ -1,4 +1,7 @@
-# Unscripted Core
+<div align="center">
+   <img src="core.png" width="128px" alt="Unscripted Core logo"/>
+   <h1>Unscripted Core</h1>
+</div>
 
 The core module for Unscripted, a visual novel about software development.
 
@@ -23,7 +26,7 @@ Assets, as defined in the game license, are not held under the same license and 
 >
 >       a. Likewise, the Unscripted Story, image assets and background music must not be bundled with the Unscripted Core as outline in Subsections 3, 4, and 5, unless given explicit, written permission from The Team.
 >
->       i. If permission has been granted to bundle the aforementioned assets, the written the notice must be attached to the project and clearly labeled.
+>       i. If permission has been granted to bundle the aforementioned assets, the written notice must be attached to the project and clearly labeled.
 
 ## Getting started
 
@@ -39,7 +42,7 @@ To install these dependencies, run the following\*:
 pip install -r path/to/core/requirements.txt --target game/python-packages
 ```
 
-> \*Note: Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages by Python 2-compatible. Run the pip command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
+> \*Note: Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages be Python 2-compatible. Run the pip command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
 
 ## License
 
