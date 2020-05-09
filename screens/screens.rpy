@@ -829,7 +829,7 @@ screen minigame_settings():
                 textbutton "Normal (1x)" action SetField(persistent, "mg_speed", 1.0)
                 textbutton "Faster (~1.5x)" action SetField(persistent, "mg_speed", 0.75)
                 textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
-                textbutton "Sonic Rainboom (~10x)" action SetField(persistent, "mg_speed", 0.1)
+                textbutton "Warp Speed (~10x)" action SetField(persistent, "mg_speed", 0.1)
 
         vbox:
             style_prefix "check"
