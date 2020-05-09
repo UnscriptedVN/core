@@ -13,7 +13,55 @@
 init offset = 5
 
 init python:
+    import logging
+
+    def call_puzzle(lvl=0):
+        """Call the minigame in a new context.
+
+        If the minigame encounters a raised exception that causes the minigame to crash, the game
+            will step out of the context and rollback to the last known checkpoint in Ren'Py's
+            rollback system.
+
+        If the level is first level (level 0), an alert will be displayed that tells the player
+            what to do to solve the minigame puzzle.
+
+        Args:
+            lvl (int): The level number. Defaults to 0.
+        """
+        quick_menu = False
+        renpy.show("mg_bg", at_list=[], zorder=5)
+        renpy.with_statement(dissolve)
+        __puzzle = MinigameLogicHandler(lvl)
+        if lvl == 0:
+            adv_msg = "Write some code, either using the Fira API or another tool, to help Masti"
+                + " get to the exit and collect all of the coins!"
+            bas_msg = "Click on the command buttons to help Masti get to the exit and collect all"
+                + " of the coins! For an extra challenge, try the Advanced Mode!"
+
+            renpy.call_screen("ASNotificationAlert",
+                              "Let's help Masti!",
+                              adv_msg if persistent.mg_adv_mode else bas_msg)
+        try:
+            renpy.invoke_in_new_context(__puzzle.run)
+        except Exception as err:
+            logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
+                          err.message if err.message else "unknown error")
+            renpy.rollback()
+            renpy.notify("The minigame couldn't run, so the game has rolled back.")
+        renpy.hide("mg_bg")
+        renpy.with_statement(dissolve)
+        quick_menu = True
+
     def update_position(player, direction):
+        """Get the coordinates of a player when moved in a specific direction.
+
+        Arguments:
+            player (tuple): The player's coordinates
+            direction (str): The direction that the player will head to.
+
+        Returns:
+            pplayer (tuple): The new coordinates of the player.
+        """
         transforms = {
             "north": (-1, 0),
             "south": (1, 0),
@@ -48,29 +96,13 @@ init python:
                 space.
         """
         return {'renpy': renpy}
-    def call_puzzle(lvl=0):
-        """Call the minigame in a new context.
-
-        Args:
-            lvl: The level number.
-        """
-        quick_menu = False
-        renpy.show("mg_bg", at_list=[], zorder=5)
-        renpy.with_statement(dissolve)
-        __puzzle = MinigameLogicHandler(lvl)
-        if lvl == 0:
-            renpy.call_screen("ASNotificationAlert",
-                              "Let's help Masti!",
-                              "Guide Masti through the world and collect every coin by clicking" +
-                              " on the command buttons at the top. For an extra challenge, try" +
-                              " the Advanced Mode and solve the puzzles by writing Python code!")
-        renpy.invoke_in_new_context(__puzzle.run)
-        renpy.hide("mg_bg")
-        renpy.with_statement(dissolve)
-        quick_menu = True
 
     def matrix_to_scene(coords, shape):
-        """Translate a matrix coordinate into a Ren'Py image coordinate."""
+        """Translate a matrix coordinate into a Ren'Py image coordinate.
+
+        Returns:
+            coords (tuple): The coordinates for the Ren'Py image.
+        """
         row, column = coords
         shape_rows, shape_columns = shape
         x = (1280 / shape_columns) * 2 + MG_CONFIG["tile_size"] * column
@@ -78,6 +110,7 @@ init python:
         return x, y
 
     def get_move_direction(direction):
+        """Get the lable for which direction to move."""
         mapping = {
             "north": "up",
             "south": "down",
@@ -90,13 +123,12 @@ init python:
     def is_full_wall(matrix, current_pos):
         """Determine whether a wall is "full" in a given position.
 
-        Args:
-            matrix: The grid of elements to look through. (The layout)
-            current_pos: The wall's current position.
+        Arguments:
+            matrix (list): The grid of elements to look through. (The layout)
+            current_pos (tuple): The wall's current position.
 
         Returns:
-            Whether the wall is in a vertical series and is not in the
-            final row.
+            vertical (bool): Whether the wall is in a vertical series and is not in the final row.
         """
         x, y = current_pos
 
@@ -106,6 +138,14 @@ init python:
         return vertical and not_end
 
     def visible_command(ins):
+        """Determine whether the VM command should be displayed on the screen.
+
+        Arguments:
+            ins (str): The full VM command with its  arguments.
+
+        Returns:
+            visible (bool): Whether the VM command should be displayed on the screen.
+        """
         return not ins.startswith("alloc") \
             and not ins.startswith("push") \
             and not ins.startswith("pop") \
