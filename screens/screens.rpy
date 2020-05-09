@@ -1270,13 +1270,14 @@ screen license_help():
     default license = ""
 
     python:
-        with open(config.basedir + "/LICENSE.txt", "r+") as file:
+        with renpy.file("../LICENSE.txt") as file:
             license = """"""
             for line in file:
                 if not line.startswith("//"):
                     license = license + line
 
     hbox:
+
         label "License"
         text "[license]":
             style "help_license_text"
