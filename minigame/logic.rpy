@@ -47,7 +47,7 @@ init 10 python:
                     "minigame",
                     "compiled",
                     "%s_lvl%s.nvm"
-                        % ("adv" if persistent.mg_adv_mode else "base",self.level)
+                        % ("adv" if persistent.mg_adv_mode else "bas",self.level)
                     ]
             self.vm_path = os.path.join(*path)
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)

@@ -33,10 +33,10 @@ init python:
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
         if lvl == 0:
-            adv_msg = "Write some code, either using the Fira API or another tool, to help Masti"
-                + " get to the exit and collect all of the coins!"
-            bas_msg = "Click on the command buttons to help Masti get to the exit and collect all"
-                + " of the coins! For an extra challenge, try the Advanced Mode!"
+            adv_msg = "Write some code, either using the Fira API or another tool, to help Masti"\
+            + " get to the exit and collect all of the coins!"
+            bas_msg = "Click on the command buttons to help Masti get to the exit and collect all"\
+            + " of the coins! For an extra challenge, try the Advanced Mode!"
 
             renpy.call_screen("ASNotificationAlert",
                               "Let's help Masti!",
