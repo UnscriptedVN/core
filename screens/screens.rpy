@@ -1475,7 +1475,7 @@ default notify_timeout = 3.25
 
 screen notify(message):
 
-    zorder 100
+    zorder 500
     style_prefix "notify"
 
     frame at notify_appear:
