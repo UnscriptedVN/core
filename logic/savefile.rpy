@@ -27,8 +27,10 @@ init -10 python:
 
 label after_load:
     python:
+        logging.info("Loaded Chapter %s from save successfully.", store.chapter_count + 1)
         # Restore the player's inventory from the save file.
         restore_inventory()
+        logging.info("Restored player inventory.")
 
         # Update the presence to display the chapter name and
         # player name.
