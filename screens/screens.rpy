@@ -897,7 +897,7 @@ screen extras_settings():
 
             null height 8
 
-            textbutton "Open Logs" action Function(open_directory, log_filename)
+            textbutton "Open Logs" action Function(open_uvn_log)
             text "Clicking this button will open the Unscripted logs, which may be useful for troubleshooting.":
                 style "pref_text"
 
@@ -1213,6 +1213,10 @@ screen keyboard_help():
     hbox:
         label "E"
         text _("Opens the inventory HUD.")
+
+    hbox:
+        label "L"
+        text _("Opens the Unscripted log file.")
 
 screen mouse_help():
 

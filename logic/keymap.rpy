@@ -23,6 +23,7 @@ init -130 python:
     def open_uvn_log():
         """Open the logs for Unscripted."""
         open_directory(log_filename)
+        renpy.notify("The log file has been opened or selected in your file browser.")
 
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(
