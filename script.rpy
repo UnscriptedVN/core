@@ -72,5 +72,20 @@ label start:
 
     # Finally, call the credits at the end of the script.
     call credits
+
+    # If the survey link key in the build configuration is set, prompt the user to fill out the
+    # form.
+    python:
+        import webbrowser
+
+        dismiss_callback = [Function(webbrowser.open, uconf["analytics"]["survey_link"]),
+                            Return('didDismissAlert')]
+
+        if "survey_link" in uconf["analytics"]:
+            renpy.call_screen("ASNotificationAlert",
+                              "Feedback Requested",
+                              "The developer has requested that you fill out a feedback survey."\
+                              + " Clicking 'OK' will open the survey in your browser.",
+                              onDismissCallback=dismiss_callback)
     return
 
