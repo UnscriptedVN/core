@@ -1271,10 +1271,11 @@ screen license_help():
 
     python:
         with renpy.file("../LICENSE.txt") as file:
-            license = """"""
-            for line in file:
-                if not line.startswith("//"):
-                    license = license + line
+            # license = """"""
+            # for line in file:
+            #     if not line.startswith("//"):
+            #         license = license + line
+            license = file.read()
 
     hbox:
 
