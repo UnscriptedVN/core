@@ -1,9 +1,8 @@
 <div align="center">
    <img src="core.png" width="128px" alt="Unscripted Core logo"/>
    <h1>Unscripted Core</h1>
+   <p>The core module for Unscripted, a visual novel about software development.</p>
 </div>
-
-The core module for Unscripted, a visual novel about software development.
 
 [![Ren'Py 7.3.5][renpy]](https://renpy.org)
 [![MPL](https://img.shields.io/github/license/UnscriptedVN/core)](LICENSE.txt)
