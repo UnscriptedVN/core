@@ -23,7 +23,7 @@ label credits:
     show credits_bg with dissolve
     python:
         for i in range(4):
-            __lex = KtCreditsLexer("core/src/credits/credits%s.kts" % (i))
+            __lex = KtCreditsLexer("core/src/credits/kt/credits%s.kts" % (i))
             __toks = transform_tokens(__lex.tokenize())
             renpy.call_screen("credits", __toks)
     pause 2.0

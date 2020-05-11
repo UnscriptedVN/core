@@ -1,4 +1,4 @@
-// Special thanks :)
+// Special thanks to those who helped make this game possible.
 val specialThanks = listOf(
     "Linus Berggren",
     "Eitan Avni-Heller",

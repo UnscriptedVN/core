@@ -1,4 +1,4 @@
-// Thank the open-source community for the libraries used. Licenses are also listed on the side.
+// Thanks to the open-source community for the libraries used. Licenses are also listed on the side.
 val oss = listOf(
     "JetBrains",            // Ring UI, JetBrains Mono, Kotlin (Apache 2.0)
     "Feather Icons Team",   // Feather Icons (MIT)
