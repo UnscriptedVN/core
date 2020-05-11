@@ -14,6 +14,8 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+init offset = -1
+
 # MARK: Additional channels
 init -50 python:
     renpy.music.register_channel("ambient", mixer="ambient", loop=True)

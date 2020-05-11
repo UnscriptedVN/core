@@ -1,6 +1,6 @@
 #
-# defaults.rpy
-# Unscripted
+# chapters.rpy
+# Unscripted Core - Chapters
 #
 # Created by Marquis Kurt on 7/30/19.
 # Copyright © 2019-2020 Marquis Kurt. All rights reserved.
@@ -23,14 +23,3 @@ default default_chapter_names = [
     "Exhibit",
     "Focus"
 ]
-
-# Settings
-default persistent.use_discord = uconf["discord"]["enable_rpc"]
-default persistent.lexend_width = 1
-default persistent.use_detailed_saves = False
-
-default persistent.mg_speed = 1.0
-default persistent.mg_adv_mode = False
-default persistent.mg_condensed_font = False
-default persistent.mg_vm_show_all = False
-default persistent.mg_vm_force_editor = True
