@@ -1,5 +1,10 @@
 name: CI
-on: push
+on:
+  push:
+    paths:
+      - 'src/**.rpy'
+      - 'build.toml'
+      - 'requirements.txt'
 
 jobs:
   lint:

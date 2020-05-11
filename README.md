@@ -6,6 +6,7 @@
 
 [![Ren'Py 7.3.5][renpy]](https://renpy.org)
 [![MPL](https://img.shields.io/github/license/UnscriptedVN/core)](LICENSE.txt)
+![CI](https://github.com/UnscriptedVN/core/workflows/CI/badge.svg?event=push)
 
 ## What is Unscripted Core?
 
