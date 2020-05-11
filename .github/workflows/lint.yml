@@ -12,12 +12,12 @@ jobs:
           fetch-depth: 50
       - name: Install dependencies
         run: |
-          pip2.7 install -r requirements.txt --target python-packages
           wget "https://github.com/ProjectAliceDev/aliceos/releases/download/2.0.0/AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip"
           unzip AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip
           mv AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/game/AliceOSBaseSystem.rpa ./aos_base.rpa
           rm AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip
           rm -rf AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/
+          pip install -r requirements.txt --target python-packages
       - name: Lint project
         uses: ProjectAliceDev/renpy-lint-action@v1.1.0
         with:
