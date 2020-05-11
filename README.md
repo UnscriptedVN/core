@@ -27,7 +27,7 @@ Assets that are not to essential to Unscripted Core, as defined in the game lice
 >   on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
 >
 >      a. Likewise, the Unscripted Story, image assets and background music must not be bundled
->      with the Unscripted Core as outlines in Subsections 3, 4, and 5, unless given explicit,
+>      with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
 >      written permission from The Team.
 >
 >     i. If permission has been granted to bundle the aforementioned assets, the written

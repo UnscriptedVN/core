@@ -1126,7 +1126,7 @@ screen help():
 
     tag menu
 
-    default tab = "keyboard"
+    default tab = "about"
 
     use game_menu(_("Help"), scroll="viewport"):
 
@@ -1148,17 +1148,7 @@ screen help():
                 if GamepadExists():
                     textbutton _("Gamepad") action SetScreenVariable("tab", "gamepad")
 
-            if tab == "keyboard":
-                use keyboard_help
-            elif tab == "mouse":
-                use mouse_help
-            elif tab == "gamepad":
-                use gamepad_help
-            elif tab == "license":
-                use license_help
-            elif tab == "about":
-                use about_help
-
+            use expression tab + "_help"
 
 screen keyboard_help():
 
