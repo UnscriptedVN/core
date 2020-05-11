@@ -20,20 +20,6 @@ Unscripted Core contains the source code for most, if not all, of the logic for 
 - Classes and logic for player data
 - Logic for build configurations
 
-### Why are some assets not included?
-
-Assets that are not to essential to Unscripted Core, as defined in the game license, are not held under the same license and must be treated differently:
-
-> 7. Only the source code files and assets associated with the Unscripted Core shall be distributed
->   on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
->
->      a. Likewise, the Unscripted Story, image assets and background music must not be bundled
->      with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
->      written permission from The Team.
->
->     i. If permission has been granted to bundle the aforementioned assets, the written
->         notice must be attached to the project and clearly labeled.
-
 ## Getting started
 
 To get started, clone this repository into a Ren'Py project or Unscripted mod in the `core` folder. The files will automatically be compiled with Unscripted.
@@ -59,6 +45,21 @@ Unscripted Core is licensed under the Mozilla Public License, v2.0, as stated in
 >       a. Likewise, mods that modify the existing game files must be held under the same license and the source code must be made available with distribution.
 >
 >       b. Mods must retain the copyright notice and license as provided in Unscripted.
+
+
+### Why are some assets not included?
+
+Assets that are not to essential to Unscripted Core, as defined in the game license, are not held under the same license and must be treated differently:
+
+> 7. Only the source code files and assets associated with the Unscripted Core shall be distributed
+>   on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
+>
+>      a. Likewise, the Unscripted Story, image assets and background music must not be bundled
+>      with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
+>      written permission from The Team.
+>
+>     i. If permission has been granted to bundle the aforementioned assets, the written
+>         notice must be attached to the project and clearly labeled.
 
 <!--Images-->
 [renpy]: https://img.shields.io/badge/renpy-7.3.5-orange.svg
