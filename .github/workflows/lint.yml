@@ -1,0 +1,28 @@
+name: CI
+on: push
+
+jobs:
+  lint:
+    name: Lint Project with SDK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone source
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 50
+      - name: Install dependencies
+        run: |
+          pip2.7 install -r requirements.txt --target python-packages
+          wget "https://github.com/ProjectAliceDev/aliceos/releases/download/2.0.0/AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip"
+          unzip AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip
+          mv AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/game/AliceOSBaseSystem.rpa ./aos_base.rpa
+          rm AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip
+          rm -rf AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/
+      - name: Lint project
+        uses: ProjectAliceDev/renpy-lint-action@v1.1.0
+        with:
+          sdk-version: 7.3.5
+          project-dir: '.'
+        env:
+          SDL_AUDIODRIVER: dummy
+          SDL_VIDEODRIVER: dummy
