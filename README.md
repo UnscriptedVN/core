@@ -11,11 +11,13 @@
 
 Unscripted Core contains the source code for most, if not all, of the logic for the game. This logic includes, but is not limited to:
 
-- Player objects
-- Credits scenes
-- Minigame code not handled by [Fira](https://fira.marquiskurt.net)
-- Utility functions such as getting a username, getting Feather icons, etc.
-- User interfaces and splash screen animations
+- User interface controls and splash screens
+- Credits sequencing
+- Definitions for images and audio
+- Minigame frontend logic (not covered by [Fira](https://github.com/UnscriptedVN/fira))
+- Open-sourced assets such as images and audio
+- Classes and logic for player data
+- Logic for build configurations
 
 ### Why are assets not included?
 

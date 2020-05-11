@@ -13,7 +13,7 @@
 init offset = 5
 
 define MG_CONFIG = {
-    "assets_path": "assets/minigame/",
+    "assets_path": "core/assets/minigame/",
     "button_size": 56,
     "tile_size": 76
 }
