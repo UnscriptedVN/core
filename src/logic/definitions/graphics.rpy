@@ -72,6 +72,8 @@ image credits_overlay = "images/bg/special/c2.png"
 image credits_title = "images/bg/special/ctitle.png"
 image credits_with_love = "images/bg/special/clove.png"
 
+image bg blueprint = "images/bg/special/blueprint.png"
+
 # MARK: Effects
 init image blood_attacked_layer:
     "gui/overlay/blood1.png"
