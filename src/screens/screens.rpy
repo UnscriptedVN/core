@@ -181,9 +181,7 @@ screen quick_menu():
             textbutton _("Save") action ShowMenu('save')
             textbutton _("Load") action ShowMenu('load')
             textbutton _("Settings") action ShowMenu('preferences')
-
             key "e" action ShowTransient("InventoryHUD")
-            key "d" action ShowTransient("ASDesktopShellView")
 
 init python:
     config.overlay_screens.append("quick_menu")

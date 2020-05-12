@@ -11,13 +11,14 @@
 #
 
 init -10 python:
-    # Remove the mouse scroll rollback function in the game when not in developer mode to prevent
-    # accidental triggers on laptops.
-    if not config.developer:
+    # Remove the mouse scroll rollback function in the game when not in developer mode (or if the)
+    if not config.developer and uconf["features"]["channel"] == "stable":
         config.keymap["rollback"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK']
 
     # Set the keymap binding for opening the logs.
     config.keymap["open_log"] = ['l', 'L']
+    config.keymap["open_desktop"] = ['d', 'D']
+
 
 init -130 python:
     def open_uvn_log():
@@ -25,9 +26,13 @@ init -130 python:
         open_directory(log_filename)
         renpy.notify("The log file has been opened or selected in your file browser.")
 
+    def open_desktop():
+        renpy.invoke_in_new_context(renpy.call_screen, "ASDesktopShellView")
+
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(
-        open_log = open_uvn_log
+        open_log = open_uvn_log,
+        open_desktop = open_desktop
     )
 
     # Append the keymap to the existing keymap.
