@@ -52,7 +52,7 @@ define gui.hover_color = '#05C1FD'
 define gui.selected_color = '#5848F4'
 
 ## The color used for a text button when it cannot be selected.
-define gui.insensitive_color = '#616161'
+define gui.insensitive_color = '#999999'
 
 ## Colors used for the portions of bars that are not filled in. These are not
 ## used directly, but are used when re-generating bar image files.

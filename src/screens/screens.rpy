@@ -218,7 +218,7 @@ screen navigation():
                 textbutton _("Start") action Start()
 
             else:
-                textbutton _("Chat") action ShowMenu("history")
+                textbutton _("Chat History") action ShowMenu("history")
                 textbutton _("Save") action ShowMenu("save")
             textbutton _("Load") action ShowMenu("load")
 
@@ -232,29 +232,17 @@ screen navigation():
             textbutton _("Settings") action ShowMenu("preferences")
 
             if _in_replay:
-
                 textbutton _("End Replay") action EndReplay(confirm=True)
-
-            elif not main_menu:
-
-                textbutton _("Desktop ") action ShowTransient("ASDesktopShellView")
-
-                key "d" action ShowTransient("ASDesktopShellView")
-
             if renpy.variant("pc"):
-
                 textbutton _("Help") action ShowMenu("help")
 
         hbox:
             xalign 0.8
 
             if not main_menu:
-                textbutton _("Hub") action MainMenu()
-
+                textbutton _("Main Menu") action MainMenu()
             textbutton _("Quit") action Quit(confirm=not main_menu)
-
-            textbutton _("Back") action Return()
-
+            textbutton _("Back to Game") action Return()
             if not main_menu:
                 null width 24
 
@@ -521,7 +509,7 @@ screen file_slots(title):
                                 spacing 4
                                 vbox:
                                     xalign 0.0
-                                    text "%s, %s" % (player_name or "John Doe", FileJson(slot, key="chapter_name") or "Stateless"):
+                                    text "%s, %s" % (player_name or "Foo Bar", FileJson(slot, key="chapter_name") or "Stateless"):
                                         style "slot_name_text"
 
                                     text FileTime(slot, format=_("{#file_time}%B %d, %Y at %H:%M"), empty=_("Empty Project")):
@@ -1065,10 +1053,17 @@ screen history():
                             xalign 1.0
                             zoom 0.8
                 else:
-                    text h.what:
-                        style "history_narrative_text"
-                        xmaximum 700
-                        text_align 0.5
+                    window:
+                        style "history_narrative_box"
+                        xalign 0.5
+
+                        has hbox:
+                            spacing 16
+
+                            text h.what:
+                                style "history_narrative_text"
+                                xmaximum 700
+                                text_align 0.5
 
         if not _history_list:
             label _("The chat history is empty.")
@@ -1087,7 +1082,7 @@ style history_label_text is gui_label_text
 
 style history_narrative_text is gui_text:
     size 18
-    color "#666"
+    color gui.insensitive_color
     xalign 0.5
 
 style history_window:
@@ -1119,6 +1114,9 @@ style history_label:
 style history_label_text:
     xalign 0.5
 
+style history_narrative_box:
+    background Frame("assets/gui/narrative_bubble.png", 32, 32, 32, 32, tile=False)
+    padding (16, 8)
 
 # MARK: Help
 
