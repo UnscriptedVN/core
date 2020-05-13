@@ -129,12 +129,12 @@ init python:
     # shouldn't be accessible or licensed in a demo state, unless the demo_bundle_core flag in the
     # build settings is enabled. The source code is also available on GitHub at the following link:
     # https://github.com/UnscriptedVN/core.
-    if not uconf["demo"]["demo"] or uconf["demo"]["demo_bundle_core"]:
+    if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
         build.archive("source", "all")
 
     # Target any of the AliceOS-specific files first. The compiled targets and assets will be added
     # to the logic archive, while the source code will be added to the source archive.
-    if (not uconf["demo"]["demo"]) or uconf["demo"]["demo_bundle_core"]:
+    if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
         build.classify('game/System/**.aoscservice/**.rpy', "source")
         build.classify('game/System/**.aosapp/**.rpy', "source")
 
@@ -193,7 +193,7 @@ init python:
     build.classify("game/build.toml", 'scripts')
 
     # Target and bundle all of the Unscripted Core source files together in a convenient place.
-    if not uconf["demo"]["demo"]:
+    if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
         build.classify("game/core/**.rpy", "source")
         build.classify("game/core/**.txt", "source")
         build.classify("game/core/**.md", "source")
@@ -207,6 +207,9 @@ init python:
     build.classify('**/#**', None)
     build.classify('**/thumbs.db', None)
     build.classify('**.rpy', None)
+
+    # Pack entitlements.plist and other macOS-specific file to the macOS build
+    build.classify("entitlements.plist", "mac")
 
     # Remove unnecessary developer files that come with the project.
     build.classify('docs/**', None)
