@@ -24,6 +24,12 @@ enable_minigame_adv_mode = true
 # The build channel for this release. Should be either "stable", "beta", or another string value.
 channel = "stable"
 
+# Labs Configuration
+# The following settings control the experimental features for the current build.
+[config.labs]
+
+# The current list of experiments.
+current = []
 
 # Analytics Configuration
 # The following settings control the bug reporting and (possible) analytics collection.
