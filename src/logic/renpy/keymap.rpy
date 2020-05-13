@@ -17,7 +17,10 @@ init -10 python:
 
     # Set the keymap binding for opening the logs.
     config.keymap["open_log"] = ['l', 'L']
-    config.keymap["open_desktop"] = ['d', 'D']
+    config.keymap["open_desktop"] = ['d']
+
+    if not config.developer:
+        config.keymap["open_desktop"].append("D")
 
 
 init -130 python:
