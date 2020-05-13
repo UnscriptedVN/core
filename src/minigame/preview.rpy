@@ -92,7 +92,7 @@ label mg_preview(vm, world):
             # command, play the required animations.
             if current_instruction not in ["alloc", "set", "push", "pop"]:
                 if current_instruction == "move":
-                    mg_player_pos = vx, vy = vm.pos()
+                    mg_player_pos = vx, vy = vm.get_position()
 
                     if vx > mg_rows - 1 or vy > mg_columns - 1 \
                         or world.data.to_grid().element_at(vx, vy) == "WALL":
@@ -120,11 +120,11 @@ label mg_preview(vm, world):
                             mg_exit_pos)
             mg_return_code = 1
         if "player-collects-all" in world.checks and len(
-                list(filter(lambda a: a is not None, vm.get("world_coins")))
+                list(filter(lambda a: a is not None, vm.get_namespace("world_coins")))
             ) > 0:
             logging.warning("Check player-collects-all failed: %s (world coins) vs. %s (inventory)",
-                            vm.get("world_coins"),
-                            vm.get("inventory"))
+                            vm.get_namespace("world_coins"),
+                            vm.get_namespace("inventory"))
             mg_return_code = 1
 
         # Play the closing animations and re-enable the quick menu.

@@ -53,7 +53,8 @@ init 10 python:
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
             if os.path.isfile(self.vm_path):
-                self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
+                self.vm = CSNadiaVM(path=self.vm_path,
+                                    player_origin=self.map.data.to_grid().first("PLAYER"))
                 logging.info("Loaded VM from %s.", self.vm_path)
             else:
                 logging.warning("VM file for level %s will need to be compiled first.", self.level)
@@ -77,7 +78,8 @@ init 10 python:
                 renpy.call_screen("ASNotificationAlert", "Compile Error", e.message)
                 return
 
-            self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
+            self.vm = CSNadiaVM(path=self.vm_path,
+                                player_origin=self.map.data.to_grid().first("PLAYER"))
             logging.info("Loaded VM from %s.", self.vm_path)
 
         def _compile_basic(self):
@@ -99,7 +101,8 @@ init 10 python:
                     self.writer.push("world_coins", coins.index(coin))
 
             renpy.call_screen("mg_editor", self.map, self.writer, self.level)
-            self.vm = CSNadiaVM(self.vm_path, self.map.data.to_grid().first("PLAYER"))
+            self.vm = CSNadiaVM(path=self.vm_path,
+                                player_origin=self.map.data.to_grid().first("PLAYER"))
             logging.info("Loaded VM from %s.", self.vm_path)
 
         def _preview(self):
