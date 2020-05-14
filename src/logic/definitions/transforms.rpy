@@ -142,12 +142,12 @@ transform lhide:
     zoom common_zoom_param
 
     on hide:
-        easeout_cubic 0.25 xpos -1000
+        easein_cubic 3 xalign -5.0
         linear 0.1 alpha 0.0
 
 transform rhide:
     zoom common_zoom_param
 
     on hide:
-        easeout_cubic 0.25 xpos 1000
+        easein_cubic 3 xalign 5.0
         linear 0.1 alpha 0.0
