@@ -1,4 +1,4 @@
-# 
+#
 # transforms.rpy
 # Unscripted
 #
@@ -8,7 +8,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
+#
 
 default common_zoom_param = 0.4
 default common_dual_left_param = 0.25
@@ -23,7 +23,7 @@ transform tcommon:
 
     on start:
         easein 0.10 yalign 1.0 alpha 1.0 yoffset 0 zoom common_zoom_param
-    
+
     on show:
         zoom 0.35
         alpha 0.0
@@ -70,12 +70,12 @@ transform tdual1:
 transform tdual2:
     alpha 1.0
     zoom common_zoom_param
-    
+
     on show:
         xalign common_dual_right_param
         yalign 1.0
         tcommon
-    
+
     on replace:
         easein_cubic 0.45 xalign common_dual_right_param yalign 1.0 alpha 1.0
         tcommon
@@ -137,3 +137,17 @@ transform thide:
 
     on hide:
         easeout_cubic 0.25 zoom common_entry_zoom_param alpha 0.0
+
+transform lhide:
+    zoom common_zoom_param
+
+    on hide:
+        easeout_cubic 0.25 xpos -1000
+        linear 0.1 alpha 0.0
+
+transform rhide:
+    zoom common_zoom_param
+
+    on hide:
+        easeout_cubic 0.25 xpos 1000
+        linear 0.1 alpha 0.0
