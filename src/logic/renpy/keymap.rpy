@@ -18,6 +18,7 @@ init -10 python:
     # Set the keymap binding for opening the logs.
     config.keymap["open_log"] = ['l', 'L']
     config.keymap["open_desktop"] = ['d']
+    config.keymap["director"] = []  # Disables the interactive director
 
     if not config.developer:
         config.keymap["open_desktop"].append("D")
@@ -30,7 +31,8 @@ init -130 python:
         renpy.notify("The log file has been opened or selected in your file browser.")
 
     def open_desktop():
-        renpy.invoke_in_new_context(renpy.call_screen, "ASDesktopShellView")
+        if not in_splash:
+            renpy.invoke_in_new_context(renpy.call_screen, "ASDesktopShellView")
 
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(

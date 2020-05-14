@@ -19,10 +19,13 @@ image splash_bg = "gui/randart/2.png"
 image splash = "gui/load.png"
 image team = "gui/splash.png"
 
+define in_splash = False
 label splashscreen:
     stop music
     python:
         import logging
+
+        in_splash = True
 
         # Update the rich presence.
         if 'uconf' not in vars():
@@ -36,9 +39,6 @@ label splashscreen:
         config.allow_skipping = False
         skipping = False
         config.allow_skipping = True
-
-        # Disable the AliceOS Desktop keybinding.
-        config.keymap["open_desktop"] = []
 
     # Display the "Created by Marquis Kurt" splashscreen.
     scene black
@@ -54,9 +54,7 @@ label splashscreen:
         # Try to connect to Discord again if it failed the first time.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.connect()
-
-        # Re-enable the AliceOS Desktop keybinding.
-        config.keymap["desktop"] = ['d'] + (['D'] if not config.developer else [])
+        in_splash = False
     return
 
 label before_main_menu:
@@ -64,6 +62,12 @@ label before_main_menu:
         # Update the rich presence to indicate idling on the main menu.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Idle - Main Menu")
+
+        if not config.keymap["open_desktop"]:
+            config.keymap["open_desktop"].append("d")
+
+            if not config.developer and uconf["features"]["channel"] == "stable":
+                config.keymap["open_desktop"].append("D")
     return
 
 label quit:
