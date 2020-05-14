@@ -6,6 +6,8 @@ val insiders = listOf(
     Tester("Peanut"),
     Tester("John Patrick"),
     Tester("Nomad21"),
-    Tester("Andy Kurnia")
+    Tester("Andy Kurnia"),
+    Tester("tcyrus"),
+    Tester("Noy Telinu"),
 )
-for (insider in insiders) { insider.test("latest") }
+insiders.forEach { it.test("latest") }

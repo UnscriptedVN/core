@@ -79,10 +79,9 @@ label start:
     python:
         import webbrowser
 
-        dismiss_callback = [Function(webbrowser.open, uconf["analytics"]["survey_link"]),
-                            Return('didDismissAlert')]
-
         if "survey_link" in uconf["analytics"]:
+            dismiss_callback = [Function(webbrowser.open, uconf["analytics"]["survey_link"]),
+                    Return('didDismissAlert')]
             renpy.call_screen("ASNotificationAlert",
                               "Feedback Requested",
                               "The developer has requested that you fill out a feedback survey."\

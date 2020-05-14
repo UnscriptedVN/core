@@ -106,7 +106,7 @@ label mg_preview(vm, world):
                             tag="player",
                             zorder=3)
                 elif current_instruction == "collect":
-                    renpy.hide("matrix_COIN_%s_%s" % (vm.pos()))
+                    renpy.hide("matrix_COIN_%s_%s" % (vm.get_position()))
                     renpy.with_statement(Dissolve(0.5 * persistent.mg_speed))
                 else:
                     pass

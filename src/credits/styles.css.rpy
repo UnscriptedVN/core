@@ -20,7 +20,7 @@ style ce_frame is gui_frame:
 
 style ce_vbox is vbox:
     yfit True
-    spacing 0
+    spacing -8
 
 style ce_hbox is hbox:
     xfit True
