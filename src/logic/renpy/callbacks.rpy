@@ -1,5 +1,5 @@
 #
-# savefile.rpy
+# callbacks.rpy
 # Unscripted Core
 #
 # Created by Marquis Kurt on 01/08/20.
@@ -10,6 +10,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+# Save files
 init -10 python:
     import os
 
