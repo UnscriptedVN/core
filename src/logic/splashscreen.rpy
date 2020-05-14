@@ -37,6 +37,9 @@ label splashscreen:
         skipping = False
         config.allow_skipping = True
 
+        # Disable the AliceOS Desktop keybinding.
+        config.keymap["open_desktop"] = []
+
     # Display the "Created by Marquis Kurt" splashscreen.
     scene black
     show team at truecenter with dissolve
@@ -48,16 +51,17 @@ label splashscreen:
     hide splash with dissolve
 
     python:
-        # Try to connect to Discord again if it failed the first
-        # time.
+        # Try to connect to Discord again if it failed the first time.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.connect()
+
+        # Re-enable the AliceOS Desktop keybinding.
+        config.keymap["desktop"] = ['d'] + (['D'] if not config.developer else [])
     return
 
 label before_main_menu:
     python:
-        # Update the rich presence to indicate idling on the main
-        # menu.
+        # Update the rich presence to indicate idling on the main menu.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Idle - Main Menu")
     return
@@ -66,6 +70,7 @@ label quit:
     python:
         import logging
 
+        # Try to disconnect the Discord client if enabled.
         if 'uconf' not in vars():
             logging.error("Build configuration is missing or could not be loaded.")
         if 'uconf' in vars() \
