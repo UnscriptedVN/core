@@ -674,10 +674,15 @@ screen general_settings():
 
         vbox:
             style_prefix "check"
-            label _("Load menu")
-            textbutton _("Show save screenshots") action ToggleField(persistent, "use_detailed_saves")
-            text "Show the screenshot from the moment of time in the save file instead of the chapter image.":
-                style "pref_text"
+            spacing 10
+            vbox:
+                textbutton _("Show save screenshots") action ToggleField(persistent, "use_detailed_saves")
+                text "Show the screenshot from the moment of time in the save file instead of the chapter image.":
+                    style "pref_text"
+            vbox:
+                textbutton _("Announce chapter names") action ToggleField(persistent, "announce_chapters")
+                text "Show a toast with the chapter number and name when entering a new chapter.":
+                    style "pref_text"
 
 screen sound_settings():
     style_prefix "pref"
