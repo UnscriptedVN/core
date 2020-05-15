@@ -210,7 +210,7 @@ screen navigation():
         ypos 12
 
         hbox:
-            xpos 80
+            xpos 24
             spacing 8
 
             button action Return():
@@ -239,19 +239,19 @@ screen navigation():
 
         hbox:
             xalign 1.0
-            xoffset -72
+            xoffset -24
             spacing 8
-
-            if not main_menu:
-                button action MainMenu():
-                    style "navigation_icon_button"
-                    add get_feather_icon("home"):
-                        size (28, 28)
 
             if uconf["analytics"]["enable_bug_reports"]:
                 button action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_issues_url)):
                     style "navigation_icon_button"
-                    add get_feather_icon("smile"):
+                    add get_feather_icon("message-square"):
+                        size (28, 28)
+
+            if not main_menu:
+                button action MainMenu():
+                    style "navigation_icon_button"
+                    add get_feather_icon("log-out"):
                         size (28, 28)
 
             button action Quit(confirm=not main_menu):
@@ -326,23 +326,21 @@ screen game_menu(title, scroll=None):
 
                     transclude
 
-    add "assets/gui/player.png":
-        size (48, 48)
-        xalign 1.0
-        xoffset -16
-        ypos 8
-
-    add "assets/gui/icon.png":
-        size (48, 48)
-        xpos 16
-        ypos 8
-
     use navigation
 
     label title
 
-    $ _channel = uconf["features"]["channel"]
-    text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
+    hbox:
+        yalign 1.0
+        yoffset -16
+        xoffset 16
+        spacing -8
+
+        add "assets/gui/icon.png":
+            size (32, 32)
+
+        $ _channel = uconf["features"]["channel"]
+        text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
