@@ -15,29 +15,39 @@ init -10 python:
     if not config.developer and uconf["features"]["channel"] == "stable":
         config.keymap["rollback"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK']
 
-    # Set the keymap binding for opening the logs.
     config.keymap["open_log"] = ['l', 'L']
     config.keymap["open_desktop"] = ['d']
     config.keymap["director"] = []  # Disables the interactive director
+    config.keymap["open_bug_reports"] = ['B']
 
     if not config.developer:
         config.keymap["open_desktop"].append("D")
 
 
 init -130 python:
+    import webbrowser
+
     def open_uvn_log():
         """Open the logs for Unscripted."""
         open_directory(log_filename)
         renpy.notify("The log file has been opened or selected in your file browser.")
 
     def open_desktop():
+        """Open the AliceOS desktop shell."""
         if not in_splash:
             renpy.invoke_in_new_context(renpy.call_screen, "ASDesktopShellView")
+
+    def open_issues_url():
+        """Open the issue tracker to file a bug report."""
+        url_key = "stable" if uconf["features"]["channel"] == "stable" else "beta"
+        webbrowser.open(uconf["analytics"]["links"][url_key])
+        renpy.notify("The bug reporter has been opened in your browser.")
 
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(
         open_log = open_uvn_log,
-        open_desktop = open_desktop
+        open_desktop = open_desktop,
+        open_bug_reports = open_issues_url
     )
 
     # Append the keymap to the existing keymap.

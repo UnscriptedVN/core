@@ -1209,6 +1209,10 @@ screen keyboard_help():
         label "L"
         text _("Opens the Unscripted log file.")
 
+    hbox:
+        label "Shift + B"
+        text _("Opens the bug reporter.")
+
 screen mouse_help():
 
     hbox:

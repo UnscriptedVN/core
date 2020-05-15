@@ -10,16 +10,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-init -1 python:
-    import webbrowser
-
-    def open_issues_url():
-        """Open the issue tracker to file a bug report."""
-        url_key = "beta" if uconf["features"]["channel"] == "beta" else "stable"
-        webbrowser.open(uconf["analytics"]["links"][url_key])
-
-# MARK: Main menu
-
 screen main_menu():
 
     tag menu
@@ -48,8 +38,9 @@ screen main_menu():
                     text "DEMO":
                         xalign 1.0
                         style "main_menu_version"
-                elif uconf["features"]["channel"] == "beta":
-                    text "BETA":
+                elif uconf["features"]["channel"] != "stable":
+                    $ __channel = uconf["features"]["channel"]
+                    text "[__channel!u]":
                         xalign 1.0
                         style "main_menu_version"
 
@@ -60,7 +51,7 @@ screen main_menu():
         yalign 0.9
         xsize 300
 
-        use navigation_button(icon="plus", title="Start Demo" if uconf["demo"]["demo"] else "Start Game", action=Start())
+        use navigation_button(icon="plus", title="Start " + ("Demo" if uconf["demo"]["demo"] else "Game"), action=Start())
         use navigation_button(icon="folder", title="Load Game", action=ShowMenu('load'))
         if uconf["features"]["enable_dreams"]:
             use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
