@@ -39,7 +39,10 @@ current = []
 enable_bug_reports = true
 
 # The links to navigate to when clicking "Report a Bug".
-links = {stable = "https://1n.pm/AsuXE", beta = "https://1n.pm/5twP3"}
+# Can also be written as links = {stable = "", beta = ""}
+[config.analytics.links]
+stable = "https://1n.pm/AsuXE"
+beta = "https://1n.pm/5twP3"
 
 # If this option is included, the game will prompt the player to fill out a feedback form.
 # To not prompt feedback, disable this line.
