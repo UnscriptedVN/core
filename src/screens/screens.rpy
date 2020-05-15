@@ -212,6 +212,12 @@ screen navigation():
         hbox:
             xpos 80
             spacing 8
+
+            button action Return():
+                style "navigation_icon_button"
+                add get_feather_icon("arrow-left"):
+                    size (28, 28)
+
             if main_menu:
                 textbutton _("Start") action Start()
 
@@ -224,9 +230,6 @@ screen navigation():
                 if uconf["features"]["enable_dreams"]:
                     textbutton _("Dreams") action ShowMenu("dreams")
 
-                if uconf["analytics"]["enable_bug_reports"]:
-                    textbutton _("Report a Bug") action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_issues_url))
-
             textbutton _("Settings") action ShowMenu("preferences")
 
             if _in_replay:
@@ -235,14 +238,26 @@ screen navigation():
                 textbutton _("Help") action ShowMenu("help")
 
         hbox:
-            xalign 0.8
+            xalign 1.0
+            xoffset -72
+            spacing 8
 
             if not main_menu:
-                textbutton _("Main Menu") action MainMenu()
-            textbutton _("Quit") action Quit(confirm=not main_menu)
-            textbutton _("Back to Game") action Return()
-            if not main_menu:
-                null width 24
+                button action MainMenu():
+                    style "navigation_icon_button"
+                    add get_feather_icon("home"):
+                        size (28, 28)
+
+            if uconf["analytics"]["enable_bug_reports"]:
+                button action Confirm("You are about to open the bug reporter\nin your web browser, which may collect data.\n\nAre you sure you want to continue?", yes=Function(open_issues_url)):
+                    style "navigation_icon_button"
+                    add get_feather_icon("smile"):
+                        size (28, 28)
+
+            button action Quit(confirm=not main_menu):
+                style "navigation_icon_button"
+                add get_feather_icon("power"):
+                    size (28, 28)
 
 
 style navigation_button is gui_button
@@ -259,6 +274,9 @@ style navigation_button_text:
     hover_color "#05C1FD"
     size 16
     text_align 0.0
+
+style navigation_icon_button is gui_button:
+    hover_background gui.accent_color + "20"
 
 # MARK: Game menu
 

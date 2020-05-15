@@ -57,7 +57,7 @@ screen main_menu():
             use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
         use navigation_button(icon="settings", title="Settings", action=ShowMenu('preferences'))
         use navigation_button(icon="help-circle", title="Help", action=ShowMenu('help'))
-        use navigation_button(icon="x", title="Quit Game", action=Quit(confirm=False))
+        use navigation_button(icon="power", title="Quit Game", action=Quit(confirm=False))
 
 style main_menu_frame is empty
 style main_menu_vbox is vbox
