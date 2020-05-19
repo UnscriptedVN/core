@@ -31,18 +31,18 @@ label start:
         logging.info("Pronouns and language for player %s updated." % (player_name))
 
         # Grab the personal pronouns that the player has selected.
-        pSub = player.pronouns['subject']
-        pObj = player.pronouns['object']
-        pPos = player.pronouns['possessive']
+        pronoun_subj = player.pronouns['subject']
+        pronoun_obj = player.pronouns['object']
+        pronoun_poss = player.pronouns['possessive']
 
         # Create conjugations for pronouns for state of being (they're/she's) and state of being
         # in the past (they've/he's [been]).
-        conj_being = pSub + ("'re" if pSub == "they" else "'s")
-        conj_being_past = pSub + ("'ve" if pSub == "they" else "'s")
+        conj_being = pronoun_subj + ("'re" if pronoun_subj == "they" else "'s")
+        conj_being_past = pronoun_subj + ("'ve" if pronoun_subj == "they" else "'s")
 
         # Create conjugations for possessive pronouns if used in an "alternate" way from what is
         # listed in the setup screen (hers -> her).
-        conj_pos_alt = pPos[:-1] if pPos == "hers" else pPos
+        conj_pos_alt = pronoun_poss[:-1] if pronoun_poss == "hers" else pronoun_poss
 
         # Clear the AliceOS inventory.
         for item in inventory.export():
