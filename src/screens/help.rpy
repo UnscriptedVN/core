@@ -11,7 +11,7 @@ init offset = -1
 init -1 python:
     import toml
 
-    with renpy.file("glossary.toml") as gloss:
+    with renpy.file("core/glossary.toml") as gloss:
         glossary = toml.load(gloss)["game"]["dictionary"]
 
 screen help(pre_tab="about"):
@@ -154,7 +154,7 @@ screen gamepad_help():
     textbutton _("Calibrate") action GamepadCalibrate()
 
 screen glossary_help():
-    for word in glossary:
+    for word in sorted(glossary):
         $ definition = glossary[word]
         hbox:
             label "[word!cl]"
