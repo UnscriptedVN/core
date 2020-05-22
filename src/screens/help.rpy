@@ -14,10 +14,10 @@ init -1 python:
     with renpy.file("glossary.toml") as gloss:
         glossary = toml.load(gloss)["game"]["dictionary"]
 
-screen help():
+screen help(pre_tab="about"):
     tag menu
 
-    default tab = "about"
+    default tab = pre_tab
 
     use game_menu(_("Help"), scroll="viewport"):
         style_prefix "help"

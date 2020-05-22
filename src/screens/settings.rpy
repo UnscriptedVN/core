@@ -12,11 +12,11 @@
 
 init offset = -1
 
-screen preferences():
+screen preferences(pre_tab="general"):
     tag menu
 
     use game_menu(_("Settings"), scroll="viewport"):
-        default settings_page = "general"
+        default settings_page = pre_tab
         vbox:
             xfill True
 
