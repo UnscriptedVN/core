@@ -31,19 +31,7 @@ screen preferences():
 
             null height (4 * gui.pref_spacing)
 
-            if settings_page == "general":
-                use general_settings()
-            elif settings_page == "sound":
-                use sound_settings()
-            elif settings_page == "minigame":
-                use minigame_settings()
-            elif settings_page == "accessibility":
-                use accessibility_settings()
-            elif settings_page == "extras":
-                use extras_settings()
-            else:
-                text "The Settings page you requested doesn't exist.":
-                    style "pref_text"
+            use expression settings_page + "_settings"
 
 screen general_settings():
     style_prefix "pref"

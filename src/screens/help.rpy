@@ -8,6 +8,12 @@
 
 init offset = -1
 
+init -1 python:
+    import toml
+
+    with renpy.file("glossary.toml") as gloss:
+        glossary = toml.load(gloss)["game"]["dictionary"]
+
 screen help():
     tag menu
 
@@ -27,6 +33,8 @@ screen help():
                 textbutton _("License") action SetScreenVariable("tab", "license")
                 if uconf["features"]["enable_minigame_adv_mode"]:
                     textbutton _("Documentation") action Function(open_api_docs)
+                if "enable-glossary" in uconf["labs"]["current"]:
+                    textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
                 if GamepadExists():
@@ -144,6 +152,13 @@ screen gamepad_help():
         text _("Hides the user interface.")
 
     textbutton _("Calibrate") action GamepadCalibrate()
+
+screen glossary_help():
+    for word in glossary:
+        $ definition = glossary[word]
+        hbox:
+            label "[word!cl]"
+            text "[definition!cl]"
 
 screen license_help():
     default license = ""
