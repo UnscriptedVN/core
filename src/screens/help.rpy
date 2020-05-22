@@ -155,9 +155,11 @@ screen gamepad_help():
 
 screen glossary_help():
     for word in sorted(glossary):
-        $ definition = glossary[word]
+        python:
+            wd = word.replace("_", " ")
+            definition = glossary[word]
         hbox:
-            label "[word!cl]"
+            label "[wd!cl]"
             text "[definition!cl]"
 
 screen license_help():
