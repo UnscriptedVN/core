@@ -29,6 +29,7 @@ init -10 python:
 
 init -130 python:
     import webbrowser
+    import logging
 
     def open_uvn_log():
         """Open the logs for Unscripted."""
@@ -51,6 +52,12 @@ init -130 python:
         if config.help_screen and renpy.has_screen(config.help_screen):
             renpy.run(ShowMenu(config.help_screen, pre_tab="glossary"))
             return
+
+    def open_api_docs():
+        """Open the API documentation for Advanced Mode of the minigame."""
+        url = "file://" + config.basedir + "/game/docs/index.html"
+        webbrowser.open(url)
+        renpy.notify("The documentation has been opened in your browser.")
 
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(
