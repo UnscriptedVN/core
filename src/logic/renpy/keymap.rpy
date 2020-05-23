@@ -20,8 +20,7 @@ init -10 python:
     config.keymap["director"] = []  # Disables the interactive director
     config.keymap["open_bug_reports"] = ['B']
 
-    if "enable-glossary" in uconf["labs"]["current"]:
-        config.keymap["open_glossary"] = ["g"]
+    config.keymap["open_glossary"] = ["g"] if "enable-glossary" in uconf["labs"]["current"] else []
 
     if not config.developer:
         config.keymap["open_desktop"].append("D")
@@ -47,7 +46,7 @@ init -130 python:
         webbrowser.open(uconf["analytics"]["links"][url_key])
         renpy.notify("The bug reporter has been opened in your browser.")
 
-    def open_glossary():
+    def open_glossary_menu():
         """Open the Help menu to the glossary page."""
         if config.help_screen and renpy.has_screen(config.help_screen):
             renpy.run(ShowMenu(config.help_screen, pre_tab="glossary"))
@@ -64,7 +63,7 @@ init -130 python:
         open_log = open_uvn_log,
         open_desktop = open_desktop,
         open_bug_reports = open_issues_url,
-        open_glossary = open_glossary
+        open_glossary = open_glossary_menu
     )
 
     # Append the keymap to the existing keymap.
