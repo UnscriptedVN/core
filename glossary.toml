@@ -1,4 +1,22 @@
+#
+# Unscripted Glossary
+# Unscripted Core
+#
+# Created by Marquis Kurt on 04/16/20.
+# Copyright © 2020 Marquis Kurt. All rights reserved.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+
+# This file contains the glossary for the game, which can be access with the G key, in the Help
+# menu, or in the quick menu. Each key in the dictionary corresponds to the word being defined,
+# and each value for that key corresponds to its definition. The game will automatically sort the
+# dictionary alphabetically before displaying it, so keeping the order in this file is not
+# necessary.
 [game.dictionary]
-ayu = "A cool color scheme"
-agile = "A methodology for developing software that focuses on releasing updates continously and responding to change."
-bughorse = "What more do you want?"
+agile = "A software development method that breaks tasks into small phases, re-assesses plans, and adapts to change."
+continous_integration = "(aka. CI) a philosophy of making small changes and uploading code to validate it."
+nginx = "Web server software (pronounced \"Engine X\")."
+pull_request = "In Git, a request to add changes from one codebase or repository to another."

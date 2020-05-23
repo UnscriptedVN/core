@@ -10,9 +10,15 @@ init offset = -1
 
 init -1 python:
     import toml
+    import logging
 
-    with renpy.file("core/glossary.toml") as gloss:
-        glossary = toml.load(gloss)["game"]["dictionary"]
+    glossary = {}
+    if renpy.loadable("core/glossary.toml"):
+        with renpy.file("core/glossary.toml") as gloss:
+            glossary = toml.load(gloss)["game"]["dictionary"]
+        logging.info("Glossary from glossary file updated.")
+    else:
+        logging.warn("Glossary file couldn't be loaded.")
 
 screen help(pre_tab="about"):
     tag menu
@@ -160,7 +166,7 @@ screen glossary_help():
             definition = glossary[word]
         hbox:
             label "[wd!cl]"
-            text "[definition!cl]"
+            text "[definition]"
 
 screen license_help():
     default license = ""
