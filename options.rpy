@@ -213,18 +213,16 @@ init python:
 
     # Remove unnecessary developer files that come with the project.
     build.classify('docs/**', None)
-    build.classify('doc_templates/**', None)
     build.classify('repo_assets/**.**', None)
     build.classify('unscripted.iconset/**.**', None)
-    build.classify('nikola_src/**', None)
     build.classify('unscripted/**', None)
     build.classify('poetry.lock', None)
     build.classify('pyproject.toml', None)
     build.classify('README.md', None)
     build.classify('.vscode/**.**', None)
     build.classify('.git/**.**', None)
-    build.classify('distribute/**', None)
     build.classify('**/cache/**', None)
+    build.classify("**/arguments.toml", None)
 
     # Remove Ren'Py-generated log files
     build.classify("game/log.txt", None)

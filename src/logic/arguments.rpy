@@ -15,17 +15,27 @@ init offset = -10
 init -100 python:
     import logging
     import toml
+    import os
 
     arguments = {}
 
+    # Load the arguments file if there is one.
     if renpy.loadable("arguments.toml"):
         logging.info("Arguments found. Loading from arguments file.")
         with renpy.file("arguments.toml") as arg_file:
             arguments = toml.load(arg_file)["args"]
 
+    # Add the dreams folder.
+    if "init-dreams" in arguments and arguments["init-dreams"]:
+        logging.info("Creating dream folder...")
+        try:
+            os.mkdir("game/dreams/")
+        except:
+            pass
+
+    # Disable running experiments if any are specified
     if "disable_experiments" in arguments:
         for experiment in arguments["disable_experiments"]:
-            expr_name = experiment.replace("_", "-")
-            logging.info("Disabling experiment '%s'...", expr_name)
-            if expr_name in uconf["labs"]["current"]:
-                uconf["labs"]["current"].remove(expr_name)
+            logging.info("Disabling experiment '%s'...", experiment)
+            if experiment in uconf["labs"]["current"]:
+                uconf["labs"]["current"].remove(experiment)
