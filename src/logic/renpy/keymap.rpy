@@ -38,7 +38,7 @@ init -130 python:
     def open_desktop():
         """Open the AliceOS desktop shell."""
         if not in_splash:
-            renpy.invoke_in_new_context(renpy.call_screen, "ASDesktopShellView")
+            renpy.run(ShowTransient("ASDesktopShellView"))
 
     def open_issues_url():
         """Open the issue tracker to file a bug report."""
