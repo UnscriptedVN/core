@@ -104,6 +104,22 @@ init -10 python:
                               ainv)
                 raise InventoryMismatchError("The inventory state manager failed to update.")
 
+    def update_item_callbacks(item_callbacks):
+        """Update the use case callbacks in the inventory.
+
+        Args:
+            item_callbacks (dict): A dictionary containing the callbacks for items.
+        """
+        for item in item_callbacks:
+            callback = item_callbacks[item]
+            if item in inventory_items:
+                inventory_items[item].runSpecialUseCase = callback
+
+    def clear_item_callbacks():
+        """Clear all of the existing callbacks for the inventory."""
+        for item in inventory_items:
+            inventory_items[item].runSpecialUseCase = None
+
     # MARK: Feather
     def get_feather_icon(name):
         """Get the path to a Feather icon.
