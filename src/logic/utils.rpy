@@ -35,7 +35,8 @@ init -10 python:
 
         current_inventory = inventory.export(filter=lambda a: a.itemId)
         if item_key not in current_inventory:
-            inventory.addItem(item)
+            inventory.addItem(item, silent=True)
+            renpy.notify("You just received the '%s' item." % (item.name))
 
     def use_item(item_key, remove=False):
         """Use the item with a given key.
