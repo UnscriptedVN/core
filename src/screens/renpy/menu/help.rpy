@@ -201,7 +201,7 @@ screen about_help():
         label "Game Version"
         text "[config.version]"
     hbox:
-        $ _cv = uconf["features"]["channel"]
+        $ _cv = uconf["info"]["channel"]
         label "Release Channel"
         text "[_cv!c] %s"  % ("(demo)" if uconf["demo"]["demo"] else "")
     hbox:

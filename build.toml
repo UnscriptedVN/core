@@ -10,6 +10,16 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+# Basic App Information
+# The following settings control the basic information of the game.
+[config.info]
+
+# The current version of the game.
+version = "1.2.4-db1"
+
+# The build channel for this release. Should be either "stable", "beta", or another string value.
+channel = "stable"
+
 # Feature Configuration
 # The following settings control the different features in the game.
 [config.features]
@@ -20,9 +30,6 @@ enable_dreams = false
 
 # Whether we want to enable the Advanced Mode option for the minigame.
 enable_minigame_adv_mode = true
-
-# The build channel for this release. Should be either "stable", "beta", or another string value.
-channel = "stable"
 
 # Labs Configuration
 # The following settings control the experimental features for the current build.

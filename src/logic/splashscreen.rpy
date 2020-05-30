@@ -66,7 +66,7 @@ label before_main_menu:
         if not config.keymap["open_desktop"]:
             config.keymap["open_desktop"].append("d")
 
-            if not config.developer and uconf["features"]["channel"] == "stable":
+            if not config.developer and uconf["info"]["channel"] == "stable":
                 config.keymap["open_desktop"].append("D")
     return
 

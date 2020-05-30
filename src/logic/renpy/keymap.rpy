@@ -12,7 +12,7 @@
 
 init -10 python:
     # Remove the mouse scroll rollback function in the game when not in developer mode (or if the)
-    if not config.developer and uconf["features"]["channel"] == "stable":
+    if not config.developer and uconf["info"]["channel"] == "stable":
         config.keymap["rollback"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK']
 
     config.keymap["open_log"] = ['l', 'L']
@@ -42,7 +42,7 @@ init -130 python:
 
     def open_issues_url():
         """Open the issue tracker to file a bug report."""
-        url_key = "stable" if uconf["features"]["channel"] == "stable" else "beta"
+        url_key = "stable" if uconf["info"]["channel"] == "stable" else "beta"
         webbrowser.open(uconf["analytics"]["links"][url_key])
         renpy.notify("The bug reporter has been opened in your browser.")
 

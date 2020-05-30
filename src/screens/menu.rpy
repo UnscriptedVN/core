@@ -38,8 +38,8 @@ screen main_menu():
                     text "DEMO":
                         xalign 1.0
                         style "main_menu_version"
-                elif uconf["features"]["channel"] != "stable":
-                    $ __channel = uconf["features"]["channel"]
+                elif uconf["info"]["channel"] != "stable":
+                    $ __channel = uconf["info"]["channel"]
                     text "[__channel!u]":
                         xalign 1.0
                         style "main_menu_version"

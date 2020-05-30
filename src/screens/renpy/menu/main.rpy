@@ -71,7 +71,7 @@ screen game_menu(title, scroll=None):
         add "assets/gui/icon.png":
             size (32, 32)
 
-        $ _channel = uconf["features"]["channel"]
+        $ _channel = uconf["info"]["channel"]
         text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
 
     if main_menu:

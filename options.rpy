@@ -50,14 +50,16 @@ init -1000 python:
         # If Unscripted was started in developer mode (either from the Ren'Py launcher or from the)
         # SDK, change the channel to "Canary".
         if config.developer:
-            uconf["features"]["channel"] = "canary"
-            logging.info("Channel set to 'canary' because the client is in developer mode.")
+            uconf["info"]["channel"] = "canary"
+            logging.info(
+                "Channel set to 'canary' because the client is running in developer mode."
+            )
 
         logging.info("New session started.")
 
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")
-define config.version = "1.2.3"
+define config.version = uconf["info"]["version"] or "1.0.0"
 define build.name = "Unscripted"
 define config.save_directory = "net.marquiskurt.unscripted"
 
