@@ -36,31 +36,36 @@ pip install -r path/to/core/requirements.txt --target game/python-packages
 
 > \*Note: Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages be Python 2-compatible. Run the pip command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
 
+## Documentation Links
+
+- [Build Configuration](docs/build.md)
+- [Arguments File](docs/arguments.md)
+
 ## License
 
 Unscripted Core is licensed under the Mozilla Public License, v2.0, as stated in Section II, Subsection 1 of the game license:
 
 > 1. The source code to the Unscripted Core shall hereby be licensed under the Mozilla Public License 2.0 (MPL). The license should be provided with the game in MPL.txt.
-   >
->       a. Likewise, mods that modify the existing game files must be held under the same license and the source code must be made available with distribution.
 >
->       b. Mods must retain the copyright notice and license as provided in Unscripted.
-
+>    a. Likewise, mods that modify the existing game files must be held under the same license and the source code must be made available with distribution.
+>
+>    b. Mods must retain the copyright notice and license as provided in Unscripted.
 
 ### Why are some assets not included?
 
 Assets that are not to essential to Unscripted Core, as defined in the game license, are not held under the same license and must be treated differently:
 
 > 7. Only the source code files and assets associated with the Unscripted Core shall be distributed
->   on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
+>    on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
 >
->      a. Likewise, the Unscripted Story, image assets and background music must not be bundled
->      with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
->      written permission from The Team.
+>    a. Likewise, the Unscripted Story, image assets and background music must not be bundled
+>    with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
+>    written permission from The Team.
 >
->     i. If permission has been granted to bundle the aforementioned assets, the written
->         notice must be attached to the project and clearly labeled.
+>    i. If permission has been granted to bundle the aforementioned assets, the written
+>    notice must be attached to the project and clearly labeled.
 
 <!--Images-->
+
 [renpy]: https://img.shields.io/badge/renpy-7.3.5-orange.svg
 [license]: https://img.shields.io/badge/license-MPLv2-green.svg?logo=mozilla
