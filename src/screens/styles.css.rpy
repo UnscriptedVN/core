@@ -24,7 +24,7 @@ style normal is default:
     ypos gui.dialogue_ypos
 
 style python is default:
-    font "gui/font/JetBrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
     color "#FFE873"
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width

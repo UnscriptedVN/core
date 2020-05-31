@@ -191,7 +191,7 @@ screen about_help():
         add "gui/icon.png":
             size (64, 64)
         text "Unscripted":
-            font "gui/font/lexend/Deca-Regular.ttf"
+            font "core/assets/fonts/lexend/Deca-Regular.ttf"
             size 64
     text "A visual novel about software development":
         xalign 0.5
@@ -245,7 +245,7 @@ style help_text is gui_text:
     size gui.text_size
 
 style help_license_text is help_text:
-    font "gui/font/JetBrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
     size 16
 
 style help_small_text is help_text:

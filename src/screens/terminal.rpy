@@ -1,4 +1,4 @@
-# 
+#
 # terminal.rpy
 # Unscripted
 #
@@ -8,7 +8,7 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
+#
 
 image terminal_background:
     "#06071DFA"
@@ -17,7 +17,7 @@ image terminal_background:
     size (600, 200)
 
 style terminal_text:
-    font "gui/font/JetBrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
     size 15
     color "#E0E0E0"
     outlines []
@@ -30,7 +30,7 @@ screen terminal(i="", o=""):
     zorder 100
     modal False
     style_prefix "ASInterface"
-    
+
     frame:
         xpos 16
         ypos 16
@@ -44,7 +44,7 @@ screen terminal(i="", o=""):
             box_wrap True
 
             use ASInterfaceTitlebar("Hostless - Commander", onClose=NullAction())
-            
+
             text "> " + i:
                 style "terminal_input"
             text o:

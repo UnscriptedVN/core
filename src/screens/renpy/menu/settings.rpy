@@ -24,6 +24,7 @@ screen preferences(pre_tab="general"):
                 style_prefix "pref_tab_group"
                 xalign 0.5
                 textbutton _("General") action SetScreenVariable("settings_page", "general")
+                textbutton _("Appearance") action SetScreenVariable("settings_page", "appearance")
                 textbutton _("Sound") action SetScreenVariable("settings_page", "sound")
                 textbutton _("Minigame") action SetScreenVariable("settings_page", "minigame")
                 textbutton _("Accessibility") action SetScreenVariable("settings_page", "accessibility")
@@ -37,13 +38,6 @@ screen general_settings():
     style_prefix "pref"
     hbox:
         box_wrap True
-
-        if renpy.variant("pc"):
-            vbox:
-                style_prefix "radio"
-                label _("Display view:")
-                textbutton _("As a window") action Preference("display", "window")
-                textbutton _("Fullscreen") action Preference("display", "fullscreen")
 
         vbox:
             style_prefix "radio"
@@ -69,7 +63,7 @@ screen general_settings():
 
             bar value Preference("text speed")
 
-            $ cps = round(preferences.text_cps) or "max"
+            $ cps = round(preferences.text_cps) or "∞"
             text "About [cps] characters per second":
                 style "pref_text"
 
@@ -81,17 +75,87 @@ screen general_settings():
             text afm_time:
                 style "pref_text"
 
+screen appearance_settings():
+    style_prefix "pref"
+    hbox:
+        box_wrap True
+
+        if renpy.variant("pc"):
+            vbox:
+                style_prefix "radio"
+                label _("Display view:")
+                textbutton _("As a window") action Preference("display", "window")
+                textbutton _("Fullscreen") action Preference("display", "fullscreen")
+
         vbox:
             style_prefix "check"
             spacing 10
             vbox:
+                label "Save screenshots"
                 textbutton _("Show save screenshots") action ToggleField(persistent, "use_detailed_saves")
                 text "Show the screenshot from the moment of time in the save file instead of the chapter image.":
                     style "pref_text"
+
+        vbox:
+            spacing 10
+
             vbox:
-                textbutton _("Announce chapter names") action ToggleField(persistent, "announce_chapters")
-                text "Show a toast with the chapter number and name when entering a new chapter.":
+                style_prefix "radio"
+
+                label "Dialogue font"
+
+                textbutton "Inter (default)" action gui.SetPreference("text_font", AS_FONTS_DIR + "Medium.ttf")
+                textbutton "Merriweather" action gui.SetPreference("text_font", "core/assets/fonts/merriweather/Merriweather-Regular.ttf"):
+                    style "pref_font_mwthr"
+                textbutton "JetBrains Mono" action gui.SetPreference("text_font", "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"):
+                    style "pref_font_mono"
+                textbutton "OpenDyslexic" action gui.SetPreference("text_font", "core/assets/fonts/opendys/OpenDyslexic-Regular.otf"):
+                    style "pref_font_opendys"
+                textbutton "Lexend..." action SetScreenVariable("settings_page", "lexend"):
+                    selected "lexend" in gui.text_font
+
+                text "The font selected will be used in the textbox when a character is speaking. This does not affect the user interface fonts.":
                     style "pref_text"
+
+        vbox:
+            style_prefix "radio"
+            label "Dialogue font size"
+
+            textbutton "Small" action gui.SetPreference("text_size", 18)
+            textbutton "Medium (default)" action gui.SetPreference("text_size", 20)
+            textbutton "Large" action gui.SetPreference("text_size", 22)
+
+            text "For some fonts, changing the text size to larger sizes may cut off dialogue.":
+                style "pref_text"
+
+screen lexend_settings():
+    style_prefix "pref"
+
+    textbutton "‹ Appearance" action SetScreenVariable("settings_page", "appearance"):
+        style "pref_navigation_button"
+
+    label "Lexend Font"
+    text "Lexend is a font with multiple widths. Select the width you want to use below.":
+        style "pref_text"
+
+    vbox:
+        style_prefix "radio"
+
+        textbutton "Lexend Deca" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Deca-Regular.ttf"):
+            style "pref_font_deca"
+        textbutton "Lexend Exa" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Exa-Regular.ttf"):
+            style "pref_font_exa"
+        textbutton "Lexend Giga" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Giga-Regular.ttf"):
+            style "pref_font_giga"
+        textbutton "Lexend Mega" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Mega-Regular.ttf"):
+            style "pref_font_mega"
+        textbutton "Lexend Peta" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Peta-Regular.ttf"):
+            style "pref_font_peta"
+        textbutton "Lexend Tera" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Tera-Regular.ttf"):
+            style "pref_font_tera"
+        textbutton "Lexend Zetta" action gui.SetPreference("text_font", "core/assets/fonts/lexend/Zetta-Regular.ttf"):
+            style "pref_font_zetta"
+
 
 screen sound_settings():
     style_prefix "pref"
@@ -174,23 +238,13 @@ screen accessibility_settings():
                 style "pref_text"
 
         vbox:
-            label "Readability" style "check_label"
-            textbutton "Use Lexend font" action gui.TogglePreference("text_font", "gui/font/lexend/" + lexend_font_name(persistent.lexend_width) + "-Regular.ttf", AS_FONTS_DIR + "Medium.ttf") style "check_button"
-            text "Using Lexend may improve readability. Adjusting the width will require for this setting to be turned on again.":
-                style "pref_text"
-
-            label "Lexend Font Width" style "check_label"
-            bar value FieldValue(persistent, "lexend_width", 6, max_is_zero=False, style="slider_slider", offset=1, step=1, action=None)
-
-            $ lexend_font_width = lexend_font_name(persistent.lexend_width)
-            text "Font width: [lexend_font_width]":
-                style "pref_text"
-
-    null height 76
-
-    text "This is a preview of the font choice for the game.":
-        style "pref_access_preview"
-        xalign 0.5
+            style_prefix "check"
+            spacing 10
+            vbox:
+                label "Chapter names"
+                textbutton _("Announce chapter names") action ToggleField(persistent, "announce_chapters")
+                text "Show a toast with the chapter number and name when entering a new chapter.":
+                    style "pref_text"
 
 screen minigame_settings():
     style_prefix "pref"
@@ -310,6 +364,9 @@ style pref_access_preview is gui_text
 style pref_vbox is vbox
 style pref_hbox is hbox
 
+style pref_navigation_button is gui_button
+style pref_navigation_button_text is gui_button_text
+
 style radio_label is pref_label
 style radio_label_text is pref_label_text
 style radio_button is gui_button
@@ -360,6 +417,10 @@ style pref_hbox:
 style radio_vbox:
     spacing gui.pref_button_spacing
 
+style pref_navigation_button_text:
+    font AS_FONTS_DIR + "Medium.ttf"
+    size 20
+
 style radio_button:
     properties gui.button_properties("radio_button")
     foreground "gui/button/radio_[prefix_]foreground.png"
@@ -369,6 +430,46 @@ style radio_button_text:
     color gui.interface_text_color
     hover_color gui.hover_color
     size 18
+
+style pref_font_mwthr is radio_button
+style pref_font_mwthr_text is radio_button_text:
+    font "core/assets/fonts/merriweather/Merriweather-Regular.ttf"
+
+style pref_font_mono is radio_button
+style pref_font_mono_text is radio_button_text:
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
+
+style pref_font_opendys is radio_button
+style pref_font_opendys_text is radio_button_text:
+    font "core/assets/fonts/opendys/OpenDyslexic-Regular.otf"
+
+style pref_font_deca is radio_button
+style pref_font_deca_text is radio_button_text:
+    font "core/assets/fonts/lexend/Deca-Regular.ttf"
+
+style pref_font_exa is radio_button
+style pref_font_exa_text is radio_button_text:
+    font "core/assets/fonts/lexend/Exa-Regular.ttf"
+
+style pref_font_giga is radio_button
+style pref_font_giga_text is radio_button_text:
+    font "core/assets/fonts/lexend/Giga-Regular.ttf"
+
+style pref_font_mega is radio_button
+style pref_font_mega_text is radio_button_text:
+    font "core/assets/fonts/lexend/Mega-Regular.ttf"
+
+style pref_font_peta is radio_button
+style pref_font_peta_text is radio_button_text:
+    font "core/assets/fonts/lexend/Peta-Regular.ttf"
+
+style pref_font_tera is radio_button
+style pref_font_tera_text is radio_button_text:
+    font "core/assets/fonts/lexend/Tera-Regular.ttf"
+
+style pref_font_zetta is radio_button
+style pref_font_zetta_text is radio_button_text:
+    font "core/assets/fonts/lexend/Zetta-Regular.ttf"
 
 style check_vbox:
     spacing gui.pref_button_spacing

@@ -58,7 +58,7 @@ style mg_vm_viewport is ASInterfaceScrollbar
 style mg_vm_viewport_vscrollbar is ASInterfaceScrollbar_vscrollbar
 style mg_vm_viewport_vbox is gui_vbox
 style mg_vm_viewport_text is gui_text:
-    font "gui/font/JetBrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
     size 20
 
 style mg_vm_viewport_hidden_text is mg_vm_viewport_text:

@@ -27,7 +27,7 @@ style ce_hbox is hbox:
     yspacing 0
 
 style ce_text:
-    font "gui/font/JetBrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
     size 16
     color "#A9B7C6"
     slow_cps 15
@@ -37,7 +37,7 @@ style ce_symbol_text is ce_text:
     size 18
 
 style ce_comment_text is ce_text:
-    font "gui/font/JetBrainsMono-Italic.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Italic.ttf"
     color "#75715e"
 
 style ce_docstring_text is ce_comment_text
@@ -46,7 +46,7 @@ style ce_str_const_text is ce_text:
     color "#A5C25C"
 
 style ce_keyword_text is ce_text:
-    font "gui/font/JetBrainsMono-Bold.ttf"
+    font "core/assets/fonts/jb_mono/BrainsMono-Bold.ttf"
     color "#CB772F"
 
 style ce_num_text is ce_text:

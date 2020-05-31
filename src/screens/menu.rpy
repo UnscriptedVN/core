@@ -80,7 +80,7 @@ style main_menu_text:
 
 style main_menu_title:
     properties gui.text_properties("title")
-    font "gui/font/lexend/Deca-Regular.ttf"
+    font "core/assets/fonts/lexend/Deca-Regular.ttf"
     size 76
     color "#f4f4f4"
     text_align 0.5

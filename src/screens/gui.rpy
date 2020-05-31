@@ -76,7 +76,7 @@ define gui.name_text_font = AS_FONTS_DIR + "Bold.ttf"
 define gui.interface_text_font = AS_FONTS_DIR + "Regular.ttf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 22
+define gui.text_size = gui.preference("text_size", 20)
 
 ## The size of character names.
 define gui.name_text_size = 30
@@ -482,6 +482,3 @@ init python:
 
         ## Quick buttons.
         gui.quick_button_text_size = 20
-
-
-
