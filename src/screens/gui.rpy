@@ -23,11 +23,13 @@ init offset = -2
 init python:
     gui.init(1280, 720)
 
-
+    if not gui.preference("theme"):
+        gui.SetPreference("theme", "ring")
 
 ################################################################################
 ## MARK: GUI Configuration Variables
 ################################################################################
+
 
 
 ## MARK: Colors
