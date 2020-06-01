@@ -18,11 +18,14 @@
 ## init code in any other file.
 init offset = -2
 
-init -100 python:
+init -50 python:
     try:
         gui.preference("theme", "ring")
     except Exception:
         gui.SetPreference("theme", "ring")
+
+init -5 python:
+    print(current_theme().name)
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.

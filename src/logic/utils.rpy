@@ -210,8 +210,13 @@ init -10 python:
             theme (Theme): The theme object that corresponds to the GUI preference for the theme.
                 If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        return Theme(filepath=os.path.join("core", "themes",
+        theme = Theme(filepath=os.path.join("core", "themes", "ring", "theme.toml"))
+        try:
+            theme = Theme(filepath=os.path.join("core", "themes",
                                            gui.preference("theme", "ring"), "theme.toml"))
+        except:
+            pass
+        return theme
 
 init -500 python:
     def open_directory(path):
