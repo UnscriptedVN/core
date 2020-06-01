@@ -18,15 +18,16 @@
 ## init code in any other file.
 init offset = -2
 
-## Calling gui.init resets the styles to sensible default values, and sets the
-## width and height of the game.
-init python:
-    gui.init(1280, 720)
-
+init -10 python:
     try:
         gui.preference("theme", "ring")
     except KeyError:
         gui.SetPreference("theme", "ring")
+
+## Calling gui.init resets the styles to sensible default values, and sets the
+## width and height of the game.
+init python:
+    gui.init(1280, 720)
 
 ################################################################################
 ## MARK: GUI Configuration Variables
