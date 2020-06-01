@@ -23,7 +23,9 @@ init offset = -2
 init python:
     gui.init(1280, 720)
 
-    if not gui.preference("theme"):
+    try:
+        gui.preference("theme", "ring")
+    except KeyError:
         gui.SetPreference("theme", "ring")
 
 ################################################################################
