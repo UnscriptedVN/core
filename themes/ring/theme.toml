@@ -1,0 +1,21 @@
+[theme]
+name = "ring"
+type = "dark"
+resources-dir = "core/themes/ring"
+
+[theme.colors]
+background = "#2b2b2b"
+interface = "#f4f4f4"
+interface_active = "#05C1FD"
+interface_highlight = "#5848F4"
+interface_secondary = "#999999"
+interface_button_idle = "#f4f4f4"
+
+[theme.colors.syntax]
+source_text = "#A9B7C6"
+symbols = "#A9B7C6"
+comments = "#75715e"
+docstrings = "#75715e"
+strings = "#A5C25C"
+keywords = "#CB772F"
+numbers = "#6897BB"

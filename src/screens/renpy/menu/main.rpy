@@ -15,11 +15,7 @@ init offset = -1
 screen game_menu(title, scroll=None):
 
     style_prefix "game_menu"
-
-    # if main_menu:
-    #     add gui.main_menu_background
-    # else:
-    add "gui/overlay/game_menu.png"
+    add current_theme().overlays().GAME.value
 
     frame:
         style "game_menu_outer_frame"
@@ -96,10 +92,8 @@ style game_menu_text is gui_text
 style game_menu_outer_frame:
     bottom_padding 30
     top_padding 120
-    # background "gui/overlay/game_menu.png"
 
 style game_menu_content_frame:
-    # background Frame("gui/game_menu_content_frame.png", gui.frame_borders, gui.frame_tile)
     left_margin 16
     right_margin 16
     top_padding 24

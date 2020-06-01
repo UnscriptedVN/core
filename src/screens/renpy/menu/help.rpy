@@ -245,7 +245,7 @@ style help_text is gui_text:
     size gui.text_size
 
 style help_license_text is help_text:
-    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
     size 16
 
 style help_small_text is help_text:

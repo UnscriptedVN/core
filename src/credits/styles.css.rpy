@@ -15,7 +15,7 @@ init offset = 5
 style ce_frame is gui_frame:
     margin (0, 0)
     padding (24, 16)
-    background "#2b2b2b"
+    background current_theme().colors().BACKGROUND.value
     yfill True
 
 style ce_vbox is vbox:
@@ -27,9 +27,9 @@ style ce_hbox is hbox:
     yspacing 0
 
 style ce_text:
-    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
     size 16
-    color "#A9B7C6"
+    color current_theme().syntaxes().SOURCE_TEXT.value
     slow_cps 15
 
 style ce_identifier_text is ce_text
@@ -37,17 +37,17 @@ style ce_symbol_text is ce_text:
     size 18
 
 style ce_comment_text is ce_text:
-    font "core/assets/fonts/jb_mono/BrainsMono-Italic.ttf"
-    color "#75715e"
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Italic.ttf"
+    color current_theme().syntaxes().COMMENTS.value
 
 style ce_docstring_text is ce_comment_text
 
 style ce_str_const_text is ce_text:
-    color "#A5C25C"
+    color current_theme().syntaxes().STRINGS.value
 
 style ce_keyword_text is ce_text:
-    font "core/assets/fonts/jb_mono/BrainsMono-Bold.ttf"
-    color "#CB772F"
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Bold.ttf"
+    color current_theme().syntaxes().KEYWORDS.value
 
 style ce_num_text is ce_text:
-    color "#6897BB"
+    color current_theme().syntaxes().NUMBERS.value

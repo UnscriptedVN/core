@@ -57,7 +57,7 @@ image bg mc_apartment night = "images/bg/mc/landing_night.jpg"
 image bg mc_apartment bedroom = "images/bg/mc/bedroom.jpg"
 image bg mc_apartment bedroom_night = "images/bg/mc/bedroom_night.jpg"
 
-image main_menu = "gui/main_menu.png"
+# image main_menu = "gui/main_menu.png"
 
 # MARK: CGs
 image bg cg1 = "images/cg/cg1/base.png"

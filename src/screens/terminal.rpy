@@ -17,7 +17,7 @@ image terminal_background:
     size (600, 200)
 
 style terminal_text:
-    font "core/assets/fonts/jb_mono/BrainsMono-Regular.ttf"
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
     size 15
     color "#E0E0E0"
     outlines []

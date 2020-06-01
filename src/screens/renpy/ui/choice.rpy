@@ -44,6 +44,7 @@ style choice_vbox:
 
 style choice_button is default:
     properties gui.button_properties("choice_button")
+    background Frame(current_theme().buttons(), gui.choice_button_borders, tile=gui.button_tile)
 
 style choice_button_text is default:
     properties gui.button_text_properties("choice_button")

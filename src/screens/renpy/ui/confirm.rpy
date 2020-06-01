@@ -21,7 +21,7 @@ screen confirm(message, yes_action, no_action):
 
     style_prefix "confirm"
 
-    add "gui/overlay/confirm.png"
+    add current_theme().overlays().CONFIRM.value
 
     frame:
 
@@ -52,10 +52,10 @@ style confirm_button is gui_medium_button
 style confirm_button_text is gui_medium_button_text
 
 style confirm_frame:
-    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
-    padding gui.confirm_frame_borders.padding
+    background Frame([current_theme().frames().BASIC.value], Borders(0, 0, 0, 0), tile=gui.frame_tile)
     xalign .5
     yalign .5
+    padding (24, 24)
 
 style confirm_prompt_text:
     text_align 0.5
@@ -65,6 +65,7 @@ style confirm_prompt_text:
 
 style confirm_button:
     properties gui.button_properties("confirm_button")
+    background Frame(current_theme().buttons(), gui.confirm_button_borders, tile=gui.button_tile)
 
 style confirm_button_text:
     properties gui.button_text_properties("confirm_button")

@@ -203,27 +203,15 @@ init -10 python:
         who(code)
         style.say_dialogue = style.normal
 
-    # MARK: Settings
-    def lexend_font_name(font_id):
-        """Get the corresponding Lexend font variant from a given
-        number.
+    def current_theme():
+        """Get the theme object for the currently selected theme.
 
-        If no value is found, "Deca" is returned.
-
-        Args:
-            font_id: The number to look up.
+        Returns:
+            theme (Theme): The theme object that corresponds to the GUI preference for the theme.
+                If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        options = {
-            1: "Deca",
-            2: "Exa",
-            3: "Giga",
-            4: "Mega",
-            5: "Peta",
-            6: "Tera",
-            7: "Zetta"
-        }
-
-        return options.get(font_id, "Deca")
+        return Theme(filepath=os.path.join("core", "themes",
+                                           gui.preference("theme", "ring"), "theme.toml"))
 
 init -500 python:
     def open_directory(path):

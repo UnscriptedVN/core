@@ -50,7 +50,7 @@ style quick_button_text is button_text
 
 style quick_button:
     properties gui.button_properties("quick_button")
-
+    background Frame(current_theme().buttons(), gui.quick_button_borders, tile=gui.button_tile)
 
 style quick_button_text:
     properties gui.button_text_properties("quick_button")

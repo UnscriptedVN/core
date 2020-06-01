@@ -80,21 +80,30 @@ screen appearance_settings():
     hbox:
         box_wrap True
 
-        if renpy.variant("pc"):
-            vbox:
-                style_prefix "radio"
-                label _("Display view:")
-                textbutton _("As a window") action Preference("display", "window")
-                textbutton _("Fullscreen") action Preference("display", "fullscreen")
+        vbox:
+            style_prefix "radio"
+            label "Theme"
+            textbutton "Ring" action gui.SetPreference("theme", "ring")
+            textbutton "Ruby Light" action gui.SetPreference("theme", "ruby-light")
+            textbutton "Ruby Mirage" action gui.SetPreference("theme", "ruby-light")
+            textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
 
         vbox:
-            style_prefix "check"
-            spacing 10
+            if renpy.variant("pc"):
+                vbox:
+                    style_prefix "radio"
+                    label _("Display view:")
+                    textbutton _("As a window") action Preference("display", "window")
+                    textbutton _("Fullscreen") action Preference("display", "fullscreen")
+
             vbox:
-                label "Save screenshots"
-                textbutton _("Show save screenshots") action ToggleField(persistent, "use_detailed_saves")
-                text "Show the screenshot from the moment of time in the save file instead of the chapter image.":
-                    style "pref_text"
+                style_prefix "check"
+                spacing 10
+                vbox:
+                    label "Save screenshots"
+                    textbutton _("Show save screenshots") action ToggleField(persistent, "use_detailed_saves")
+                    text "Show the screenshot from the moment of time in the save file instead of the chapter image.":
+                        style "pref_text"
 
         vbox:
             spacing 10
@@ -421,16 +430,6 @@ style pref_navigation_button_text:
     font AS_FONTS_DIR + "Medium.ttf"
     size 20
 
-style radio_button:
-    properties gui.button_properties("radio_button")
-    foreground "gui/button/radio_[prefix_]foreground.png"
-
-style radio_button_text:
-    properties gui.button_text_properties("radio_button")
-    color gui.interface_text_color
-    hover_color gui.hover_color
-    size 18
-
 style pref_font_mwthr is radio_button
 style pref_font_mwthr_text is radio_button_text:
     font "core/assets/fonts/merriweather/Merriweather-Regular.ttf"
@@ -474,40 +473,12 @@ style pref_font_zetta_text is radio_button_text:
 style check_vbox:
     spacing gui.pref_button_spacing
 
-style check_button:
-    properties gui.button_properties("check_button")
-    foreground "gui/button/check_[prefix_]foreground.png"
-
-style check_button_text:
-    properties gui.button_text_properties("check_button")
-    color gui.interface_text_color
-    hover_color gui.hover_color
-    size 18
-
-style slider_slider:
-    xsize 350
-
-style slider_button:
-    properties gui.button_properties("slider_button")
-    yalign 0.5
-    left_margin 10
-
-style slider_button_text:
-    properties gui.button_text_properties("slider_button")
-
 style slider_vbox:
     xsize 450
 
 style pref_text:
     size 14
-    color "#999999"
-
-style standard_button:
-    properties gui.button_properties("quick_button")
-
-style standard_button_text:
-    properties gui.button_text_properties("quick_button")
-    size 12
+    color current_theme().colors().INTERFACE_SECONDARY.value
 
 style standard_vbox:
     spacing gui.pref_button_spacing
@@ -515,12 +486,5 @@ style standard_vbox:
 style pref_access_preview is gui_text:
     font gui.preference("text_font")
 
-style pref_tab_group_button is gui_button:
-    background Frame("gui/button/tab_group_[prefix_]background.png", Borders(16, 4, 16, 4), tile=False)
-    xpadding 24
-    ypadding 20
-
-style pref_tab_group_button_text is gui_button_text:
-    color "#ffffff"
-    selected_font AS_FONTS_DIR + "Medium.ttf"
-    size 16
+style pref_tab_group_button is tab_group_button
+style pref_tab_group_button_text is tab_group_button_text

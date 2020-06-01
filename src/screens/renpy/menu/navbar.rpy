@@ -86,4 +86,4 @@ style navigation_button_text:
     text_align 0.0
 
 style navigation_icon_button is gui_button:
-    hover_background gui.accent_color + "20"
+    hover_background current_theme().colors().INTERFACE_ACTIVE.value + "20"
