@@ -18,7 +18,7 @@
 ## init code in any other file.
 init offset = -2
 
-init -10 python:
+init -5 python:
     try:
         gui.preference("theme", "ring")
     except KeyError:
