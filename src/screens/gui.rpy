@@ -21,7 +21,7 @@ init offset = -2
 init -5 python:
     try:
         gui.preference("theme", "ring")
-    except KeyError:
+    except Exception:
         gui.SetPreference("theme", "ring")
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
