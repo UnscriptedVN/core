@@ -33,3 +33,4 @@ jobs:
         env:
           SDL_AUDIODRIVER: dummy
           SDL_VIDEODRIVER: dummy
+          LANG: en_US.UTF-8
