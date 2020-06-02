@@ -10,6 +10,8 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+init offset = -1
+
 screen main_menu():
 
     tag menu
@@ -116,7 +118,7 @@ screen navigation_button(icon=None, title="", subtitle=None, action):
                 spacing 6
                 null width 4
                 if icon:
-                    add get_feather_icon(icon):
+                    add get_feather_icon(icon, mode="dark"):
                         size (24, 24)
                         yalign 0.5
                 vbox:

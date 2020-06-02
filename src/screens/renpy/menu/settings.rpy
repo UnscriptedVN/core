@@ -84,8 +84,8 @@ screen appearance_settings():
             style_prefix "radio"
             label "Theme"
             textbutton "Ring" action gui.SetPreference("theme", "ring")
-            # textbutton "Ruby Light" action gui.SetPreference("theme", "ruby-light")
-            textbutton "Ruby Mirage" action gui.SetPreference("theme", "ruby-mirage")
+            textbutton "Ayu Light Blue" action gui.SetPreference("theme", "ruby-light")
+            textbutton "Ayu Mirage Blue" action gui.SetPreference("theme", "ruby-mirage")
             # textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
 
         vbox:
@@ -122,6 +122,7 @@ screen appearance_settings():
                     style "pref_font_opendys"
                 textbutton "Lexend..." action SetScreenVariable("settings_page", "lexend"):
                     selected "lexend" in gui.text_font
+                    style "pref_font_deca"
 
                 text "The font selected will be used in the textbox when a character is speaking. This does not affect the user interface fonts.":
                     style "pref_text"

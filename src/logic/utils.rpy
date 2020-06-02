@@ -122,16 +122,18 @@ init -10 python:
             inventory_items[item].runSpecialUseCase = None
 
     # MARK: Feather
-    def get_feather_icon(name):
+    def get_feather_icon(name, mode=None):
         """Get the path to a Feather icon.
 
         Args:
             name: The name of the Feather icon.
         """
-        if not renpy.loadable("core/assets/feather/%s.png" % (name)):
+        use_light = (mode == "light") if mode else (current_theme().type == ThemeType.LIGHT)
+        fname = ("%s.png" if use_light else "%s-dark.png") % (name)
+        if not renpy.loadable(os.path.join("core", "assets", "feather", fname)):
             logging.error("Icon %s cannot be found or doesn't exist." % (name))
             raise FeatherAssetError("Icon %s cannot be found or doesn't exist." % (name))
-        return "core/assets/feather/%s.png" % (name)
+        return os.path.join("core", "assets", "feather", fname)
 
     # MARK: Player name utilities
     def reset_playername():

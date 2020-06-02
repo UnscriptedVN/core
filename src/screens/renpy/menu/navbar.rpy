@@ -66,8 +66,10 @@ screen navigation():
 
             button action Quit(confirm=not main_menu):
                 style "navigation_icon_button"
-                add get_feather_icon("power"):
-                    size (28, 28)
+
+                vbox:
+                    add get_feather_icon("power"):
+                        size (28, 28)
 
 
 style navigation_button is gui_button

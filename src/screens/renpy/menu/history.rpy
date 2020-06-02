@@ -100,5 +100,5 @@ style history_label_text:
     xalign 0.5
 
 style history_narrative_box:
-    background Frame("assets/gui/narrative_bubble.png", 32, 32, 32, 32, tile=False)
+    background Frame(current_theme().frames().NARRATIVE.value, 32, 32, 32, 32, tile=False)
     padding (16, 8)
