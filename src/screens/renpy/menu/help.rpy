@@ -243,6 +243,7 @@ style help_label_text:
 
 style help_text is gui_text:
     size gui.text_size
+    color current_theme().colors().INTERFACE_SECONDARY.value
 
 style help_license_text is help_text:
     font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"

@@ -84,9 +84,9 @@ screen appearance_settings():
             style_prefix "radio"
             label "Theme"
             textbutton "Ring" action gui.SetPreference("theme", "ring")
-            textbutton "Ruby Light" action gui.SetPreference("theme", "ruby-light")
-            textbutton "Ruby Mirage" action gui.SetPreference("theme", "ruby-light")
-            textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
+            # textbutton "Ruby Light" action gui.SetPreference("theme", "ruby-light")
+            textbutton "Ruby Mirage" action gui.SetPreference("theme", "ruby-mirage")
+            # textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
 
         vbox:
             if renpy.variant("pc"):
@@ -428,6 +428,7 @@ style radio_vbox:
 
 style pref_navigation_button_text:
     font AS_FONTS_DIR + "Medium.ttf"
+    idle_color current_theme().colors().INTERFACE.value
     size 20
 
 style pref_font_mwthr is radio_button

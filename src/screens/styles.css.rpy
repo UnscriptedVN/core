@@ -111,9 +111,11 @@ style check_button_text:
 
 style standard_button:
     properties gui.button_properties("quick_button")
+    background Frame(current_theme().buttons(), gui.button_borders, tile=gui.button_tile)
 
 style standard_button_text:
     properties gui.button_text_properties("quick_button")
+    hover_color current_theme().colors().INTERFACE_HIGHLIGHT.value
     size 12
 
 style tab_group_button is gui_button:
@@ -122,7 +124,7 @@ style tab_group_button is gui_button:
     ypadding 20
 
 style tab_group_button_text is gui_button_text:
-    color "#ffffff"
+    color current_theme().colors().INTERFACE.value
     selected_font AS_FONTS_DIR + "Medium.ttf"
     size 16
 

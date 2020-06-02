@@ -22,7 +22,7 @@ init -50 python:
     try:
         gui.preference("theme", "ring")
     except Exception:
-        gui.SetPreference("theme", "ring")
+        renpy.run(gui.SetPreference("theme", "ring"))
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
@@ -203,16 +203,16 @@ define gui.check_button_borders = Borders(25, 4, 4, 4)
 
 define gui.confirm_button_text_xalign = 0.5
 define gui.confirm_button_borders = Borders(20, 1, 20, 1)
-define gui.confirm_button_text_idle_color = "#f4f4f4"
-define gui.confirm_button_text_hover_color = "#333333"
+define gui.confirm_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.confirm_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
 
 define gui.page_button_borders = Borders(10, 4, 10, 4)
 
 define gui.quick_button_borders = Borders(12, 4, 12, 4)
 define gui.quick_button_text_size = 14
-define gui.quick_button_text_idle_color = "#f4f4f4"
-define gui.quick_button_text_hover_color = "#333333"
-define gui.quick_button_text_insensitive_color = "#999999"
+define gui.quick_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.quick_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
+define gui.quick_button_text_insensitive_color = current_theme().colors().INTERFACE_SECONDARY.value
 
 ## You can also add your own customizations, by adding properly-named variables.
 ## For example, you can uncomment the following line to set the width of a
@@ -232,8 +232,8 @@ define gui.choice_button_borders = Borders(100, 8, 100, 8)
 define gui.choice_button_text_font = AS_FONTS_DIR + "Regular.ttf"
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = "#f4f4f4"
-define gui.choice_button_text_hover_color = "#333333"
+define gui.choice_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.choice_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
 
 
 ## MARK: File Slot Buttons

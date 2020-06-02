@@ -75,4 +75,5 @@ style say_label:
     color gui.text_color
     size 20
 
-style say_dialogue is normal
+style say_dialogue is normal:
+    color current_theme().syntaxes().SOURCE_TEXT.value

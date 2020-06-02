@@ -80,8 +80,8 @@ style navigation_button:
 style navigation_button_text:
     properties gui.button_text_properties("navigation_button")
     font AS_FONTS_DIR + "medium.ttf"
-    color "#ffffff"
-    hover_color "#05C1FD"
+    color current_theme().colors().INTERFACE.value
+    hover_color current_theme().colors().INTERFACE_ACTIVE.value
     size 16
     text_align 0.0
 

@@ -33,7 +33,8 @@ screen quick_menu():
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             if "enable-glossary" in uconf["labs"]["current"]:
                 textbutton _("Glossary") action ShowMenu("help", pre_tab="glossary")
-            textbutton _("Use Item") action ShowTransient("InventoryHUD")
+            textbutton _("Use Item") action ShowTransient("InventoryHUD"):
+                sensitive False
             textbutton _("Desktop") action ShowTransient("ASDesktopShellView")
             textbutton _("Save") action ShowMenu('save')
             textbutton _("Load") action ShowMenu('load')
@@ -54,4 +55,5 @@ style quick_button:
 
 style quick_button_text:
     properties gui.button_text_properties("quick_button")
+    hover_color current_theme().colors().INTERFACE_HIGHLIGHT.value
     font AS_FONTS_DIR + "Regular.ttf"
