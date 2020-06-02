@@ -22,7 +22,7 @@ init -50 python:
     try:
         gui.preference("theme", "ring")
     except Exception:
-        renpy.run(gui.SetPreference("theme", "ring"))
+        gui.SetPreference("theme", "ring")
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
