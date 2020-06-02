@@ -83,7 +83,7 @@ screen appearance_settings():
         vbox:
             style_prefix "radio"
             label "Theme"
-            textbutton "Ring" action gui.SetPreference("theme", "ring")
+            # textbutton "Ring" action gui.SetPreference("theme", "ring")
             textbutton "Ayu Light Blue" action gui.SetPreference("theme", "ruby-light")
             textbutton "Ayu Mirage Blue" action gui.SetPreference("theme", "ruby-mirage")
             # textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
