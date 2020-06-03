@@ -86,7 +86,7 @@ screen appearance_settings():
             # textbutton "Ring" action gui.SetPreference("theme", "ring")
             textbutton "Ayu Light Blue" action gui.SetPreference("theme", "ruby-light")
             textbutton "Ayu Mirage Blue" action gui.SetPreference("theme", "ruby-mirage")
-            # textbutton "Ruby Dark" action gui.SetPreference("theme", "ruby-dark")
+            textbutton "Ayu Dark Blue" action gui.SetPreference("theme", "ruby-dark")
 
         vbox:
             if renpy.variant("pc"):
