@@ -92,12 +92,14 @@ style history_text:
     min_width gui.history_text_width
     text_align gui.history_text_xalign
     layout ("subtitle" if gui.history_text_xalign else "tex")
+    size 20
 
 style history_label:
     xfill True
 
 style history_label_text:
     xalign 0.5
+    size 22
 
 style history_narrative_box:
     background Frame(current_theme().frames().NARRATIVE.value, 32, 32, 32, 32, tile=False)
