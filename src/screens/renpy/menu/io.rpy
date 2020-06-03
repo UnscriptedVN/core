@@ -148,6 +148,7 @@ style page_button:
 
 style page_button_text:
     properties gui.button_text_properties("page_button")
+    idle_color current_theme().colors().INTERFACE.value
     size 18
 
 style slot_button:
@@ -158,4 +159,7 @@ style slot_button_text:
 
 style slot_name_text is slot_button_text:
     font AS_FONTS_DIR + "Bold.ttf"
-    idle_color "#f4f4f4"
+    idle_color current_theme().colors().INTERFACE.value
+
+style slot_time_text is slot_button_text:
+    idle_color current_theme().colors().INTERFACE_SECONDARY.value

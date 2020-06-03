@@ -41,12 +41,12 @@ style notify_frame:
     ypos gui.notify_ypos
     xpos gui.notify_xpos
 
-    background Frame("gui/notify.png", gui.notify_frame_borders, tile=gui.frame_tile)
+    background Frame(current_theme().frames().TOAST.value, gui.notify_frame_borders, tile=gui.frame_tile)
     padding gui.notify_frame_borders.padding
 
 style notify_text:
     properties gui.text_properties("notify")
-    color "#ffffff"
+    color current_theme().colors().INTERFACE.value
 
 
 screen skip_indicator():
@@ -85,12 +85,12 @@ style skip_triangle is skip_text
 style skip_frame:
     ypos gui.skip_ypos
     xpos gui.skip_xpos
-    background Frame("gui/skip.png", gui.skip_frame_borders, tile=gui.frame_tile)
+    background Frame(current_theme().frames().TOAST.value, gui.skip_frame_borders, tile=gui.frame_tile)
     padding gui.skip_frame_borders.padding
 
 style skip_text:
     size gui.notify_text_size
-    color "#ffffff"
+    color current_theme().colors().INTERFACE.value
 
 style skip_triangle:
     font "DejaVuSans.ttf"

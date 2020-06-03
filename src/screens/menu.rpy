@@ -10,6 +10,8 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+init offset = -1
+
 screen main_menu():
 
     tag menu
@@ -80,7 +82,7 @@ style main_menu_text:
 
 style main_menu_title:
     properties gui.text_properties("title")
-    font "gui/font/lexend/Deca-Regular.ttf"
+    font "core/assets/fonts/lexend/Deca-Regular.ttf"
     size 76
     color "#f4f4f4"
     text_align 0.5
@@ -116,7 +118,7 @@ screen navigation_button(icon=None, title="", subtitle=None, action):
                 spacing 6
                 null width 4
                 if icon:
-                    add get_feather_icon(icon):
+                    add get_feather_icon(icon, mode="dark"):
                         size (24, 24)
                         yalign 0.5
                 vbox:

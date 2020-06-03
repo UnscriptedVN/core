@@ -122,16 +122,18 @@ init -10 python:
             inventory_items[item].runSpecialUseCase = None
 
     # MARK: Feather
-    def get_feather_icon(name):
+    def get_feather_icon(name, mode=None):
         """Get the path to a Feather icon.
 
         Args:
             name: The name of the Feather icon.
         """
-        if not renpy.loadable("core/assets/feather/%s.png" % (name)):
+        use_light = (mode == "light") if mode else (current_theme().type == ThemeType.LIGHT)
+        fname = ("%s.png" if use_light else "%s-dark.png") % (name)
+        if not renpy.loadable(os.path.join("core", "assets", "feather", fname)):
             logging.error("Icon %s cannot be found or doesn't exist." % (name))
             raise FeatherAssetError("Icon %s cannot be found or doesn't exist." % (name))
-        return "core/assets/feather/%s.png" % (name)
+        return os.path.join("core", "assets", "feather", fname)
 
     # MARK: Player name utilities
     def reset_playername():
@@ -203,27 +205,20 @@ init -10 python:
         who(code)
         style.say_dialogue = style.normal
 
-    # MARK: Settings
-    def lexend_font_name(font_id):
-        """Get the corresponding Lexend font variant from a given
-        number.
+    def current_theme():
+        """Get the theme object for the currently selected theme.
 
-        If no value is found, "Deca" is returned.
-
-        Args:
-            font_id: The number to look up.
+        Returns:
+            theme (Theme): The theme object that corresponds to the GUI preference for the theme.
+                If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        options = {
-            1: "Deca",
-            2: "Exa",
-            3: "Giga",
-            4: "Mega",
-            5: "Peta",
-            6: "Tera",
-            7: "Zetta"
-        }
-
-        return options.get(font_id, "Deca")
+        theme = Theme(filepath=os.path.join("core", "themes", "ring", "theme.toml"))
+        try:
+            theme = Theme(filepath=os.path.join("core", "themes",
+                                           gui.preference("theme", "ring"), "theme.toml"))
+        except:
+            pass
+        return theme
 
 init -500 python:
     def open_directory(path):

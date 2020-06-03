@@ -1,0 +1,21 @@
+[theme]
+name = "ruby-mirage"
+type = "dark"
+resources-dir = "core/themes/ruby-mirage"
+
+[theme.colors]
+background = "#1F2430"
+interface = "#707A8C"
+interface_active = "#39BAE6"
+interface_highlight = "#77A8D9"
+interface_secondary = "#5C6773"
+interface_button_idle = "#FFCC66"
+
+[theme.colors.syntax]
+source_text = "#CBCCC6"
+symbols = "#CBCCC6"
+comments = "#5C6773"
+docstrings = "#5C6773"
+strings = "#BAE67E"
+keywords = "#FFA759"
+numbers = "#D4BFFF"

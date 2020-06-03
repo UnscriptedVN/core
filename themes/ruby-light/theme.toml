@@ -1,0 +1,21 @@
+[theme]
+name = "ruby-light"
+type = "light"
+resources-dir = "core/themes/ruby-light"
+
+[theme.colors]
+background = "#FAFAFA"
+interface = "#959DA6"
+interface_active = "#55B4D4"
+interface_highlight = "#77A8D9"
+interface_secondary = "#6C7680"
+interface_button_idle = "#FFCC66"
+
+[theme.colors.syntax]
+source_text = "#6C7680"
+symbols = "#6C7680"
+comments = "#ABB0B6"
+docstrings = "#ABB0B6"
+strings = "#86B300"
+keywords = "#FA8D3E"
+numbers = "#A37ACC"

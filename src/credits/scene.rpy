@@ -12,7 +12,7 @@
 
 init offset = 10
 
-image credits_bg = "#2b2b2b"
+image credits_bg = current_theme().colors().BACKGROUND.value
 
 label credits:
     $ config.allow_skipping = allow_skipping = skipping = quick_menu = False

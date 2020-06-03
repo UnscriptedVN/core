@@ -66,8 +66,10 @@ screen navigation():
 
             button action Quit(confirm=not main_menu):
                 style "navigation_icon_button"
-                add get_feather_icon("power"):
-                    size (28, 28)
+
+                vbox:
+                    add get_feather_icon("power"):
+                        size (28, 28)
 
 
 style navigation_button is gui_button
@@ -80,10 +82,10 @@ style navigation_button:
 style navigation_button_text:
     properties gui.button_text_properties("navigation_button")
     font AS_FONTS_DIR + "medium.ttf"
-    color "#ffffff"
-    hover_color "#05C1FD"
+    color current_theme().colors().INTERFACE.value
+    hover_color current_theme().colors().INTERFACE_ACTIVE.value
     size 16
     text_align 0.0
 
 style navigation_icon_button is gui_button:
-    hover_background gui.accent_color + "20"
+    hover_background current_theme().colors().INTERFACE_ACTIVE.value + "20"

@@ -18,16 +18,21 @@
 ## init code in any other file.
 init offset = -2
 
+init -50 python:
+    try:
+        gui.preference("theme", "ring")
+    except Exception:
+        gui.SetPreference("theme", "ring")
+
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
 init python:
     gui.init(1280, 720)
 
-
-
 ################################################################################
 ## MARK: GUI Configuration Variables
 ################################################################################
+
 
 
 ## MARK: Colors
@@ -35,24 +40,24 @@ init python:
 ## The colors of text in the interface.
 
 ## An accent color used throughout the interface to label and highlight text.
-define gui.accent_color = '#05C1FD'
+define gui.accent_color = current_theme().colors().INTERFACE_ACTIVE.value
 
 ## The color used for a text button when it is neither selected nor hovered.
-define gui.idle_color = '#f4f4f4'
+define gui.idle_color = current_theme().colors().INTERFACE_BUTTON_IDLE.value
 
 ## The small color is used for small text, which needs to be brighter/darker to
 ## achieve the same effect.
 define gui.idle_small_color = '#aaaaaa'
 
 ## The color that is used for buttons and bars that are hovered.
-define gui.hover_color = '#05C1FD'
+define gui.hover_color = current_theme().colors().INTERFACE_ACTIVE.value
 
 ## The color used for a text button when it is selected but not focused. A
 ## button is selected if it is the current screen or preference value.
-define gui.selected_color = '#5848F4'
+define gui.selected_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
 
 ## The color used for a text button when it cannot be selected.
-define gui.insensitive_color = '#999999'
+define gui.insensitive_color = current_theme().colors().INTERFACE_SECONDARY.value
 
 ## Colors used for the portions of bars that are not filled in. These are not
 ## used directly, but are used when re-generating bar image files.
@@ -60,8 +65,8 @@ define gui.muted_color = '#515100'
 define gui.hover_muted_color = '#7a7a00'
 
 ## The colors used for dialogue and menu choice text.
-define gui.text_color = '#f4f4f4'
-define gui.interface_text_color = '#f4f4f4'
+define gui.text_color = current_theme().colors().INTERFACE.value
+define gui.interface_text_color = current_theme().colors().INTERFACE.value
 
 
 ## MARK: Fonts and Font Sizes
@@ -76,7 +81,7 @@ define gui.name_text_font = AS_FONTS_DIR + "Bold.ttf"
 define gui.interface_text_font = AS_FONTS_DIR + "Regular.ttf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 22
+define gui.text_size = gui.preference("text_size", 20)
 
 ## The size of character names.
 define gui.name_text_size = 30
@@ -198,16 +203,16 @@ define gui.check_button_borders = Borders(25, 4, 4, 4)
 
 define gui.confirm_button_text_xalign = 0.5
 define gui.confirm_button_borders = Borders(20, 1, 20, 1)
-define gui.confirm_button_text_idle_color = "#f4f4f4"
-define gui.confirm_button_text_hover_color = "#333333"
+define gui.confirm_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.confirm_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
 
 define gui.page_button_borders = Borders(10, 4, 10, 4)
 
 define gui.quick_button_borders = Borders(12, 4, 12, 4)
 define gui.quick_button_text_size = 14
-define gui.quick_button_text_idle_color = "#f4f4f4"
-define gui.quick_button_text_hover_color = "#333333"
-define gui.quick_button_text_insensitive_color = "#999999"
+define gui.quick_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.quick_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
+define gui.quick_button_text_insensitive_color = current_theme().colors().INTERFACE_SECONDARY.value
 
 ## You can also add your own customizations, by adding properly-named variables.
 ## For example, you can uncomment the following line to set the width of a
@@ -227,8 +232,8 @@ define gui.choice_button_borders = Borders(100, 8, 100, 8)
 define gui.choice_button_text_font = AS_FONTS_DIR + "Regular.ttf"
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
-define gui.choice_button_text_idle_color = "#f4f4f4"
-define gui.choice_button_text_hover_color = "#333333"
+define gui.choice_button_text_idle_color = current_theme().colors().INTERFACE.value
+define gui.choice_button_text_hover_color = current_theme().colors().INTERFACE_HIGHLIGHT.value
 
 
 ## MARK: File Slot Buttons
@@ -482,6 +487,3 @@ init python:
 
         ## Quick buttons.
         gui.quick_button_text_size = 20
-
-
-

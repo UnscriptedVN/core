@@ -12,7 +12,7 @@
 
 Unscripted Core contains the source code for most, if not all, of the logic for the game. This logic includes, but is not limited to:
 
-- User interface controls and splash screens
+- User interface controls, themes, and splash screens
 - Credits sequencing
 - Definitions for images and audio
 - Minigame frontend logic (not covered by [Fira](https://github.com/UnscriptedVN/fira))

@@ -1,0 +1,21 @@
+[theme]
+name = "ruby-dark"
+type = "dark"
+resources-dir = "core/themes/ruby-dark"
+
+[theme.colors]
+background = "#0A0E14"
+interface = "#B3B1AD"
+interface_active = "#39BAE6"
+interface_highlight = "#E6B673"
+interface_secondary = "#3D424D"
+interface_button_idle = "#FFCC66"
+
+[theme.colors.syntax]
+source_text = "#B3B1AD"
+symbols = "#B3B1AD"
+comments = "#626A73"
+docstrings = "#626A73"
+strings = "#C2D94C"
+keywords = "#FF8F40"
+numbers = "#FFEE99"
