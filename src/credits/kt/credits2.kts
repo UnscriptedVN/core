@@ -7,7 +7,8 @@ val oss = listOf(
     "Rasmus Andersson",     // Inter font (Open Font License)
     "Lexend developers",    // Lexend font (Open Font License)
     "Minetest Team",        // Minetest (MIT)
-    "somberdemise"          // Discord RPC library (MPL-2.0)
+    "somberdemise",         // Discord RPC library (MPL-2.0)
+    "dempfi"                // Ayu color scheme (MIT)
 )
 
 for (team in oss) { println("Thanks, ${team.name}!"); mainDev.implement(team.product) }
