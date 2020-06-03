@@ -13,7 +13,7 @@
 init offset = 10
 
 style mg_editor_frame is gui_frame:
-    background "#212121"
+    background current_theme().colors().BACKGROUND.value
     margin (0, 0)
     padding (16, 16)
 
@@ -29,8 +29,8 @@ style mg_editor_toolbar_buttons_hbox is gui_hbox:
     spacing 4
     yoffset 4
 
-style mg_editor_toolbar_buttons_button is ASInterfacePushButton
-style mg_editor_toolbar_buttons_button_text is ASInterfacePushButton_text
+style mg_editor_toolbar_buttons_button is standard_button
+style mg_editor_toolbar_buttons_button_text is standard_button_text
 
 style mg_editor_main_view_hbox is gui_hbox:
     xfill True
@@ -52,10 +52,12 @@ style mg_vm_input is gui_frame:
     xsize 584
     margin (0, 0)
     padding (16, 16)
-    background "#191919"
+    background "#00000010"
 
 style mg_vm_viewport is ASInterfaceScrollbar
-style mg_vm_viewport_vscrollbar is ASInterfaceScrollbar_vscrollbar
+style mg_vm_viewport_vscrollbar is gui_vscrollbar:
+    unscrollable "hide"
+
 style mg_vm_viewport_vbox is gui_vbox
 style mg_vm_viewport_text is gui_text:
     font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
