@@ -57,6 +57,10 @@ init -1000 python:
 
         logging.info("New session started.")
 
+    wicon_add = "_" + uconf["info"]["channel"].replace("stable", "")
+    wicon = "core/assets/iconset/window_icon%s.png"\
+        % wicon_add if uconf["info"]["channel"] != "stable" else ""
+
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")
 define config.version = uconf["info"]["version"] or "1.0.0"
@@ -66,7 +70,7 @@ define config.save_directory = "net.marquiskurt.unscripted"
 # GUI Information
 define gui.show_name = True
 define gui.about = _("")
-define config.window_icon = "gui/window_icon.png"
+define config.window_icon = wicon or "core/assets/iconset/window_icon.png"
 
 # Volume configurations
 define config.has_sound = True
