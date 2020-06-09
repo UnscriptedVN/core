@@ -5,6 +5,7 @@ on:
       - "src/**.rpy"
       - "build.toml"
       - "requirements.txt"
+      - ".github/workflows/lint.yml"
 
 jobs:
   lint:
