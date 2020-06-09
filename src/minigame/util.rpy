@@ -25,9 +25,17 @@ init python:
         If the level is first level (level 0), an alert will be displayed that tells the player
             what to do to solve the minigame puzzle.
 
+        Additionally, if `disable-minigame` is present in the game's arguments file, this function
+            will do nothing and exit out of the minigame session.
+
         Args:
             lvl (int): The level number. Defaults to 0.
         """
+        if "disable-minigame" in arguments and arguments["disable-minigame"]:
+            logging.info(
+                "Minigame level has been skipped because the disable-minigame argument is present."
+            )
+            return
         quick_menu = False
         renpy.show("mg_bg", at_list=[], zorder=5)
         renpy.with_statement(dissolve)
@@ -92,8 +100,8 @@ init python:
         """Create a list of allowed Python modules for use with the Advanced Mode.
 
         Returns:
-            environment: A dictionary containing the allowed modules in the minigame execution
-                space.
+            environmen (dict): A dictionary containing the allowed modules in the minigame
+                execution space.
         """
         return {'renpy': renpy}
 
