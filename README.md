@@ -40,6 +40,7 @@ pip install -r path/to/core/requirements.txt --target game/python-packages
 
 - [Build Configuration](docs/build.md)
 - [Arguments File](docs/arguments.md)
+- [Themes](docs/themes.md)
 
 ## License
 
