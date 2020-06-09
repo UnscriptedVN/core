@@ -17,6 +17,7 @@ For macOS builds, you may need to right-click on the app and select "Show Packag
 The arguments should contain a single dictionary at the root, `args`. The following are the allowed keys in the arguments file:
 
 - `init_dreams`: Whether to initialize the dreams folder in the game files if Dreams are enabled.
+- `disable-minigame`: Whether to disable the minigame and prevent it from running at all.
 - `disable_experiments`: Defines the list of experiments to turn off when running the game. Should be a list of strings that matches the experiments defined in the build configuration.
 
 ## Example
