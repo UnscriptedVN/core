@@ -50,6 +50,7 @@ init -1000 python:
         # If Unscripted was started in developer mode (either from the Ren'Py launcher or from the)
         # SDK, change the channel to "Canary".
         if config.developer:
+            uconf["info"]["build_channel"] = uconf["info"]["channel"]
             uconf["info"]["channel"] = "canary"
             logging.info(
                 "Channel set to 'canary' because the client is running in developer mode."
@@ -57,6 +58,7 @@ init -1000 python:
 
         logging.info("New session started.")
 
+    # Update the window icon to the match the channel.
     wicon_add = "_" + uconf["info"]["channel"].replace("stable", "")
     wicon = "core/assets/iconset/window_icon%s.png"\
         % wicon_add if uconf["info"]["channel"] != "stable" else ""
@@ -204,7 +206,6 @@ init python:
         build.classify("game/core/**.txt", "source")
         build.classify("game/core/**.md", "source")
 
-
     # Remove caches, thumbnail databases, and Ren'Py script source files that aren't part of the
     # Unscripted Core.
     build.classify('**~', None)
@@ -234,6 +235,10 @@ init python:
     build.classify("game/log.txt", None)
     build.classify("game/errors.txt", None)
     build.classify("game/traceback.txt", None)
+
+    # Filter out the DEVCHANGES file in stable builds.
+    if uconf["info"]["build_channel"] == "stable":
+        build.classify("**/DEVCHANGES.txt", None)
 
     # Mark as documentation. If this build is the demo, exclude the
     # source code license.

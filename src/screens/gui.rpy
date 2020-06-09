@@ -20,9 +20,10 @@ init offset = -2
 
 init -50 python:
     try:
-        gui.preference("theme", "ring")
+        gui.preference("theme", "ruby-mirage")
     except Exception:
-        gui.SetPreference("theme", "ring")
+        logging.info("Theme could not be located. Setting default theme to 'ruby-mirage'...")
+        renpy.run(gui.SetPreference("theme", "ruby-mirage"))
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.

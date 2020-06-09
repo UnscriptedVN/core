@@ -24,7 +24,8 @@ jobs:
           rm -rf AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/
           pip install -r requirements.txt --target python-packages --system
           mkdir core
-          cp -r themes/ core/themes/
+          cp -r themes/* core/themes/
+          cp -r assets/* core/assets/
       - name: Lint project
         uses: ProjectAliceDev/renpy-lint-action@v1.1.0
         with:
