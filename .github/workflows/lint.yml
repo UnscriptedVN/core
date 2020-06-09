@@ -23,7 +23,7 @@ jobs:
           rm AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem.zip
           rm -rf AliceOS-2.0.0-rpy_7.3.5-ASBaseSystem/
           pip install -r requirements.txt --target python-packages --system
-          mkdir core
+          mkdir core core/themes core/assets
           cp -r themes/* core/themes/
           cp -r assets/* core/assets/
       - name: Lint project
