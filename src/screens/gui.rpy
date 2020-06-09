@@ -18,12 +18,18 @@
 ## init code in any other file.
 init offset = -2
 
-init -50 python:
-    try:
-        gui.preference("theme", "ruby-mirage")
-    except Exception:
-        logging.info("Theme could not be located. Setting default theme to 'ruby-mirage'...")
-        renpy.run(gui.SetPreference("theme", "ruby-mirage"))
+init -1000 python in gui:
+    import logging
+
+    if not preference("theme", not_set):
+        logging.warn("Theme preference could not be located. Using 'ruby-light' for now...")
+        try:
+            SetPreference("theme", "ruby-light").__call__()
+        except Exception as error:
+            logging.error("Couldn't set theme to ruby-light in preferences. Reason: %s",
+                          error)
+
+    logging.info("Updating GUI to use theme '%s'", preference("theme", "ruby-light"))
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.

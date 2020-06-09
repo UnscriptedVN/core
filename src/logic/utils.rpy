@@ -212,10 +212,10 @@ init -10 python:
             theme (Theme): The theme object that corresponds to the GUI preference for the theme.
                 If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        theme = Theme(filepath=os.path.join("core", "themes", "ring", "theme.toml"))
+        theme = Theme(filepath=os.path.join("core", "themes", "ruby-light", "theme.toml"))
         try:
             theme = Theme(filepath=os.path.join("core", "themes",
-                                           gui.preference("theme", "ring"), "theme.toml"))
+                                           gui.preference("theme", "ruby-light"), "theme.toml"))
         except:
             pass
         return theme

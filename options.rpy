@@ -11,7 +11,7 @@
 #
 
 # Load the Unscripted build configuration defined in build.toml.
-init -1000 python:
+init -2000 python:
     import toml
     import logging
 
@@ -45,18 +45,19 @@ init -1000 python:
 
         # Store the Unscripted configuration as uconf, which is referenced in other places.
         uconf = toml_load["config"]
+        uconf["info"]["build_channel"] = uconf["info"]["channel"]
         logging.info("Loaded build configuration at " + uconf_path + ".")
 
-        # If Unscripted was started in developer mode (either from the Ren'Py launcher or from the)
-        # SDK, change the channel to "Canary".
-        if config.developer:
-            uconf["info"]["build_channel"] = uconf["info"]["channel"]
-            uconf["info"]["channel"] = "canary"
-            logging.info(
-                "Channel set to 'canary' because the client is running in developer mode."
-            )
+init -100 python:
+    # If Unscripted was started in developer mode (either from the Ren'Py launcher or from the)
+    # SDK, change the channel to "Canary".
+    if config.developer:
+        uconf["info"]["channel"] = "canary"
+        logging.info(
+            "Channel set to 'canary' because the client is running in developer mode."
+        )
 
-        logging.info("New session started.")
+    logging.info("New session started.")
 
     # Update the window icon to the match the channel.
     wicon_add = "_" + uconf["info"]["channel"].replace("stable", "")
