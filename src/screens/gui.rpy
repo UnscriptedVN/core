@@ -23,8 +23,11 @@ init offset = -2
 ##
 ## Additionally, set the theme to Ruby Light if a preference has NOT been set.
 init python:
+    import logging
+
     gui.init(1280, 720)
     gui.preference("theme", "ruby-light")
+    logging.info("Theme set to: '%s'.", gui.preference("theme", "ruby-light"))
 
 ################################################################################
 ## MARK: GUI Configuration Variables
