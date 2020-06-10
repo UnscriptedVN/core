@@ -21,13 +21,11 @@ init offset = -2
 init -1000 python in gui:
     import logging
 
-    prefs = persistent._gui_preference
     defaults = persistent._gui_preference_default
 
-    if "theme" not in prefs and "theme" not in defaults:
+    if defaults and "theme" not in defaults:
         logging.warn("No default theme has been detected. Setting default to \"ruby-light\"...")
         defaults["theme"] = "ruby-light"
-        prefs["theme"] = "ruby-light"
 
     logging.info("Updating GUI to use theme '%s'", preference("theme", "ruby-light"))
 
