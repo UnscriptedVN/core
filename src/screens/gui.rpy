@@ -22,9 +22,7 @@ init offset = -2
 ## width and height of the game.
 init python:
     gui.init(1280, 720)
-
-    if "theme" not in gui.defaults:
-        gui.preference("theme", "ruby-light")
+    gui.preference("theme", "ruby-light")
 
 ################################################################################
 ## MARK: GUI Configuration Variables
