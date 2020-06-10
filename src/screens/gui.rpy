@@ -28,7 +28,7 @@ init -1000 python in gui:
 
     if "theme" not in defaults:
         logging.warn("No default theme has been detected. Setting default to \"ruby-light\"...")
-        defaults["theme"] = "ruby-light"
+        SetPreference("theme", "ruby-light").__call__()
 
     logging.info("Updating GUI to use theme '%s'", preference("theme", "ruby-light"))
 
