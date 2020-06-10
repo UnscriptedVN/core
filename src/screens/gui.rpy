@@ -21,7 +21,7 @@ init offset = -2
 init -1000 python in gui:
     import logging
 
-    if not preference or preference("theme", not_set):
+    if "theme" not in prefs or not preference("theme", not_set):
         logging.warn("Theme preference could not be located. Using 'ruby-light' for now...")
         try:
             SetPreference("theme", "ruby-light").__call__()
