@@ -20,6 +20,8 @@ init offset = -2
 
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
+##
+## Additionally, set the theme to Ruby Light if a preference has NOT been set.
 init python:
     gui.init(1280, 720)
     gui.preference("theme", "ruby-light")
@@ -27,8 +29,6 @@ init python:
 ################################################################################
 ## MARK: GUI Configuration Variables
 ################################################################################
-
-
 
 ## MARK: Colors
 ##
