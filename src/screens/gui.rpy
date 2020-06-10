@@ -23,7 +23,7 @@ init -1000 python in gui:
 
     defaults = persistent._gui_preference_default
 
-    if not defaults:
+    if not persistent._gui_preference_default:
         defaults = persistent._gui_preference_default = {}
 
     if "theme" not in defaults:
