@@ -18,24 +18,13 @@
 ## init code in any other file.
 init offset = -2
 
-init -1000 python in gui:
-    import logging
-
-    defaults = persistent._gui_preference_default
-
-    if not persistent._gui_preference_default:
-        defaults = persistent._gui_preference_default = {}
-
-    if "theme" not in defaults:
-        logging.warn("No default theme has been detected. Setting default to \"ruby-light\"...")
-        preference("theme", "ruby-light")
-
-    logging.info("Updating GUI to use theme '%s'", preference("theme", "ruby-light"))
-
 ## Calling gui.init resets the styles to sensible default values, and sets the
 ## width and height of the game.
 init python:
     gui.init(1280, 720)
+
+    if "theme" not in gui.defaults:
+        gui.preference("theme", "ruby-light")
 
 ################################################################################
 ## MARK: GUI Configuration Variables
