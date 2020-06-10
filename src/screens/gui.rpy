@@ -23,6 +23,9 @@ init -1000 python in gui:
 
     defaults = persistent._gui_preference_default
 
+    if not defaults:
+        defaults = persistent._gui_preference_default = {}
+
     if "theme" not in defaults:
         logging.warn("No default theme has been detected. Setting default to \"ruby-light\"...")
         preference("theme", "ruby-light")
