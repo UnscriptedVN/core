@@ -21,6 +21,9 @@ init offset = -2
 init -1000 python in gui:
     import logging
 
+    if not persistent._gui_preference_default:
+        persistent._gui_preference_default = {}
+
     defaults = persistent._gui_preference_default
 
     if defaults and "theme" not in defaults:
