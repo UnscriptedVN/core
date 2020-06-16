@@ -1,6 +1,6 @@
 # Theming
 
-Since commit [`3eac40b`](https://github.com/UnscriptedVN/core/commit/3eac40b94127e378c340f35d433ba7af36e44a8b), Unscripted supports the creation and usage of themes which manage the overall look of the game and its interface. Themes are defined as a directory with a manifest and subdirectories of image files that contain the interface elements.
+Unscripted supports the creation and usage of themes which manage the overall look of the game and its interface. Themes are defined as a directory with a manifest and subdirectories of image files that contain the interface elements.
 
 ![Ayu Dark Blue theme](https://user-images.githubusercontent.com/13445064/83585115-fe262e00-a516-11ea-90d8-7c80eaad378a.png)
 

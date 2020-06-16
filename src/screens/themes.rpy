@@ -72,6 +72,11 @@ init -100 python:
             return self._syntax_colors
 
         def checkboxes(self):
+            """Get the paths for the theme's checkbox styles.
+
+            Returns:
+                checks (ThemeCheckbox): The theme's checkbox enumeration.
+            """
             bg = path.join(*self.path + ["checkboxes", self.name + "_[prefix_]background.png"])
             fg = path.join(*self.path + ["checkboxes", self.name + "_[prefix_]foreground.png"])
             return Enum("ThemeCheckbox",
@@ -81,6 +86,11 @@ init -100 python:
                         })
 
         def radios(self):
+            """Get the paths for the theme's radio styles.
+
+            Returns:
+                radios (ThemeRadio): The theme's radio enumeration.
+            """
             bg = path.join(*self.path + ["radios", self.name + "_[prefix_]background.png"])
             fg = path.join(*self.path + ["radios", self.name + "_[prefix_]foreground.png"])
             return Enum("ThemeRadio",
@@ -90,12 +100,27 @@ init -100 python:
                         })
 
         def buttons(self):
+            """Get the path for the theme's button styles.
+
+            Returns:
+                buttons (str): The path to the button images.
+            """
             return path.join(*self.path + ["buttons", self.name + "_[prefix_]background.png"])
 
         def tabs(self):
+            """Get the path for the theme's tab group styles.
+
+            Returns:
+                tabs (str): The path to the tab group images.
+            """
             return path.join(*self.path + ["tabs", self.name + "_[prefix_]background.png"])
 
         def bars(self):
+            """Get the paths for the theme's bar styles.
+
+            Returns:
+                bars (ThemeBars): The theme's bars enumeration.
+            """
             top = path.join(*self.path + ["bars", self.name + "_top.png"])
             left = path.join(*self.path + ["bars", self.name + "_left.png"])
             right = path.join(*self.path + ["bars", self.name + "_right.png"])
@@ -110,6 +135,11 @@ init -100 python:
                         })
 
         def scrollbars(self):
+            """Get the paths for the theme's scrollbar styles.
+
+            Returns:
+                scrollbars (ThemeScrollbars): The theme's scrollbars enumeration.
+            """
             horiz = path.join(*self.path + ["scrollers",
                                                 self.name + "_horizontal_[prefix_]bar.png"])
             verti = path.join(*self.path + ["scrollers", self.name + "_vertical_[prefix_]bar.png"])
@@ -126,6 +156,11 @@ init -100 python:
                         })
 
         def sliders(self):
+            """Get the paths for the theme's slider styles.
+
+            Returns:
+                sliders (ThemeSliders): The theme's scrollbars enumeration.
+            """
             horiz = path.join(*self.path + ["sliders", self.name + "_horizontal_[prefix_]bar.png"])
             verti = path.join(*self.path + ["sliders", self.name + "_vertical_[prefix_]bar.png"])
             h_thumb = path.join(*self.path + ["sliders",
@@ -141,6 +176,11 @@ init -100 python:
                         })
 
         def frames(self):
+            """Get the paths for the theme's frame styles.
+
+            Returns:
+                frames (ThemeFrame): The theme's frame enumeration.
+            """
             basic = path.join(*self.path + ["frames", self.name + "_basic.png"])
             toast = path.join(*self.path + ["frames", self.name + "_toast.png"])
             narrative = path.join(*self.path + ["frames", self.name + "_narrative.png"])
@@ -157,6 +197,11 @@ init -100 python:
                         })
 
         def overlays(self):
+            """Get the paths for the theme's overlay styles.
+
+            Returns:
+                overlays (overlay): The theme's overlay enumeration.
+            """
             confirm = path.join(*self.path + ["overlays", self.name + "_confirm.png"])
             main = path.join(*self.path + ["overlays", self.name + "_main_menu.png"])
             game = path.join(*self.path + ["overlays", self.name + "_game_menu.png"])
