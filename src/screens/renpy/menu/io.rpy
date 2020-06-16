@@ -153,6 +153,7 @@ style page_button_text:
 
 style slot_button:
     properties gui.button_properties("slot_button")
+    background Frame("core/assets/interface/buttons/slot_[prefix_]background.png", gui.slot_button_borders, False)
 
 style slot_button_text:
     properties gui.button_text_properties("slot_button")

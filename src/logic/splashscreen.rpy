@@ -15,7 +15,7 @@ init 1 python:
     if persistent.use_discord and 'discord' in vars():
         discord.connect()
 
-image splash_bg = "gui/randart/2.png"
+image splash_bg = "core/assets/artwork/2.png"
 image splash = "gui/load.png"
 image team = "gui/splash.png"
 

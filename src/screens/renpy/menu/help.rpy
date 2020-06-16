@@ -212,7 +212,7 @@ screen about_help():
         text "[_fv]"
     hbox:
         label "AliceOS Version"
-        text "[AS_SYS_INFO[COMMON_NAME]] ([AS_SYS_INFO[VERSION]]) [AS_SYS_INFO[BUILD_ID]]"
+        text "[AS_SYS_INFO[VERSION]] ([AS_SYS_INFO[COMMON_NAME]], [AS_SYS_INFO[BUILD_ID]]) "
     hbox:
         $ _rv = renpy.version().replace("Ren'Py", "")
         label "Ren'Py Version"

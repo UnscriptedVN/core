@@ -1,14 +1,14 @@
-# 
+#
 # dreams.rpy
 # Unscripted
-# 
+#
 # Created by Marquis Kurt on 01/03/20.
 # Copyright © 2020 Marquis Kurt. All rights reserved.
-# 
+#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
+#
 
 init 10 python:
     def get_dreams():
@@ -52,7 +52,7 @@ screen dream_slots():
             spacing gui.slot_spacing
 
             if dreams_list:
-            
+
                 for dream in dreams_list:
 
                     python:
@@ -68,7 +68,7 @@ screen dream_slots():
                             action NullAction()
 
                         has vbox
-                        
+
                         if dream:
                             add "gui/dreams/%s.png" % (dream_file,) xalign 0.5
                         else:
@@ -103,7 +103,7 @@ screen dream_slots():
 
 style dream_slot_button is slot_button:
     properties gui.button_properties("slot_button")
-    background "gui/button/dream_slot_idle_background.png"
+    background "core/assets/interface/buttons/dream_slot_idle_background.png"
 
 style dream_title is gui_label
 style dream_title_text is gui_label_text:

@@ -100,8 +100,8 @@ define gui.title_text_size = 50
 ## MARK: Main and Game Menus
 
 ## The images used for the main and game menus.
-define gui.main_menu_background = "gui/randart/2.png"
-define gui.game_menu_background = "gui/randart/3.png"
+define gui.main_menu_background = "core/assets/artwork/2.png"
+define gui.game_menu_background = "core/assets/artwork/3.png"
 
 ## Should we show the name and version of the game?
 define gui.show_name = True

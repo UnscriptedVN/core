@@ -278,9 +278,9 @@ screen minigame_settings():
                             style "pref_text"
                     null height 2
                     if persistent.mg_adv_mode:
-                        add "assets/gui/previews/mg_advanced.png"
+                        add "core/assets/interface/previews/mg_advanced.png"
                     else:
-                        add "assets/gui/previews/mg_basic.png"
+                        add "core/assets/interface/previews/mg_basic.png"
 
         vbox:
             label "Preview Animation Speed"
