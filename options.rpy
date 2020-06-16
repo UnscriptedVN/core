@@ -73,7 +73,7 @@ define config.save_directory = "net.marquiskurt.unscripted"
 # GUI Information
 define gui.show_name = True
 define gui.about = _("")
-define config.window_icon = wicon or "core/assets/iconset/window_icon.png"
+define config.window_icon = wicon or "core/core.png"
 
 # Volume configurations
 define config.has_sound = True

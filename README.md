@@ -1,28 +1,39 @@
 <div align="center">
-   <img src="core.png" width="128px" alt="Unscripted Core logo"/>
-   <h1>Unscripted Core</h1>
-   <p>The core module for Unscripted, a visual novel about software development.</p>
-</div>
+   <img src="core.png" width="176px" alt="Unscripted Core logo"/>
+
+# Unscripted Core
+
+The core module for [Unscripted][uvn], a visual novel about software development.
 
 [![Ren'Py 7.3.5][renpy]](https://renpy.org)
-[![MPL](https://img.shields.io/github/license/UnscriptedVN/core)](LICENSE.txt)
-![CI](https://github.com/UnscriptedVN/core/workflows/CI/badge.svg?event=push)
+[![MPL][mozilla]](LICENSE.txt)
+![CI][ci]
+
+</div>
 
 ## What is Unscripted Core?
 
 Unscripted Core contains the source code for most, if not all, of the logic for the game. This logic includes, but is not limited to:
 
 - User interface controls, themes, and splash screens
-- Credits sequencing
+- Credits sequencing, lexer, and display mechanism
 - Definitions for images and audio
-- Minigame frontend logic (not covered by [Fira](https://github.com/UnscriptedVN/fira))
+- Minigame frontend logic not covered by [Fira][fira]
 - Open-sourced assets such as images and audio
 - Classes and logic for player data
 - Logic for build configurations
 
+## Why is Unscripted Core open-source?
+
+> I anticipate that some players and developers may want to better understand how I do some things in Unscripted or may want to contribute to the project to catch any bugs. I want to make Unscripted a place to go to learn new things and try out what's available with Python and Ren'Py just like how I did when making mods for DDLC, so I've decided that I will be open-sourcing some core utilities and modules inside of the game itself known as the Unscripted Core.
+
+\- [Captain's Devlog: May-June 2020][devlog]
+
 ## Getting started
 
 To get started, clone this repository into a Ren'Py project or Unscripted mod in the `core` folder. The files will automatically be compiled with Unscripted.
+
+> :warning: Unscripted Core is still under heavy development and the overall structure/inner workings of the project will change over time.
 
 ### Installing dependencies
 
@@ -34,9 +45,11 @@ To install these dependencies, run the following\*:
 pip install -r path/to/core/requirements.txt --target game/python-packages
 ```
 
-> \*Note: Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages be Python 2-compatible. Run the pip command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
+> \*Unscripted is currently built with Ren'Py 7.3.5, which requires that these packages be Python 2-compatible. Run the `pip` command in a Python 2 environment, either from your system or the provided Python environment in Ren'Py.
 
-## Documentation Links
+## Documentation
+
+The following links contain documentation on core aspects of the Unscripted Core.
 
 - [Build Configuration](docs/build.md)
 - [Arguments File](docs/arguments.md)
@@ -44,29 +57,25 @@ pip install -r path/to/core/requirements.txt --target game/python-packages
 
 ## License
 
-Unscripted Core is licensed under the Mozilla Public License, v2.0, as stated in Section II, Subsection 1 of the game license:
+The source code and assets in this repository are licensed under the Mozilla Public License v2.0. More information on how this code is licensed can be found in the game's license.
 
-> 1. The source code to the Unscripted Core shall hereby be licensed under the Mozilla Public License 2.0 (MPL). The license should be provided with the game in MPL.txt.
->
->    a. Likewise, mods that modify the existing game files must be held under the same license and the source code must be made available with distribution.
->
->    b. Mods must retain the copyright notice and license as provided in Unscripted.
+Unscripted Core is made possible with the following open-source software:
 
-### Why are some assets not included?
+- Inter, Lexend, JetBrains Mono (fonts): SIL Open Font License, Apache 2.0 License
+- Discord RPC: Mozilla Public License
+- AliceOS: BSD-2-Clause License
+- Ren'Py: MIT, Lesser GPL License
+- Ring UI (Interface design inspiration): Apache 2.0 License
+- Feather Icons: MIT License
+- Minetest: MIT License
+- Ayu color scheme: MIT License
 
-Assets that are not to essential to Unscripted Core, as defined in the game license, are not held under the same license and must be treated differently:
-
-> 7. Only the source code files and assets associated with the Unscripted Core shall be distributed
->    on a given repository or project as outlined in the Mozilla Public License and Subsection 1.
->
->    a. Likewise, the Unscripted Story, image assets and background music must not be bundled
->    with the Unscripted Core as outlined in Subsections 3, 4, and 5, unless given explicit,
->    written permission from The Team.
->
->    i. If permission has been granted to bundle the aforementioned assets, the written
->    notice must be attached to the project and clearly labeled.
-
-<!--Images-->
+<!--Images and links-->
 
 [renpy]: https://img.shields.io/badge/renpy-7.3.5-orange.svg
 [license]: https://img.shields.io/badge/license-MPLv2-green.svg?logo=mozilla
+[fira]: https://github.com/UnscriptedVN/fira
+[uvn]: https://unscripted.marquiskurt.net
+[ci]: https://github.com/UnscriptedVN/core/workflows/CI/badge.svg?event=push
+[mozilla]: https://img.shields.io/github/license/UnscriptedVN/core
+[devlog]: https://unscripted.marquiskurt.net/posts/2020/06/15/captains-devlog-may-june-2020/
