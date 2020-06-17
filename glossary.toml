@@ -22,4 +22,5 @@ kanban_board = "A program that represents a board with columns that track differ
 nginx = "Web server software (pronounced \"Engine X\")."
 pull_request = "In Git, a request to add changes from one codebase or repository to another."
 type_foundry = "A company that sells typefaces."
+typeScript = "A superset of the JavaScript language that adds static type checking and other safety features."
 virtual_machine = "An emulation of a computer system."

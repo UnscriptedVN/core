@@ -20,7 +20,8 @@ init -1 python:
     if renpy.loadable("core/glossary.toml"):
         with renpy.file("core/glossary.toml") as gloss:
             glossary = toml.load(gloss)["game"]["dictionary"]
-        logging.info("Glossary from glossary file updated.")
+        logging.info("Glossary from glossary file updated with %s terms.",
+                     len(glossary))
     else:
         logging.warn("Glossary file couldn't be loaded.")
 
@@ -169,7 +170,7 @@ screen glossary_help():
             _wd = word.replace("_", " ")
             _definition = glossary[word]
         hbox:
-            label "[_wd!cl]"
+            label "[_wd!c]"
             text "[_definition]"
 
 screen license_help():
