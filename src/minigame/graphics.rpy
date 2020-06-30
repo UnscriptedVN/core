@@ -22,24 +22,44 @@ image mg_exit = MG_CONFIG["assets_path"] + "exit.png"
 image mg_coin = MG_CONFIG["assets_path"] + "coin.png"
 image mg_air = "#00000000"
 
-image mg_player:
+# image mg_player:
+#     block:
+#         MG_CONFIG["assets_path"] + "player_idle_1.png"
+#         pause 0.5
+#         MG_CONFIG["assets_path"] + "player_idle_2.png"
+#         pause 0.5
+#         repeat
+
+image mg_player = MG_CONFIG["assets_path"] + "sprite/idle.png"
+
+image mg_player_move:
     block:
-        MG_CONFIG["assets_path"] + "player_idle_1.png"
+        MG_CONFIG["assets_path"] + "sprite/walk1.png"
         pause 0.5
-        MG_CONFIG["assets_path"] + "player_idle_2.png"
+        MG_CONFIG["assets_path"] + "sprite/walk2.png"
         pause 0.5
-        repeat
+        "mg_player"
+
+image mg_player_confused:
+    block:
+        MG_CONFIG["assets_path"] + "sprite/confused1.png"
+        pause 0.5
+        MG_CONFIG["assets_path"] + "sprite/confused2.png"
+        pause 0.5
+        "mg_player"
+
 image mg_player_cry:
     block:
-        MG_CONFIG["assets_path"] + "player_cry_1.png"
+        MG_CONFIG["assets_path"] + "sprite/cry1.png"
         pause 0.5
-        MG_CONFIG["assets_path"] + "player_cry_2.png"
+        MG_CONFIG["assets_path"] + "sprite/cry2.png"
         pause 0.5
         repeat
+
 image mg_player_happy:
     block:
-        MG_CONFIG["assets_path"] + "player_happy_1.png"
+        MG_CONFIG["assets_path"] + "sprite/smile1.png"
         pause 0.5
-        MG_CONFIG["assets_path"] + "player_happy_2.png"
+        MG_CONFIG["assets_path"] + "sprite/smile2.png"
         pause 0.5
         repeat

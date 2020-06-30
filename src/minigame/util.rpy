@@ -41,13 +41,13 @@ init python:
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
         if lvl == 0:
-            adv_msg = "Write some code, either using the Fira API or another tool, to help Masti"\
+            adv_msg = "Write some code, either using the Fira API or another tool, to help Mia"\
             + " get to the exit and collect all of the coins!"
-            bas_msg = "Click on the command buttons to help Masti get to the exit and collect all"\
+            bas_msg = "Click on the command buttons to help Mia get to the exit and collect all"\
             + " of the coins! For an extra challenge, try the Advanced Mode!"
 
             renpy.call_screen("ASNotificationAlert",
-                              "Let's help Masti!",
+                              "Let's help Mia!",
                               adv_msg if persistent.mg_adv_mode else bas_msg)
         try:
             renpy.invoke_in_new_context(__puzzle.run)

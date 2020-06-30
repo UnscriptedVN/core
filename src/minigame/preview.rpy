@@ -94,14 +94,22 @@ label mg_preview(vm, world):
                 if current_instruction == "move":
                     mg_player_pos = vx, vy = vm.get_position()
 
+                    # Display a confused animation if the player is in an invalid position.
                     if vx > mg_rows - 1 or vy > mg_columns - 1 \
                         or world.data.to_grid().element_at(vx, vy) == "WALL":
+                        logging.warn("Position %s is not valid. Skipping move command.",
+                                     mg_player_pos)
+                        renpy.show("mg_player_confused",
+                                   at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                   tag="player",
+                                   zorder=3)
+                        renpy.pause(1.5 * persistent.mg_speed, hard=True)
                         continue
 
                     logging.info("New position set: %s", mg_player_pos)
                     mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
                     mg_preview_player_pos = mg_player_x, mg_player_y
-                    renpy.show("mg_player",
+                    renpy.show("mg_player_move",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
                             zorder=3)

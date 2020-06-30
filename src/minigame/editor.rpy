@@ -47,7 +47,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                 style "mg_editor_toolbar"
 
                 hbox:
-                    add MG_CONFIG["assets_path"] + "player_idle_1.png":
+                    add MG_CONFIG["assets_path"] + "sprite/idle.png":
                         size 44, 44
                     vbox:
                         text "[config.title] (Level [lvl])"
@@ -182,7 +182,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                                     add "mg_coin":
                                         size (tile_size, tile_size)
                                 elif element == "PLAYER":
-                                    add MG_CONFIG["assets_path"] + "player_idle_1.png":
+                                    add MG_CONFIG["assets_path"] + "sprite/idle.png":
                                         size (tile_size, tile_size)
                                 else:
                                     null width tile_size
@@ -212,5 +212,3 @@ screen mg_editor(config, vm_writer, lvl=0):
                                             text "[ins]"
         null height 16
         null height 16
-
-
