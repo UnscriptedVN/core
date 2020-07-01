@@ -158,3 +158,27 @@ init python:
             and not ins.startswith("push") \
             and not ins.startswith("pop") \
             and not ins.startswith("set")
+
+    def stairway_type(matrix, exit_location):
+        """Determine what orientation the exit stairway should be.
+
+        Args:
+            matrix (list): The matrix containing all walls
+            exit_location: The location of the exit
+
+        Returns:
+            cardinal (str): String containing the direction the stairs should be.
+        """
+        ex, ey = exit_location
+
+        radius = [(ex, ey - 1), (ex + 1, ey), (ex, ey + 1), (ex - 1, ey)]
+        walls = tuple([cardinal in matrix for cardinal in radius])
+
+        options = {
+            (True, True, False, True): "west",
+            (True, True, True, False): "south",
+            (False, True, True, True): "east",
+            (True, False, True, True): "north"
+        }
+
+        return options.get(walls, "north")

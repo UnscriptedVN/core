@@ -14,25 +14,51 @@ init offset = 10
 
 image mg_bg = "#212121"
 image mg_bg_alt = "#000909"
-image mg_floor = MG_CONFIG["assets_path"] + "floor.png"
-image mg_floor_alt = MG_CONFIG["assets_path"] + "floor_alt.png"
-image mg_wall_full = MG_CONFIG["assets_path"] + "wall_full.png"
-image mg_wall = MG_CONFIG["assets_path"] + "wall.png"
-image mg_exit = MG_CONFIG["assets_path"] + "exit.png"
-image mg_coin = MG_CONFIG["assets_path"] + "coin.png"
+
+image mg_floor:
+    MG_CONFIG["assets_path"] + "/tilemap/floor.png"
+    nearest True
+
+image mg_floor_alt:
+    MG_CONFIG["assets_path"] + "/tilemap/floor.png"
+    nearest True
+
+image mg_wall_full:
+    MG_CONFIG["assets_path"] + "tilemap/wall_top.png"
+    nearest True
+
+image mg_wall:
+    MG_CONFIG["assets_path"] + "tilemap/wall_side.png"
+    nearest True
+
+image mg_exit_n:
+    MG_CONFIG["assets_path"] + "tilemap/exit_stairway_north.png"
+    nearest True
+
+image mg_exit_e:
+    MG_CONFIG["assets_path"] + "tilemap/exit_stairway_east.png"
+    nearest True
+
+image mg_exit_w:
+    MG_CONFIG["assets_path"] + "tilemap/exit_stairway_west.png"
+    nearest True
+
+image mg_exit_s:
+    MG_CONFIG["assets_path"] + "tilemap/exit_stairway_south.png"
+    nearest True
+
+image mg_coin:
+    MG_CONFIG["assets_path"] + "coin.png"
+    nearest True
+
 image mg_air = "#00000000"
 
-# image mg_player:
-#     block:
-#         MG_CONFIG["assets_path"] + "player_idle_1.png"
-#         pause 0.5
-#         MG_CONFIG["assets_path"] + "player_idle_2.png"
-#         pause 0.5
-#         repeat
-
-image mg_player = MG_CONFIG["assets_path"] + "sprite/idle.png"
+image mg_player:
+    MG_CONFIG["assets_path"] + "sprite/idle.png"
+    nearest True
 
 image mg_player_move:
+    nearest True
     block:
         MG_CONFIG["assets_path"] + "sprite/walk1.png"
         pause 0.5
@@ -41,6 +67,7 @@ image mg_player_move:
         "mg_player"
 
 image mg_player_confused:
+    nearest True
     block:
         MG_CONFIG["assets_path"] + "sprite/confused1.png"
         pause 0.5
@@ -49,6 +76,7 @@ image mg_player_confused:
         "mg_player"
 
 image mg_player_cry:
+    nearest True
     block:
         MG_CONFIG["assets_path"] + "sprite/cry1.png"
         pause 0.5
@@ -57,6 +85,7 @@ image mg_player_cry:
         repeat
 
 image mg_player_happy:
+    nearest True
     block:
         MG_CONFIG["assets_path"] + "sprite/smile1.png"
         pause 0.5

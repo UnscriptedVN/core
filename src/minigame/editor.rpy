@@ -20,8 +20,10 @@ screen mg_editor(config, vm_writer, lvl=0):
 
     default grid = config.data.to_grid()
     default player_position = grid.first("PLAYER")
+    default exit_position = grid.first("EXIT")
     default var_ppos = grid.first("PLAYER")
     default world_matrix = grid.grid
+    default walls = config.data.walls().as_list()
     default tile_size = MG_CONFIG["tile_size"]
     default dimensions = config.data.size()
     default code = vm_writer.instructions
@@ -47,7 +49,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                 style "mg_editor_toolbar"
 
                 hbox:
-                    add MG_CONFIG["assets_path"] + "sprite/idle.png":
+                    add "mg_player":
                         size 44, 44
                     vbox:
                         text "[config.title] (Level [lvl])"
@@ -176,13 +178,14 @@ screen mg_editor(config, vm_writer, lvl=0):
                                         add "mg_wall":
                                             size (tile_size, tile_size)
                                 elif element == "EXIT":
-                                    add "mg_exit":
+                                    $ _direction = stairway_type(walls, exit_position)[0]
+                                    add "mg_exit_[_direction]":
                                         size (tile_size, tile_size)
                                 elif element == "COIN":
                                     add "mg_coin":
                                         size (tile_size, tile_size)
                                 elif element == "PLAYER":
-                                    add MG_CONFIG["assets_path"] + "sprite/idle.png":
+                                    add "mg_player":
                                         size (tile_size, tile_size)
                                 else:
                                     null width tile_size

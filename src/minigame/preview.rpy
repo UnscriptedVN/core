@@ -73,7 +73,10 @@ label mg_preview(vm, world):
                 if element == "PLAYER":
                     mg_player_pos = img_xpos, img_ypos
 
-                curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" % (element, _r, _c)
+                if element == "EXIT":
+                    img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
+                curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" \
+                                        % (element, _r, _c)
                 renpy.show(img_name,
                            at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
                            tag=curr_tag,
