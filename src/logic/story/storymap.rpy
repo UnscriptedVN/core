@@ -19,18 +19,22 @@ init -10 python:
             the current route of the game, etc.
 
         Attributes:
-            game_type (str): The type of game being created
+            game_type (str): The type of game being created. This is a read-only value to ensure
+                backwards compatibility with older versions of the game that require this field.
             language (str): The language the game will be written in
             route (str): The route the player is currently on
             choices (dict): The different choices made in a given route
-            emails (dict): The emails send in a given run and whether the player has checked them
+            emails (dict): The emails sent in a given run and whether the player has checked them
         """
 
-        game_type = "platformer"
         language = "Python"
         route = ""
         choices = { }
         emails = { }
+
+        @property
+        def game_type(self):
+            return "puzzle"
 
         def update_email(self, email_number, checked=False):
             """Record whether or not the player has checked an email with a give number.
