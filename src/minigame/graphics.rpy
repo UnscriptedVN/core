@@ -47,8 +47,12 @@ image mg_exit_s:
     MG_CONFIG["assets_path"] + "tilemap/exit_stairway_south.png"
     nearest True
 
-image mg_coin:
-    MG_CONFIG["assets_path"] + "coin.png"
+image mg_device_off:
+    MG_CONFIG["assets_path"] + "elements/device_off.png"
+    nearest True
+
+image mg_device_on:
+    MG_CONFIG["assets_path"] + "elements/device_on.png"
     nearest True
 
 image mg_air = "#00000000"

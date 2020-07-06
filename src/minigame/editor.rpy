@@ -182,7 +182,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                                     add "mg_exit_[_direction]":
                                         size (tile_size, tile_size)
                                 elif element == "COIN":
-                                    add "mg_coin":
+                                    add "mg_device_off":
                                         size (tile_size, tile_size)
                                 elif element == "PLAYER":
                                     add "mg_player":
