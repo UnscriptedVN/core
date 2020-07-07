@@ -52,7 +52,12 @@ image mg_device_off:
     nearest True
 
 image mg_device_on:
-    MG_CONFIG["assets_path"] + "elements/device_on.png"
+    choice:
+        MG_CONFIG["assets_path"] + "elements/device_on.png"
+    choice:
+        MG_CONFIG["assets_path"] + "elements/device_on2.png"
+    choice:
+        MG_CONFIG["assets_path"] + "elements/device_on3.png"
     nearest True
 
 image mg_air = "#00000000"
