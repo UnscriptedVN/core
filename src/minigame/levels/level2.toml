@@ -1,7 +1,7 @@
 [level.config]
 name = "Around the Bend"
 allowed_blocks = ["move", "collect", "exit"]
-check = ["player-collects-all", "player-at-exit"]
+check = ["player-powers-all-devices", "player-at-exit"]
 
 [level.map]
 layout = """

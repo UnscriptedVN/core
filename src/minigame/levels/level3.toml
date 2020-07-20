@@ -1,7 +1,7 @@
 [level.config]
 name = "Again and Again"
 allowed_blocks = ["move", "collect", "define", "exit"]
-check = ["player-collects-all", "player-at-exit"]
+check = ["player-powers-all-devices", "player-at-exit"]
 
 [level.map]
 layout = """

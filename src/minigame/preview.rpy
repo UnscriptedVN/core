@@ -136,9 +136,13 @@ label mg_preview(vm, world):
                             mg_player_pos,
                             mg_exit_pos)
             mg_return_code = 1
-        if "player-collects-all" in world.checks and len(
+        if ("player-collects-all" in world.checks or
+            "player-powers-all-devices" in world.checks) and len(
                 list(filter(lambda a: a is not None, vm.get_namespace("world_coins")))
             ) > 0:
+            if "player-collects-all" in world.checks:
+                logging.warning("Check player-collects-all is deprecated. Use %s instead.",
+                                "player-powers-all-devices")
             logging.warning("Check player-collects-all failed: %s (world coins) vs. %s (inventory)",
                             vm.get_namespace("world_coins"),
                             vm.get_namespace("inventory"))

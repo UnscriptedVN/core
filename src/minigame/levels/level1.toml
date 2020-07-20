@@ -1,7 +1,7 @@
 [level.config]
 name = "An Unusual Office"
 allowed_blocks = ["move", "collect", "exit"]
-check = ["player-at-exit", "player-collects-all"]
+check = ["player-at-exit", "player-powers-all-devices"]
 
 [level.map]
 layout = """
