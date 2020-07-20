@@ -82,6 +82,7 @@ label mg_preview(vm, world):
                            tag=curr_tag,
                            zorder=3 if element == "PLAYER" else 2)
 
+        renpy.show("mg_overlay", zorder=10)
         # Pause before starting the VM execution.
         renpy.pause(1.5, hard=True)
 

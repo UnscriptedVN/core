@@ -1,14 +1,14 @@
 [level.config]
-name = "Labryinth"
-allowed_blocks = ["move", "exit"]
-check = ["player-at-exit"]
+name = "An Unusual Office"
+allowed_blocks = ["move", "collect", "exit"]
+check = ["player-at-exit", "player-collects-all"]
 
 [level.map]
 layout = """
 %%%%%%%%%%
-%       P%
+%.      P%
 % %%%%%%%%
-% %    %E%
-%   %%   %
+% %.   %E%
+%.  %%   %
 %%%%%%%%%%
 """

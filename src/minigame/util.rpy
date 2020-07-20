@@ -41,7 +41,7 @@ init python:
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
         if lvl == 0:
-            msg = "Mia needs help getting her office running again. Navigate around the world and "
+            msg = "Mia needs help getting her office running again. Navigate around the world and "\
             + "turn on all of the desktop computers to help her!"
             renpy.call_screen("ASNotificationAlert",
                               "Let's help Mia!",

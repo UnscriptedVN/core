@@ -15,6 +15,8 @@ init offset = 10
 image mg_bg = "#212121"
 image mg_bg_alt = "#000909"
 
+image mg_overlay = "#1c0b190D"
+
 image mg_floor:
     MG_CONFIG["assets_path"] + "/tilemap/floor.png"
     nearest True
