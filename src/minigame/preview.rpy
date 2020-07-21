@@ -46,7 +46,7 @@ label mg_preview(vm, world):
         import logging
         element_image_names = {
             "WALL": "mg_wall",
-            "COIN": "mg_device_off",
+            "DESK": "mg_device_off",
             "EXIT": "mg_exit",
             "PLAYER": "mg_player"
         }
@@ -121,10 +121,10 @@ label mg_preview(vm, world):
                 # Turn on the device if available.
                 elif current_instruction == "collect":
                     img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
-                    renpy.hide("matrix_COIN_%s_%s" % (vm.get_position()))
+                    renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
                     renpy.show("mg_device_on",
                                at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
-                               tag="matrix_COIN_%s_%s" % (vm.get_position()))
+                               tag="matrix_DESK_%s_%s" % (vm.get_position()))
                 else:
                     pass
 

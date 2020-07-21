@@ -181,7 +181,7 @@ screen mg_editor(config, vm_writer, lvl=0):
                                     $ _direction = stairway_type(walls, exit_position)[0]
                                     add "mg_exit_[_direction]":
                                         size (tile_size, tile_size)
-                                elif element == "COIN":
+                                elif element == "DESK":
                                     add "mg_device_off":
                                         size (tile_size, tile_size)
                                 elif element == "PLAYER":

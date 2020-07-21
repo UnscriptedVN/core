@@ -173,9 +173,9 @@ init python:
 
         options = {
             (True, True, False, True): "west",
-            (True, True, True, False): "south",
+            (True, True, True, False): "north",
             (False, True, True, True): "east",
-            (True, False, True, True): "north"
+            (True, False, True, True): "south"
         }
 
         return options.get(walls, "north")
