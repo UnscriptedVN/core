@@ -71,7 +71,7 @@ label mg_preview(vm, world):
                     img_name += "_full"
 
                 if element == "PLAYER":
-                    mg_player_pos = img_xpos, img_ypos
+                    mg_preview_player_pos = img_xpos, img_ypos
 
                 if element == "EXIT":
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]

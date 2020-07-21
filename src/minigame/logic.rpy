@@ -130,38 +130,49 @@ init 10 python:
             solved = False
             show_editor = True
             attempted_existing_vm = False
+            classic_mode = False
 
-            if not persistent.mg_vm_force_editor and not attempted_existing_vm:
-                if not os.path.isfile(self.vm_path):
-                    logging.warning("Cannot load requested VM file. Calling editor...")
-                else:
-                    show_editor = False
-                    logging.info("Reading from existing VM code at %s.", self.vm_path)
+            if "use-classic-mode" in arguments and arguments["use-classic-mode"]:
+                logging.info("Classic mode requested in arguments. Using instead...")
+                classic_mode = True
 
-            while not solved:
-                if show_editor:
-                    logging.info("Calling code editor for level %s...", self.level)
-                    if persistent.mg_adv_mode:
-                        self._compile_advanced()
+            if not persistent.mg_adv_mode and not classic_mode:
+                self.vm = CSNadiaVM(path=self.vm_path,
+                                    player_origin=self.map.data.to_grid().first("PLAYER"),
+                                    is_interactive=True)
+                renpy.call_in_new_context("mg_interactive_experience", self.vm, self.map)
+            else:
+                if not persistent.mg_vm_force_editor and not attempted_existing_vm:
+                    if not os.path.isfile(self.vm_path):
+                        logging.warning("Cannot load requested VM file. Calling editor...")
                     else:
-                        self._compile_basic()
+                        show_editor = False
+                        logging.info("Reading from existing VM code at %s.", self.vm_path)
 
-                if "vm" not in self.__dict__:
-                    logging.error("VM was not initialized. Returning out this run...")
-                    break
+                while not solved:
+                    if show_editor:
+                        logging.info("Calling code editor for level %s...", self.level)
+                        if persistent.mg_adv_mode:
+                            self._compile_advanced()
+                        else:
+                            self._compile_basic()
 
-                logging.info("Starting preview...")
-                self._preview()
+                    if "vm" not in self.__dict__:
+                        logging.error("VM was not initialized. Returning out this run...")
+                        break
 
-                if mg_return_code != 0:
-                    renpy.call_screen("ASNotificationAlert",
-                                    "Uh oh!",
-                                    "It looks like you didn't reach the goal. Try again!")
-                    if not persistent.mg_vm_force_editor and not attempted_existing_vm:
-                        logging.warning("Existing VM file failed to solve the level. Switching to editor...")
-                        renpy.notify("The editor has been opened because the compiled VM code didn't work.")
-                        attempted_existing_vm = True
-                        show_editor = True
-                else:
-                    solved = True
-                    logging.info("Minigame level succeeded.")
+                    logging.info("Starting preview...")
+                    self._preview()
+
+                    if mg_return_code != 0:
+                        renpy.call_screen("ASNotificationAlert",
+                                        "Uh oh!",
+                                        "It looks like you didn't reach the goal. Try again!")
+                        if not persistent.mg_vm_force_editor and not attempted_existing_vm:
+                            logging.warning("Existing VM file failed to solve the level. Switching to editor...")
+                            renpy.notify("The editor has been opened because the compiled VM code didn't work.")
+                            attempted_existing_vm = True
+                            show_editor = True
+                    else:
+                        solved = True
+                        logging.info("Minigame level succeeded.")
