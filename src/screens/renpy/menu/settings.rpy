@@ -271,14 +271,20 @@ screen minigame_settings():
                     vbox:
                         style_prefix "radio"
                         textbutton "Basic mode" action SetField(persistent, "mg_adv_mode", False)
-                        text "Basic mode uses a GUI with buttons to solve puzzles. The GUI compiles the NadiaVM code for you.":
-                            style "pref_text"
+                        if "mg-classic-mode" in arguments:
+                            text "Basic mode uses a GUI with buttons to solve puzzles. The GUI compiles the NadiaVM code for you.":
+                                style "pref_text"
+                        else:
+                            text "Basic mode lets you type NadiaVM commands into an interpreter to solve puzzles. No code is compiled and happens in real time.":
+                                style "pref_text"
                         textbutton "Advanced mode" action SetField(persistent, "mg_adv_mode", True)
                         text "Advanced mode lets you write code to solve puzzles, either using the {a=https://fira.marquiskurt.net}Fira API{/a} and Python or another tool and NadiaVM.":
                             style "pref_text"
                     null height 2
                     if persistent.mg_adv_mode:
                         add "core/assets/interface/previews/mg_advanced.png"
+                    elif "mg-classic-mode" in arguments:
+                        add "core/assets/interface/previews/mg_classic.png"
                     else:
                         add "core/assets/interface/previews/mg_basic.png"
 
@@ -293,19 +299,23 @@ screen minigame_settings():
                 textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
                 textbutton "Warp Speed (~10x)" action SetField(persistent, "mg_speed", 0.1)
 
-        vbox:
-            style_prefix "check"
-            label "Basic Editor"
+        if "mg-classic-mode" in arguments:
             vbox:
-                spacing 10
+                style_prefix "check"
+                label "Basic Editor"
                 vbox:
-                    textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
-                    text "Enabling this option will reduce the spacing between commands in the VM preview pane in Basic Mode.":
-                        style "pref_text"
-                vbox:
-                    textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
-                    text "Enabling this option will show all virtual machine commands in the VM preview pane.":
-                        style "pref_text"
+                    spacing 10
+                    vbox:
+                        textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
+                        text "Enabling this option will reduce the spacing between commands in the VM preview pane in Basic Mode.":
+                            style "pref_text"
+                    vbox:
+                        textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
+                        text "Enabling this option will show all virtual machine commands in the VM preview pane.":
+                            style "pref_text"
+        else:
+            vbox:
+                null height 8
 
         vbox:
             label "Advanced"

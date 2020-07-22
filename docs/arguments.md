@@ -19,6 +19,7 @@ The arguments should contain a single dictionary at the root, `args`. The follow
 - `init_dreams`: Whether to initialize the dreams folder in the game files if Dreams are enabled.
 - `disable-minigame`: Whether to disable the minigame and prevent it from running at all.
 - `disable_experiments`: Defines the list of experiments to turn off when running the game. Should be a list of strings that matches the experiments defined in the build configuration.
+- `mg-classic-mode`: Whether to use the classic minigame input mode (button selection) or to use the new input mode
 
 ## Example
 

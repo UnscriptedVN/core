@@ -126,13 +126,16 @@ init 10 python:
             If the "Force Python compiler" option is not turned on, the first iteration will skip
                 the editor by making `show_editor` false. If the first iteration results in a bad
                 solution, `show_editor` will be re-enabled and will run on subsequent runs.
+
+            If the argument "mg-classic-mode" is passed to the game's CLI arguments, the minigame
+                will use the classic editor instead of the REPL-like input method.
             """
             solved = False
             show_editor = True
             attempted_existing_vm = False
             classic_mode = False
 
-            if "use-classic-mode" in arguments and arguments["use-classic-mode"]:
+            if "mg-classic-mode" in arguments and arguments["mg-classic-mode"]:
                 logging.info("Classic mode requested in arguments. Using instead...")
                 classic_mode = True
 
