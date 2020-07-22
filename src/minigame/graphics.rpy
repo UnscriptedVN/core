@@ -53,6 +53,10 @@ image mg_compass:
     MG_CONFIG["assets_path"] + "elements/compass.png"
     nearest True
 
+image mg_beanbag:
+    MG_CONFIG["assets_path"] + "elements/beanbag.png"
+    nearest True
+
 image mg_device_off:
     MG_CONFIG["assets_path"] + "elements/device_off.png"
     nearest True
