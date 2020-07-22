@@ -51,7 +51,6 @@ init -10 python:
 
         def __init__(self):
             """Construct an empty StoryMap."""
-            self.game_type = "platformer"
             self.language = "Python"
             self.route = ""
             self.emails = { }

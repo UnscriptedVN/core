@@ -130,10 +130,11 @@ init -10 python:
         """
         use_light = (mode == "light") if mode else (current_theme().type == ThemeType.LIGHT)
         fname = ("%s.png" if use_light else "%s-dark.png") % (name)
-        if not renpy.loadable(os.path.join("core", "assets", "feather", fname)):
-            logging.error("Icon %s cannot be found or doesn't exist." % (name))
+        fpath = os.path.join("core", "assets", "feather", fname)
+        if not renpy.loadable("core/assets/feather/" + fname):
+            logging.error("Icon %s cannot be found or doesn't exist. (Path: %s)" % (name, fpath))
             raise FeatherAssetError("Icon %s cannot be found or doesn't exist." % (name))
-        return os.path.join("core", "assets", "feather", fname)
+        return "core/assets/feather/" + fname
 
     # MARK: Player name utilities
     def reset_playername():
