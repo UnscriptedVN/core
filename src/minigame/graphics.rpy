@@ -49,6 +49,10 @@ image mg_exit_s:
     MG_CONFIG["assets_path"] + "tilemap/exit_stairway_south.png"
     nearest True
 
+image mg_compass:
+    MG_CONFIG["assets_path"] + "elements/compass.png"
+    nearest True
+
 image mg_device_off:
     MG_CONFIG["assets_path"] + "elements/device_off.png"
     nearest True

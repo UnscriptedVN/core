@@ -21,25 +21,78 @@ init screen mg_interactive_input():
 
     frame:
         xalign 0.5
-        yalign 0.9
+        yalign 1.0
         xsize 600
-        ysize 64
+        ysize 175
 
-        window:
+        vbox:
+            yalign 0.0
+            yfill True
+
+            vbox:
+                style_prefix "mg_inter_help"
+
+                label "Cheat Sheet":
+                    style "mg_inter_label"
+
+                hbox:
+                    label "move player <direction>"
+                    text "Moves Mia in a particular direction."
+                hbox:
+                    label "poweron"
+                    text "Turns on a computer in Mia's position."
+                hbox:
+                    label "<NadiaVM expression>"
+                    text "Evaluates the NadiaVM expression."
+
             hbox:
-                yalign 0.5
+                yalign 1.0
+                spacing 16
+
+                text ">":
+                    style "mg_inter_caret"
                 input default "" length 64 value ScreenVariableInputValue("repl_input")
 
 # Styles for input window.
-style mg_inter_input is input:
+style mg_inter_frame is frame:
+    background Frame(current_theme().colors().BACKGROUND.value + "32", 8, 8, 8, 8, tile=False)
+    margin (0, 0)
+    padding (16, 10)
+
+style mg_inter_text is text:
     font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
-    size 18
+    size 12
     color current_theme().syntaxes().SOURCE_TEXT.value
+
+style mg_inter_label_text is mg_inter_text:
+    font "core/assets/fonts/jb_mono/JetBrainsMono-Bold.ttf"
+    size 14
+    color current_theme().syntaxes().COMMENTS.value
+
+style mg_inter_input is mg_inter_text:
+    size 14
+    color current_theme().syntaxes().SOURCE_TEXT.value
+
+style mg_inter_help_text is mg_inter_text
+
+style mg_inter_help_label_text is mg_inter_label_text:
+    size 12
+    color current_theme().syntaxes().KEYWORDS.value
+
+style mg_inter_caret is mg_inter_help_label_text:
+    color current_theme().syntaxes().NUMBERS.value
+    size 11
 
 style mg_inter_window is window:
     background Frame("#00000015", 8, 8, 8, 8, tile=False)
     padding (8, 8)
     ysize 36
+
+transform compass_transform:
+    xalign 1.0
+    yalign 0.0
+    xoffset -16
+    yoffset 16
 
 # Interactive scene itself. Mostly derives from the preview scene with a few modifications.
 label mg_interactive_experience(vm, world):
@@ -137,6 +190,7 @@ label mg_interactive_experience(vm, world):
                            zorder=3 if element == "PLAYER" else 2)
 
         renpy.show("mg_overlay", zorder=10)
+        renpy.show("mg_compass", at_list=[compass_transform], zorder=11)
         # Pause before starting the VM execution.
         renpy.pause(1.5, hard=True)
 
@@ -147,7 +201,8 @@ label mg_interactive_experience(vm, world):
             current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", current_instruction)
             try:
-                vm.input(_mg_current_command)
+                _ret_stack = vm.input(_mg_current_command)
+                logging.info("VM return stack: %s", _ret_stack)
             except:
                 logging.error("Command %s failed." % (current_instruction))
                 renpy.show("mg_player_confused",
