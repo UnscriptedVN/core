@@ -50,7 +50,7 @@ init python:
             renpy.invoke_in_new_context(__puzzle.run)
         except Exception as err:
             logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
-                          err.message if err.message else "unknown error")
+                          err if err is not None else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
         renpy.hide("mg_bg")

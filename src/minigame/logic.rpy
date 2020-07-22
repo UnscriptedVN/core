@@ -52,6 +52,11 @@ init 10 python:
             self.vm_path = os.path.join(*path)
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
+            if not persistent.mg_adv_mode and "mg-classic-mode" not in arguments:
+                if not renpy.loadable(self.vm_path):
+                    with open(self.vm_path, "w+") as filewrite:
+                        filewrite.write("")
+
             if os.path.isfile(self.vm_path):
                 self.vm = CSNadiaVM(path=self.vm_path,
                                     player_origin=self.map.data.to_grid().first("PLAYER"))

@@ -1,13 +1,13 @@
 [level.config]
-name = "Around the Bend"
+name = "Symmetric"
 allowed_blocks = ["move", "collect", "exit"]
 check = ["player-powers-all-devices", "player-at-exit"]
 
 [level.map]
 layout = """
 %%%%%%%
-%P   .%
-%%%%% %
-%E   .%
+%.%E%.%
+%     %
+%.%P%.%
 %%%%%%%
 """

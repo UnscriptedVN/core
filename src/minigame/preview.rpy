@@ -75,6 +75,14 @@ label mg_preview(vm, world):
 
                 if element == "EXIT":
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
+
+                if element == "AIR":
+                    random_seed = renpy.random.randint(1, 20)
+
+                    if random_seed >= 18:
+                        img_name = "mg_beanbag"
+                        element = "BEANBAG"
+
                 curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" \
                                         % (element, _r, _c)
                 renpy.show(img_name,

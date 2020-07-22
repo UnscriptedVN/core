@@ -1,5 +1,5 @@
 [level.config]
-name = "Again and Again"
+name = "Longer Corridors"
 allowed_blocks = ["move", "collect", "define", "exit"]
 check = ["player-powers-all-devices", "player-at-exit"]
 
