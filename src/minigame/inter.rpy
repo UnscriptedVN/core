@@ -200,6 +200,10 @@ label mg_interactive_experience(vm, world):
             _mg_current_command = renpy.call_screen("mg_interactive_input")
             current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", current_instruction)
+            _mg_binding = vm.get_binding(current_instruction)
+            if _mg_binding:
+                logging.info("Note: %s is a binding of %s.", current_instruction, _mg_binding)
+                current_instruction = _mg_binding
             try:
                 _ret_stack = vm.input(_mg_current_command)
                 logging.info("VM return stack: %s", _ret_stack)
@@ -219,7 +223,7 @@ label mg_interactive_experience(vm, world):
 
             # If the current instruction is a game-related instruction and not a VM management
             # command, play the required animations.
-            if current_instruction not in ["alloc", "set", "push", "pop"]:
+            if current_instruction not in ["alloc", "set", "push", "pop", "bind", "cast"]:
                 mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
 
                 if current_instruction == "move":
