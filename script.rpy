@@ -88,4 +88,3 @@ label start:
                               + " Clicking 'OK' will open the survey in your browser.",
                               onDismissCallback=dismiss_callback)
     return
-
