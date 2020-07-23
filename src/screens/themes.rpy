@@ -238,7 +238,7 @@ init -100 python:
             toast = self.rpath + "/frames/" + self.name + "_toast.png"
             narrative = self.rpath + "/frames/" + self.name + "_narrative.png"
             textbox = self.rpath + "/frames/" + self.name + "_textbox.png"
-            name = self.rpath + "/frames/" + self.name + "_name.png"
+            name = self.rpath + "/frames/" + self.name + "_namebox.png"
 
             return Enum("ThemeFrame",
                         {
