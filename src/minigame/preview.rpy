@@ -77,9 +77,9 @@ label mg_preview(vm, world):
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
 
                 if element == "AIR":
-                    random_seed = renpy.random.randint(1, 20)
+                    random_seed = renpy.random.randint(1, 50)
 
-                    if random_seed >= 18:
+                    if random_seed >= 49:
                         img_name = "mg_beanbag"
                         element = "BEANBAG"
 

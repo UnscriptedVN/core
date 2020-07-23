@@ -59,7 +59,7 @@ init screen mg_interactive_input():
 
 # Styles for input window.
 style mg_inter_frame is frame:
-    background Frame(current_theme().colors().BACKGROUND.value + "32", 8, 8, 8, 8, tile=False)
+    background Frame(current_theme().colors().BACKGROUND.value + "CC", 8, 8, 8, 8, tile=False)
     margin (0, 0)
     padding (16, 10)
 
@@ -192,9 +192,9 @@ label mg_interactive_experience(vm, world):
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
 
                 if element == "AIR":
-                    random_seed = renpy.random.randint(1, 20)
+                    random_seed = renpy.random.randint(1, 50)
 
-                    if random_seed >= 18:
+                    if random_seed >= 49:
                         img_name = "mg_beanbag"
                         element = "BEANBAG"
 
