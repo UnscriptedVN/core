@@ -114,16 +114,6 @@ label mg_interactive_experience(vm, world):
         mg_exit_pos = world.data.to_grid().first("EXIT")
         _mg_current_command = None
 
-        def _player_arrived():
-            """Returns whether the player is at the exit."""
-            return mg_player_pos == mg_exit_pos
-
-        def _player_powered_all():
-            """Returns whether the player has powered on all devices."""
-            is_none = lambda a: a is not None
-            all_devices = list(filter(is_none, vm.get_namespace("world_coins")))
-            return len(all_devices) <= 0
-
         # Add interactive capabilities.
         if not vm.is_interactive:
             logging.warn("VM interactivity was disabled. Adding interactive capabilities to VM...")
@@ -137,8 +127,16 @@ label mg_interactive_experience(vm, world):
         # TODO: Wrap this in a conditional once "bugs" are implemented.
         vm.input("bind poweron collect")
 
-        # Add pre-existing commands.
         _mg_devices = world.data.devices().as_list()
+
+        _mg_state_manager = MinigameStateManager(
+            mg_player_pos,
+            mg_exit_pos,
+            0,
+            len(_mg_devices)
+        )
+
+        # Add pre-existing commands.
         if len(_mg_devices) > 0:
             vm.input("alloc world_coins %s" % (len(_mg_devices)))
             vm.input("alloc inventory %s" % (len(_mg_devices)))
@@ -211,12 +209,14 @@ label mg_interactive_experience(vm, world):
         renpy.pause(1.5, hard=True)
 
         # Keep receiving instructions until the player has completed the map.
-        state = [_player_arrived(), _player_powered_all()]
-        while False in state:
+        _mg_state = _mg_state_manager.get_state()
+        while False in _mg_state.checks:
             _mg_current_command = renpy.call_screen("mg_interactive_input")
             current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", current_instruction)
             _mg_binding = vm.get_binding(current_instruction)
+            _mg_current_count = _mg_state.count
+
             if _mg_binding:
                 logging.info("Note: %s is a binding of %s.", current_instruction, _mg_binding)
                 current_instruction = _mg_binding
@@ -274,6 +274,7 @@ label mg_interactive_experience(vm, world):
                                    tag="player",
                                    zorder=3)
                     else:
+                        _mg_current_count += 1
                         _mg_item_index = world.data.devices().as_list().index(mg_player_pos)
                         vm.input("pop world_coins %s" % _mg_item_index)
                         vm.input("push inventory %s" % _mg_item_index)
@@ -295,8 +296,9 @@ label mg_interactive_experience(vm, world):
                     pass
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
 
-            state = [_player_arrived(), _player_powered_all()]
-            logging.info("Current check state: %s", state)
+            _mg_state_manager.update_state(mg_player_pos, _mg_current_count)
+            _mg_state = _mg_state_manager.get_state()
+            logging.info("Current check state: %s", _mg_state)
 
         renpy.show("mg_player_happy",
                     at_list=[minigame_player_pos(mg_preview_player_pos[0],
