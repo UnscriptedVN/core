@@ -231,6 +231,7 @@ init python:
     build.classify('.git/**.**', None)
     build.classify('**/cache/**', None)
     build.classify("**/arguments.toml", None)
+    build.classify("**/**.vdf", None)
 
     # Remove Ren'Py-generated log files
     build.classify("game/log.txt", None)
