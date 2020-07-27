@@ -59,32 +59,32 @@ init screen mg_interactive_input():
 
 # Styles for input window.
 style mg_inter_frame is frame:
-    background Frame(current_theme().colors().BACKGROUND.value + "CC", 8, 8, 8, 8, tile=False)
+    background Frame(gtheme("ruby-dark").colors().BACKGROUND.value + "CC", 8, 8, 8, 8, tile=False)
     margin (0, 0)
     padding (16, 10)
 
 style mg_inter_text is text:
     font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
     size 12
-    color current_theme().syntaxes().SOURCE_TEXT.value
+    color gtheme("ruby-dark").syntaxes().SOURCE_TEXT.value
 
 style mg_inter_label_text is mg_inter_text:
     font "core/assets/fonts/jb_mono/JetBrainsMono-Bold.ttf"
     size 14
-    color current_theme().syntaxes().COMMENTS.value
+    color gtheme("ruby-dark").syntaxes().COMMENTS.value
 
 style mg_inter_input is mg_inter_text:
     size 14
-    color current_theme().syntaxes().SOURCE_TEXT.value
+    color gtheme("ruby-dark").syntaxes().SOURCE_TEXT.value
 
 style mg_inter_help_text is mg_inter_text
 
 style mg_inter_help_label_text is mg_inter_label_text:
     size 12
-    color current_theme().syntaxes().KEYWORDS.value
+    color gtheme("ruby-dark").syntaxes().KEYWORDS.value
 
 style mg_inter_caret is mg_inter_help_label_text:
-    color current_theme().syntaxes().NUMBERS.value
+    color gtheme("ruby-dark").syntaxes().NUMBERS.value
     size 11
 
 style mg_inter_window is window:

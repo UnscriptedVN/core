@@ -221,6 +221,16 @@ init -10 python:
             pass
         return theme
 
+    def gtheme(name: str):
+        """Get the theme object for the currently selected theme.
+
+        Returns:
+            theme (Theme): The theme object that corresponds to the GUI preference for the theme.
+                If the theme object cannot be loaded, it will attempt to use the Ring theme.
+        """
+        theme = Theme(filepath=os.path.join("core", "themes", name, "theme.toml"))
+        return theme
+
 init -500 python:
     def open_directory(path):
         # Source: https://stackoverflow.com/a/16204023
