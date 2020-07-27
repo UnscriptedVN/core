@@ -106,6 +106,7 @@ label mg_interactive_experience(vm, world):
     # instructions from.
     python:
         import logging
+        from uvn_fira import CSWorldConfigBugType
         quick_menu = config.allow_skipping = allow_skipping = skipping = False
         floor_grid = []
         mg_rows, mg_columns = world.data.to_grid().shape()
@@ -113,6 +114,7 @@ label mg_interactive_experience(vm, world):
         mg_player_pos = world.data.to_grid().first("PLAYER")
         mg_exit_pos = world.data.to_grid().first("EXIT")
         _mg_current_command = None
+        _mg_bugs_list = world.bugs
 
         # Add interactive capabilities.
         if not vm.is_interactive:
@@ -124,8 +126,8 @@ label mg_interactive_experience(vm, world):
             vm.clear()
 
         # Add the respective poweron binding, if the config allows it.
-        # TODO: Wrap this in a conditional once "bugs" are implemented.
-        vm.input("bind poweron collect")
+        if CSWorldConfigBugType.missing_bindings not in _mg_bugs_list:
+            vm.input("bind poweron collect")
 
         _mg_devices = world.data.devices().as_list()
 
@@ -246,16 +248,17 @@ label mg_interactive_experience(vm, world):
                     vx, vy = vm.get_position()
 
                     # Display a confused animation if the player is in an invalid position.
-                    if vx > mg_rows - 1 or vy > mg_columns - 1 \
-                        or world.data.to_grid().element_at(vx, vy) == "WALL":
-                        logging.warn("Position %s is not valid. Skipping move command.",
-                                     (vx, vy))
-                        renpy.show("mg_player_confused",
-                                   at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
-                                   tag="player",
-                                   zorder=3)
-                        renpy.pause(1.5 * persistent.mg_speed, hard=True)
-                        continue
+                    if CSWorldConfigBugType.skip_collisions not in _mg_bugs_list:
+                        if vx > mg_rows - 1 or vy > mg_columns - 1 \
+                            or world.data.to_grid().element_at(vx, vy) == "WALL":
+                            logging.warn("Position %s is not valid. Skipping move command.",
+                                        (vx, vy))
+                            renpy.show("mg_player_confused",
+                                    at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                    tag="player",
+                                    zorder=3)
+                            renpy.pause(1.5 * persistent.mg_speed, hard=True)
+                            continue
 
                     mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", mg_player_pos)
@@ -293,6 +296,10 @@ label mg_interactive_experience(vm, world):
                                     zorder=3)
                 else:
                     logging.warn("Command seems to have no effect.")
+                    renpy.show("mg_player_confused",
+                            at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                            tag="player",
+                            zorder=3)
                     pass
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
 

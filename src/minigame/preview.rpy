@@ -30,6 +30,8 @@ label mg_preview(vm, world):
     # Set up the environment based on the provided world data and the NadiaVM that we will read
     # instructions from.
     python:
+        from uvn_fira import CSWorldConfigBugType
+
         quick_menu = config.allow_skipping = allow_skipping = skipping = False
         floor_grid = []
         mg_return_code = 0
@@ -37,6 +39,7 @@ label mg_preview(vm, world):
         mg_preview_player_pos = 0, 0
         mg_player_pos = world.data.to_grid().first("PLAYER")
         mg_exit_pos = world.data.to_grid().first("EXIT")
+        _mg_bugs_list = world.bugs
 
         _mg_states = MinigameStateManager(
             mg_player_pos,
@@ -117,16 +120,17 @@ label mg_preview(vm, world):
                     vx, vy = vm.get_position()
 
                     # Display a confused animation if the player is in an invalid position.
-                    if vx > mg_rows - 1 or vy > mg_columns - 1 \
-                        or world.data.to_grid().element_at(vx, vy) == "WALL":
-                        logging.warn("Position %s is not valid. Skipping move command.",
-                                     mg_player_pos)
-                        renpy.show("mg_player_confused",
-                                   at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
-                                   tag="player",
-                                   zorder=3)
-                        renpy.pause(1.5 * persistent.mg_speed, hard=True)
-                        continue
+                    if CSWorldConfigBugType.skip_collisions in _mg_bugs_list:
+                        if vx > mg_rows - 1 or vy > mg_columns - 1 \
+                            or world.data.to_grid().element_at(vx, vy) == "WALL":
+                            logging.warn("Position %s is not valid. Skipping move command.",
+                                        mg_player_pos)
+                            renpy.show("mg_player_confused",
+                                    at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                    tag="player",
+                                    zorder=3)
+                            renpy.pause(1.5 * persistent.mg_speed, hard=True)
+                            continue
 
                     mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", mg_player_pos)
