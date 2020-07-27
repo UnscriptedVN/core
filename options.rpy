@@ -126,12 +126,16 @@ init:
 # Build instructions for Ren'Py.
 init python:
 
+    # Create a package type called "patches" where patched files can go. This contains only the
+    # archives needed.
+    build.package("patches", "zip", "patches", "Patch Files")
+
     # Create the archives that will be compiled with the game. Scripts will contain the story code,
     # logic contains all of the Unscripted Core logic, and assets contains all of the required
     # images, audio files, etc.
-    build.archive("scripts", "all")
-    build.archive("assets", "all")
-    build.archive("logic", "all")
+    build.archive("scripts", "patches all")
+    build.archive("assets", "patches all")
+    build.archive("logic", "patches all")
 
     # To maintain compatibility with the license, a new archive is added to bundle the source code
     # to Unscripted Core. This archive will not appear in the demo version of the game as this code
@@ -139,13 +143,16 @@ init python:
     # build settings is enabled. The source code is also available on GitHub at the following link:
     # https://github.com/UnscriptedVN/core.
     if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
-        build.archive("source", "all")
+        build.archive("source", "patches all")
 
     # Target any of the AliceOS-specific files first. The compiled targets and assets will be added
     # to the logic archive, while the source code will be added to the source archive.
     if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
         build.classify('game/System/**.aoscservice/**.rpy', "source")
         build.classify('game/System/**.aosapp/**.rpy', "source")
+        build.classify('game/core/core.png', "source")
+    else:
+        build.classify('game/core/core.png', None)
 
     build.classify('game/System/**.rpy', None)
     build.classify('game/System/**.aoscservice/**', 'logic')
@@ -159,14 +166,18 @@ init python:
 
     # Bundle the Kotlin scripts in the credits folder since they are required for the credits
     # scenes.
-    build.classify("game/core/credits/**.kts", 'logic')
+    build.classify("game/core/src/credits/kt/**.kts", 'logic')
+
+    # Bundle the theme files together.
+    build.classify("game/core/themes/**", 'logic')
 
     # Bundle all of the assets together into a single package
     build.classify('game/assets/**', "assets")
+    build.classify('game/core/assets/**', 'assets source')
 
     # Bundle TOML files
     build.classify('game/story/**.toml', "scripts")
-    build.classify("game/core/**.toml", 'logic')
+    build.classify("game/core/**.toml", 'logic source')
 
     # If this is the complete game, bundle all the compiled story files together.
     if not uconf["demo"]["demo"]:
@@ -199,7 +210,7 @@ init python:
 
     # Grab any other compiled file and toss it into the script package.
     build.classify("game/**.rpyc", 'scripts')
-    build.classify("game/build.toml", 'scripts')
+    build.classify("game/build.toml", 'scripts source')
 
     # Target and bundle all of the Unscripted Core source files together in a convenient place.
     if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
@@ -232,6 +243,10 @@ init python:
     build.classify('**/cache/**', None)
     build.classify("**/arguments.toml", None)
     build.classify("**/**.vdf", None)
+    build.classify("doc_templates/**", None)
+    build.classify("iconsets/**", None)
+    build.classify(".github/**", None)
+    build.classify(".governance/**", None)
 
     # Remove Ren'Py-generated log files
     build.classify("game/log.txt", None)
