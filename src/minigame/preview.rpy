@@ -38,6 +38,13 @@ label mg_preview(vm, world):
         mg_player_pos = world.data.to_grid().first("PLAYER")
         mg_exit_pos = world.data.to_grid().first("EXIT")
 
+        _mg_states = MinigameStateManager(
+            mg_player_pos,
+            mg_exit_pos,
+            0,
+            len(world.data.devices().as_list())
+        )
+
     # Start rendering the scene.
     scene mg_bg_alt with dissolve
     pause 0.5
@@ -95,16 +102,19 @@ label mg_preview(vm, world):
         renpy.pause(1.5, hard=True)
 
         # Run through the VM loop while there are still instructions.
+        _mg_state = _mg_states.get_state()
         while vm.has_more_instructions():
             current_instruction = vm.preview_next_instruction()
             logging.info("Current instruction in VM stack: %s", current_instruction)
             vm.next()
+            _mg_current_count = _mg_state.count
 
             # If the current instruction is a game-related instruction and not a VM management
             # command, play the required animations.
             if current_instruction not in ["alloc", "set", "push", "pop"]:
+                mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
                 if current_instruction == "move":
-                    mg_player_pos = vx, vy = vm.get_position()
+                    vx, vy = vm.get_position()
 
                     # Display a confused animation if the player is in an invalid position.
                     if vx > mg_rows - 1 or vy > mg_columns - 1 \
@@ -118,6 +128,7 @@ label mg_preview(vm, world):
                         renpy.pause(1.5 * persistent.mg_speed, hard=True)
                         continue
 
+                    mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", mg_player_pos)
                     mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
                     mg_preview_player_pos = mg_player_x, mg_player_y
@@ -128,37 +139,35 @@ label mg_preview(vm, world):
 
                 # Turn on the device if available.
                 elif current_instruction == "collect":
-                    img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
-                    renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
-                    renpy.show("mg_device_on",
-                               at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
-                               tag="matrix_DESK_%s_%s" % (vm.get_position()))
+                    if mg_player_pos not in world.data.devices().as_list():
+                        renpy.show("mg_player_confused",
+                                   at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                   tag="player",
+                                   zorder=3)
+                    else:
+                        _mg_current_count += 1
+                        img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+                        renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
+                        renpy.show("mg_device_on",
+                                at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
+                                tag="matrix_DESK_%s_%s" % (vm.get_position()))
                 else:
                     pass
 
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
 
+            _mg_states.update_state(mg_player_pos, _mg_current_count)
+            _mg_state = _mg_states.get_state()
+
         # Increase the return code if there's an issue.
-        if "player-at-exit" in world.checks and mg_player_pos != mg_exit_pos:
-            logging.warning("Check player-at-exit failed: %s (player) vs. %s (exit)",
-                            mg_player_pos,
-                            mg_exit_pos)
-            mg_return_code = 1
-        if ("player-collects-all" in world.checks or
-            "player-powers-all-devices" in world.checks) and len(
-                list(filter(lambda a: a is not None, vm.get_namespace("world_coins")))
-            ) > 0:
-            if "player-collects-all" in world.checks:
-                logging.warning("Check player-collects-all is deprecated. Use %s instead.",
-                                "player-powers-all-devices")
-            logging.warning("Check player-collects-all failed: %s (world coins) vs. %s (inventory)",
-                            vm.get_namespace("world_coins"),
-                            vm.get_namespace("inventory"))
-            mg_return_code = 1
+        if False in _mg_state.checks:
+            logging.warning("Not all checks have passed. Last known state: %s",
+                            _mg_state)
+            mg_return_code += 1
 
         # Play the closing animations and re-enable the quick menu.
         if mg_return_code != 0:
-            logging.warning("Not all checks succeeded. Marking minigame run as incomplete.")
+            logging.warning("Marking minigame run as incomplete.")
             renpy.show("mg_player_cry",
                         at_list=[minigame_player_pos(mg_preview_player_pos[0],
                                                      mg_preview_player_pos[1])],
