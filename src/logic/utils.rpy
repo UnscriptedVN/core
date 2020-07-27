@@ -221,7 +221,7 @@ init -10 python:
             pass
         return theme
 
-    def gtheme(name: str):
+    def gtheme(name):
         """Get the theme object for the currently selected theme.
 
         Returns:
