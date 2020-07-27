@@ -262,6 +262,9 @@ init python:
     if uconf["demo"]["demo"]:
         build.classify('**/MPL.txt', None)
 
+    # Only include the patch notice in the patches build.
+    build.classify("PATCHES.txt", "patches")
+
     build.documentation('*.html')
     build.documentation('*.txt')
 
