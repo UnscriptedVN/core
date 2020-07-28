@@ -93,6 +93,7 @@ image effect wtf_dark = "gui/overlay/why_the_fuck_is_it_so_dark.png"
 image effect glitch:
     "gui/overlay/glitch.png"
     additive 1.0
+    nearest True
 
 default effects.blood_attacked = False
 

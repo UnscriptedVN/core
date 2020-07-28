@@ -283,11 +283,12 @@ label mg_interactive_experience(vm, world):
 
                 if _current_instruction == "move":
                     vx, vy = vm.get_position()
+                    _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
+                    _colliding = world.data.to_grid().element_at(vx, vy) == "WALL"
 
                     # Display a confused animation if the player is in an invalid position.
                     if CSWorldConfigBugType.skip_collisions not in _mg_bugs_list:
-                        if vx > _mg_rows - 1 or vy > _mg_columns - 1 \
-                            or world.data.to_grid().element_at(vx, vy) == "WALL":
+                        if _reached_max or _colliding:
                             logging.warn("Position %s is not valid. Skipping move command.",
                                         (vx, vy))
                             renpy.show("mg_player_confused",
@@ -304,6 +305,13 @@ label mg_interactive_experience(vm, world):
                         (_mg_rows, _mg_columns)
                     )
                     _mg_prev_player_pos = mg_player_x, mg_player_y
+
+                    if CSWorldConfigBugType.skip_collisions in _mg_bugs_list\
+                        and (_reached_max or _colliding):
+                        renpy.show("effect glitch")
+                    else:
+                        renpy.hide("effect glitch")
+
                     renpy.show("mg_player_move",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
