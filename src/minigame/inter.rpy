@@ -13,7 +13,7 @@
 init offset = 10
 
 # The screen to handle all input scenarios. Returns the command that the player submits to it.
-init screen mg_interactive_input():
+init screen mg_interactive_input(last=""):
     tag minigame
     zorder 15
     modal True
@@ -22,6 +22,8 @@ init screen mg_interactive_input():
     default repl_input = ""
 
     key "K_RETURN" action Return(repl_input)
+    key "K_UP" action [SetScreenVariable("repl_input", last)]
+
 
     frame:
         xalign 0.5
@@ -40,7 +42,7 @@ init screen mg_interactive_input():
                     style "mg_inter_label"
 
                 hbox:
-                    label "move player <direction>"
+                    label "move player <direction|cardinal>"
                     text "Moves Mia in a particular direction."
                 hbox:
                     label "poweron"
@@ -116,6 +118,7 @@ label mg_interactive_experience(vm, world):
         _mg_exit_pos = world.data.to_grid().first("EXIT")
         _mg_current_command = None
         _mg_bugs_list = world.bugs
+        _mg_last_command = ""
 
         # Add interactive capabilities.
         if not vm.is_interactive:
@@ -126,9 +129,13 @@ label mg_interactive_experience(vm, world):
             logging.warning("VM already includes instructions. Clearing...")
             vm.clear()
 
-        # Add the respective poweron binding, if the config allows it.
+        # Add the respective bindings, if the config allows it.
         if CSWorldConfigBugType.missing_bindings not in _mg_bugs_list:
             vm.input("bind poweron collect")
+            vm.input("cast left west")
+            vm.input("cast up north")
+            vm.input("cast right east")
+            vm.input("cast down south")
 
         _mg_devices = world.data.devices().as_list()
 
@@ -242,11 +249,12 @@ label mg_interactive_experience(vm, world):
         # Keep receiving instructions until the player has completed the map.
         _mg_state = _mg_state_manager.get_state()
         while False in _mg_state.checks:
-            _mg_current_command = renpy.call_screen("mg_interactive_input")
+            _mg_current_command = renpy.call_screen("mg_interactive_input", last=_mg_last_command)
             _current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", _current_instruction)
             _mg_binding = vm.get_binding(_current_instruction)
             _mg_current_count = _mg_state.count
+            _mg_last_command = _mg_current_command
 
             if _mg_binding:
                 logging.info("Note: %s is a binding of %s.", _current_instruction, _mg_binding)
