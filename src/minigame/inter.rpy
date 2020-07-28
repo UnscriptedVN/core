@@ -131,13 +131,6 @@ label mg_interactive_experience(vm, world):
 
         _mg_devices = world.data.devices().as_list()
 
-        _mg_state_manager = MinigameStateManager(
-            mg_player_pos,
-            mg_exit_pos,
-            0,
-            len(_mg_devices)
-        )
-
         # Add pre-existing commands.
         if len(_mg_devices) > 0:
             vm.input("alloc world_coins %s" % (len(_mg_devices)))
@@ -166,6 +159,9 @@ label mg_interactive_experience(vm, world):
             "PLAYER": "mg_player"
         }
 
+        _mg_exit_set = False
+        random_seed = renpy.random.randint(1, 50)
+
         # Render a floor underneath the world grid, and then render the grid.
         for _r in range(mg_rows):
             for _c in range(mg_columns):
@@ -188,18 +184,37 @@ label mg_interactive_experience(vm, world):
                 if element == "PLAYER":
                     mg_preview_player_pos = img_xpos, img_ypos
 
-                if element == "EXIT":
+                if element == "EXIT" and CSWorldConfigBugType.random_exit not in _mg_bugs_list\
+                    and not _mg_exit_set:
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
+                    _mg_exit_set = True
 
                 if element == "AIR":
-                    random_seed = renpy.random.randint(1, 50)
-
                     if random_seed >= 49:
                         img_name = "mg_beanbag"
                         element = "BEANBAG"
 
+                    # This is by far the ugliest thing I've written so far. Too bad!
+                    elif not _mg_exit_set and (CSWorldConfigBugType.random_exit in _mg_bugs_list):
+                        exit_seed = renpy.random.randint(1, 10)
+                        if exit_seed % 2 == 0 or (_r, _c) == world.data.to_grid().last("AIR"):
+                            img_name = "mg_exit_" + stairway_type(
+                                world.data.walls().as_list(),
+                                (_r, _c)
+                            )[0]
+                            element = "EXIT"
+                            _mg_exit_set = True
+                            mg_exit_pos = _r, _c
+
                 curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" \
                                         % (element, _r, _c)
+
+                # Because for some weird reason, I have to set this here because the random exit
+                # bug likes to make an exit with no direction, somehow. I tried setting it some-
+                # where else, but it didn't like it too much. The matrix has forced my hand.
+                if img_name == "mg_exit":
+                    img_name = "mg_air"
+
                 renpy.show(img_name,
                            at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
                            tag=curr_tag,
@@ -209,6 +224,14 @@ label mg_interactive_experience(vm, world):
         renpy.show("mg_compass", at_list=[compass_transform], zorder=11)
         # Pause before starting the VM execution.
         renpy.pause(1.5, hard=True)
+
+        # Set up the state manager.
+        _mg_state_manager = MinigameStateManager(
+            mg_player_pos,
+            mg_exit_pos,
+            0,
+            len(_mg_devices)
+        )
 
         # Keep receiving instructions until the player has completed the map.
         _mg_state = _mg_state_manager.get_state()
@@ -288,7 +311,7 @@ label mg_interactive_experience(vm, world):
                                 at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
                                 tag="matrix_DESK_%s_%s" % (vm.get_position()))
                 elif current_instruction == "exit":
-                    if False in state:
+                    if False in _mg_state.checks:
                         renpy.show("mg_player_cry",
                                     at_list=[minigame_player_pos(mg_preview_player_pos[0],
                                                                 mg_preview_player_pos[1])],
