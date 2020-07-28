@@ -107,12 +107,13 @@ label mg_interactive_experience(vm, world):
     python:
         import logging
         from uvn_fira import CSWorldConfigBugType
+
         quick_menu = config.allow_skipping = allow_skipping = skipping = False
-        floor_grid = []
-        mg_rows, mg_columns = world.data.to_grid().shape()
-        mg_preview_player_pos = 0, 0
-        mg_player_pos = world.data.to_grid().first("PLAYER")
-        mg_exit_pos = world.data.to_grid().first("EXIT")
+        _mg_floor_grid = []
+        _mg_rows, _mg_columns = world.data.to_grid().shape()
+        _mg_prev_player_pos = 0, 0
+        _mg_player_pos = world.data.to_grid().first("PLAYER")
+        _mg_exit_pos = world.data.to_grid().first("EXIT")
         _mg_current_command = None
         _mg_bugs_list = world.bugs
 
@@ -159,16 +160,17 @@ label mg_interactive_experience(vm, world):
             "PLAYER": "mg_player"
         }
 
+        # Set up default values for random seed generation and exit locations.
         _mg_exit_set = False
         random_seed = renpy.random.randint(1, 50)
 
         # Render a floor underneath the world grid, and then render the grid.
-        for _r in range(mg_rows):
-            for _c in range(mg_columns):
+        for _r in range(_mg_rows):
+            for _c in range(_mg_columns):
 
                 curr_tag = "matrix_base_%s_%s" % (_r, _c)
-                floor_grid.append(curr_tag)
-                img_xpos, img_ypos = matrix_to_scene((_r, _c), (mg_rows, mg_columns))
+                _mg_floor_grid.append(curr_tag)
+                img_xpos, img_ypos = matrix_to_scene((_r, _c), (_mg_rows, _mg_columns))
                 use_alt_design = _c % 2 == 0
 
                 renpy.show("mg_floor_alt" if use_alt_design else "mg_floor",
@@ -182,38 +184,41 @@ label mg_interactive_experience(vm, world):
                     img_name += "_full"
 
                 if element == "PLAYER":
-                    mg_preview_player_pos = img_xpos, img_ypos
+                    _mg_prev_player_pos = img_xpos, img_ypos
 
+                # If the level's bugs don't include the exit, place it as-is.
                 if element == "EXIT" and CSWorldConfigBugType.random_exit not in _mg_bugs_list\
                     and not _mg_exit_set:
                     img_name += "_" + stairway_type(world.data.walls().as_list(), (_r, _c))[0]
                     _mg_exit_set = True
+
+                # Treat the exit as air if the random exit is a part of the bugs for this level.
+                if element == "EXIT" and CSWorldConfigBugType.random_exit in _mg_bugs_list:
+                    img_name = "mg_air"
+                    element = "AIR"
 
                 if element == "AIR":
                     if random_seed >= 49:
                         img_name = "mg_beanbag"
                         element = "BEANBAG"
 
-                    # This is by far the ugliest thing I've written so far. Too bad!
+                    # Randomly assign the location for the exit based on air blocks if the random
+                    # exit is a part of the level's bugs.
                     elif not _mg_exit_set and (CSWorldConfigBugType.random_exit in _mg_bugs_list):
                         exit_seed = renpy.random.randint(1, 10)
-                        if exit_seed % 2 == 0 or (_r, _c) == world.data.to_grid().last("AIR"):
+                        _is_last_air_block = (_r, _c) == world.data.to_grid().last("AIR")
+                        _is_even_seed = exit_seed % 2 == 0
+                        if _is_last_air_block or _is_even_seed:
                             img_name = "mg_exit_" + stairway_type(
                                 world.data.walls().as_list(),
                                 (_r, _c)
                             )[0]
                             element = "EXIT"
                             _mg_exit_set = True
-                            mg_exit_pos = _r, _c
+                            _mg_exit_pos = _r, _c
 
                 curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" \
                                         % (element, _r, _c)
-
-                # Because for some weird reason, I have to set this here because the random exit
-                # bug likes to make an exit with no direction, somehow. I tried setting it some-
-                # where else, but it didn't like it too much. The matrix has forced my hand.
-                if img_name == "mg_exit":
-                    img_name = "mg_air"
 
                 renpy.show(img_name,
                            at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
@@ -222,13 +227,14 @@ label mg_interactive_experience(vm, world):
 
         renpy.show("mg_overlay", zorder=10)
         renpy.show("mg_compass", at_list=[compass_transform], zorder=11)
+
         # Pause before starting the VM execution.
         renpy.pause(1.5, hard=True)
 
         # Set up the state manager.
         _mg_state_manager = MinigameStateManager(
-            mg_player_pos,
-            mg_exit_pos,
+            _mg_player_pos,
+            _mg_exit_pos,
             0,
             len(_mg_devices)
         )
@@ -237,19 +243,19 @@ label mg_interactive_experience(vm, world):
         _mg_state = _mg_state_manager.get_state()
         while False in _mg_state.checks:
             _mg_current_command = renpy.call_screen("mg_interactive_input")
-            current_instruction = _mg_current_command.split(" ")[0]
-            logging.info("VM received command: %s", current_instruction)
-            _mg_binding = vm.get_binding(current_instruction)
+            _current_instruction = _mg_current_command.split(" ")[0]
+            logging.info("VM received command: %s", _current_instruction)
+            _mg_binding = vm.get_binding(_current_instruction)
             _mg_current_count = _mg_state.count
 
             if _mg_binding:
-                logging.info("Note: %s is a binding of %s.", current_instruction, _mg_binding)
-                current_instruction = _mg_binding
+                logging.info("Note: %s is a binding of %s.", _current_instruction, _mg_binding)
+                _current_instruction = _mg_binding
             try:
                 _ret_stack = vm.input(_mg_current_command)
                 logging.info("VM return stack: %s", _ret_stack)
             except:
-                logging.error("Command %s failed." % (current_instruction))
+                logging.error("Command %s failed." % (_current_instruction))
                 renpy.show("mg_player_confused",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
@@ -257,22 +263,22 @@ label mg_interactive_experience(vm, world):
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
                 continue
             renpy.show("mg_player",
-                        at_list=[minigame_player_pos(mg_preview_player_pos[0],
-                                                    mg_preview_player_pos[1])],
+                        at_list=[minigame_player_pos(_mg_prev_player_pos[0],
+                                                    _mg_prev_player_pos[1])],
                         tag="player",
                         zorder=3)
 
             # If the current instruction is a game-related instruction and not a VM management
             # command, play the required animations.
-            if current_instruction not in ["alloc", "set", "push", "pop", "bind", "cast"]:
-                mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+            if _current_instruction not in ["alloc", "set", "push", "pop", "bind", "cast"]:
+                mg_player_x, mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
 
-                if current_instruction == "move":
+                if _current_instruction == "move":
                     vx, vy = vm.get_position()
 
                     # Display a confused animation if the player is in an invalid position.
                     if CSWorldConfigBugType.skip_collisions not in _mg_bugs_list:
-                        if vx > mg_rows - 1 or vy > mg_columns - 1 \
+                        if vx > _mg_rows - 1 or vy > _mg_columns - 1 \
                             or world.data.to_grid().element_at(vx, vy) == "WALL":
                             logging.warn("Position %s is not valid. Skipping move command.",
                                         (vx, vy))
@@ -283,38 +289,41 @@ label mg_interactive_experience(vm, world):
                             renpy.pause(1.5 * persistent.mg_speed, hard=True)
                             continue
 
-                    mg_player_pos = vm.get_position()
-                    logging.info("New position set: %s", mg_player_pos)
-                    mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
-                    mg_preview_player_pos = mg_player_x, mg_player_y
+                    _mg_player_pos = vm.get_position()
+                    logging.info("New position set: %s", _mg_player_pos)
+                    mg_player_x, mg_player_y = matrix_to_scene(
+                        _mg_player_pos,
+                        (_mg_rows, _mg_columns)
+                    )
+                    _mg_prev_player_pos = mg_player_x, mg_player_y
                     renpy.show("mg_player_move",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
                             zorder=3)
 
                 # Turn on the device if available. Otherwise, display a confused look.
-                elif current_instruction == "collect":
-                    if mg_player_pos not in world.data.devices().as_list():
+                elif _current_instruction == "collect":
+                    if _mg_player_pos not in world.data.devices().as_list():
                         renpy.show("mg_player_confused",
                                    at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                                    tag="player",
                                    zorder=3)
                     else:
                         _mg_current_count += 1
-                        _mg_item_index = world.data.devices().as_list().index(mg_player_pos)
+                        _mg_item_index = world.data.devices().as_list().index(_mg_player_pos)
                         vm.input("pop world_coins %s" % _mg_item_index)
                         vm.input("push inventory %s" % _mg_item_index)
 
-                        img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+                        img_xpos, img_ypos = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
                         renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
                         renpy.show("mg_device_on",
                                 at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
                                 tag="matrix_DESK_%s_%s" % (vm.get_position()))
-                elif current_instruction == "exit":
+                elif _current_instruction == "exit":
                     if False in _mg_state.checks:
                         renpy.show("mg_player_cry",
-                                    at_list=[minigame_player_pos(mg_preview_player_pos[0],
-                                                                mg_preview_player_pos[1])],
+                                    at_list=[minigame_player_pos(_mg_prev_player_pos[0],
+                                                                _mg_prev_player_pos[1])],
                                     tag="player",
                                     zorder=3)
                 else:
@@ -326,13 +335,13 @@ label mg_interactive_experience(vm, world):
                     pass
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
 
-            _mg_state_manager.update_state(mg_player_pos, _mg_current_count)
+            _mg_state_manager.update_state(_mg_player_pos, _mg_current_count)
             _mg_state = _mg_state_manager.get_state()
             logging.info("Current check state: %s", _mg_state)
 
         renpy.show("mg_player_happy",
-                    at_list=[minigame_player_pos(mg_preview_player_pos[0],
-                                                 mg_preview_player_pos[1])],
+                    at_list=[minigame_player_pos(_mg_prev_player_pos[0],
+                                                 _mg_prev_player_pos[1])],
                     tag="player",
                     zorder=3)
         renpy.pause(1.5 * persistent.mg_speed, hard=True)
