@@ -1,0 +1,16 @@
+[level.config]
+name = "The Restricted Section"
+allowed_blocks = ["move", "collect", "exit"]
+check = ["player-powers-all-devices", "player-at-exit"]
+bug = ["collision-checks-fail"]
+
+[level.map]
+layout = """
+XXXXXXXXX
+X%%%X%%%X
+X%P%X%E%X
+X% %X% %X
+X%.%X% %X
+X%%%X%%%X
+XXXXXXXXX
+"""
