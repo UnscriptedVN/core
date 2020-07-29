@@ -15,6 +15,7 @@ init -10 python:
     import logging
     import collections
     from subprocess import check_call
+    from datetime import datetime
 
     class InventoryMismatchError(Exception):
         pass
@@ -230,6 +231,30 @@ init -10 python:
         """
         theme = Theme(filepath=os.path.join("core", "themes", name, "theme.toml"))
         return theme
+
+    def dynamic_background(image_path):
+        """Get the background based on the time of day, relative to \"Catalina City\" time.
+
+        This utility assumes that Catalina City is occurring during the summer where the day is
+            longer and the night is shorter. The utility reads the current hour on the user's
+            machine and determines the appropriate image to apply.
+
+        This utility also only works with JPEG files.
+
+        Args:
+            image_path (str): The path to the image to use.
+
+        Returns:
+            path (str): The path to the image according to the time of day.
+        """
+        img = image_path.replace(".jpg", "")
+        current_hour = datetime.now().hour
+        if current_hour in [0, 1, 2, 3, 4, 21, 21, 23, 24]:
+            return img + "_night.jpg"
+        elif current_hour in [5, 6, 7, 18, 19, 20]:
+            return img + "_morning.jpg"
+        else:
+            return img + ".jpg"
 
 init -500 python:
     def open_directory(path):

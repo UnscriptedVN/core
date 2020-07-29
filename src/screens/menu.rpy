@@ -12,6 +12,11 @@
 
 init offset = -1
 
+transform main_menu_enter:
+    on show:
+        alpha 0
+        linear 2.0 alpha 1
+
 screen main_menu():
 
     tag menu
@@ -20,10 +25,19 @@ screen main_menu():
     if uconf["discord"]["enable_rpc"] and persistent.use_discord:
         timer 0.10 action Function(discord.update_presence, title="Idle", detail="Main Menu", image="mmenu_1024")
 
-    add gui.main_menu_background
-    add "#0000001A"
+    add dynamic_background("assets/gui/main/main.jpg")
+    add "assets/gui/overlay/main_menu.png":
+        alpha 0.25
+        additive 0.3
+    add "#0000001F"
 
-    frame:
+    key "s" action Start()
+    key "l" action ShowMenu("load")
+    key "e" action ShowMenu("preferences")
+    key "?" action ShowMenu("help")
+    key "q" action Quit(confirm=False)
+
+    frame at main_menu_enter:
         pass
 
     vbox:
@@ -79,6 +93,7 @@ style main_menu_frame:
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
     xalign 0.0
+    yoffset -8
 
 style main_menu_title:
     properties gui.text_properties("title")
@@ -87,12 +102,13 @@ style main_menu_title:
     color "#f4f4f4"
     text_align 0.5
     xalign 0.5
+    outlines [(4, "#3333331A", 0, 1), (2, "#3333331A", 0, 0)]
 
 style main_menu_version:
     properties gui.text_properties("version")
     size 18
     color "#E5E4E2"
-    outlines [(0.5, "#333333")]
+    outlines [(4, "#3333331A", 0, 1), (2, "#3333331A", 0, 0)]
     text_align 0.5
     xalign 0.5
 
@@ -146,7 +162,7 @@ style nav_button_title_large is gui_text
 style nav_button_title_large_text is gui_text:
     properties gui.text_properties("version")
     color "#f4f4f4"
-    outlines [(1, "#21212199")]
+    outlines [(1, "#3333331C", 0, 1), (0.5, "#3333331C", 0, 0)]
     size 24
 
 style nav_button_title_text is gui_text:

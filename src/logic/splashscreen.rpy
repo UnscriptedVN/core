@@ -45,10 +45,6 @@ label splashscreen:
     show team at truecenter with dissolve
     $ renpy.pause(1.0, hard=True)
     hide team with dissolve
-    show splash at truecenter zorder 2 with dissolve
-    show splash_bg at truecenter zorder 1
-    $ renpy.pause(0.5, hard=True)
-    hide splash with dissolve
 
     python:
         # Try to connect to Discord again if it failed the first time.
