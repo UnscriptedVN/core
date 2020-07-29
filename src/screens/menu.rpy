@@ -31,7 +31,7 @@ screen main_menu():
         additive 0.3
     add "#0000001F"
 
-    key "s" action Start()
+    key "n" action Start()
     key "l" action ShowMenu("load")
     key "e" action ShowMenu("preferences")
     key "?" action ShowMenu("help")
