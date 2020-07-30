@@ -1,14 +1,14 @@
 [level.config]
-name = "Longer Corridors"
+name = "No Such Things as Shortcuts"
 allowed_blocks = ["move", "collect", "exit"]
 check = ["player-powers-all-devices", "player-at-exit"]
+bug = ["missing-poweron-bind"]
 
 [level.map]
 layout = """
-%%%%%%%%%
-%P% . %E%
-% % % % %
-% % % % %
-% . % . %
-%%%%%%%%%
+%%%%%%%%
+%P    E%
+%%%  %%%
+%.    .%
+%%%%%%%%
 """

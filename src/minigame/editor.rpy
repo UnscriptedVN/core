@@ -150,10 +150,12 @@ screen mg_editor(config, vm_writer, lvl=0):
                     spacing 0
 
                     for row in range(__r):
+
                         hbox:
                             for column in range(__c):
-                                if column % 2 != 0:
-                                    add "mg_floor_alt":
+                                $ _is_void = grid.element_at(row, column) == "VOID"
+                                if _is_void:
+                                    add "mg_air":
                                         size (tile_size, tile_size)
                                 else:
                                     add "mg_floor":
