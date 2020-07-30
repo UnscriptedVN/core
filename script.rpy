@@ -59,7 +59,12 @@ label start:
         change_playing_state()
 
     # Display the splash and fade into the story
-    scene splash
+    python:
+        _scene_bg = dynamic_background(
+            "assets/gui/main/main.jpg",
+            include=[TimeOfDay.day, TimeOfDay.night]
+        )
+    scene expression _scene_bg
     stop music fadeout 1.5
     show black with fade
     $ quick_menu = True

@@ -15,7 +15,10 @@ init offset = -1
 transform main_menu_enter:
     on show:
         alpha 0
-        linear 2.0 alpha 1
+        linear 0.5 alpha 1
+    on hide:
+        alpha 1
+        linear 0.5 alpha 0
 
 screen main_menu():
 
@@ -25,8 +28,8 @@ screen main_menu():
     if uconf["discord"]["enable_rpc"] and persistent.use_discord:
         timer 0.10 action Function(discord.update_presence, title="Idle", detail="Main Menu", image="mmenu_1024")
 
-    add dynamic_background("assets/gui/main/main.jpg")
-    add "assets/gui/overlay/main_menu.png":
+    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night])
+    add "assets/gui/overlay/main_menu.png" at main_menu_enter:
         alpha 0.25
         additive 0.3
     add "#0000001F"
@@ -35,45 +38,47 @@ screen main_menu():
     key "l" action ShowMenu("load")
     key "e" action ShowMenu("preferences")
     key "?" action ShowMenu("help")
-    key "q" action Quit(confirm=False)
 
-    frame at main_menu_enter:
+    frame:
         pass
 
-    vbox:
-        xalign 0.5
-        yalign 0.15
+    vbox at main_menu_enter:
+        xfill True
+        yfill True
+        vbox:
+            xalign 0.5
+            yalign 0.25
 
-        hbox:
-            add "gui/icon.png":
-                size (96, 96)
-            vbox:
-                text "Unscripted":
-                    style "main_menu_title"
-                if uconf["demo"]["demo"]:
-                    text "DEMO":
-                        xalign 1.0
-                        style "main_menu_version"
-                elif uconf["info"]["channel"] != "stable":
-                    $ __channel = uconf["info"]["channel"]
-                    text "[__channel!u]":
-                        xalign 1.0
-                        style "main_menu_version"
+            hbox:
+                add "gui/icon.png":
+                    size (96, 96)
+                vbox:
+                    text "Unscripted":
+                        style "main_menu_title"
+                    if uconf["demo"]["demo"]:
+                        text "DEMO":
+                            xalign 1.0
+                            style "main_menu_version"
+                    elif uconf["info"]["channel"] != "stable":
+                        $ __channel = uconf["info"]["channel"]
+                        text "[__channel!u]":
+                            xalign 1.0
+                            style "main_menu_version"
 
-        null height 16
+            null height 16
 
-    vbox:
-        xalign 0.025
-        yalign 0.9
-        xsize 300
+        vbox:
+            xalign 0.025
+            yalign 0.9
+            xsize 300
 
-        use navigation_button(icon="plus", title="Start " + ("Demo" if uconf["demo"]["demo"] else "Game"), action=Start())
-        use navigation_button(icon="folder", title="Load Game", action=ShowMenu('load'))
-        if uconf["features"]["enable_dreams"]:
-            use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
-        use navigation_button(icon="settings", title="Settings", action=ShowMenu('preferences'))
-        use navigation_button(icon="help-circle", title="Help", action=ShowMenu('help'))
-        use navigation_button(icon="power", title="Quit Game", action=Quit(confirm=False))
+            use navigation_button(icon="plus", title="{u}N{/u}ew " + ("Demo" if uconf["demo"]["demo"] else "Game"), action=Start())
+            use navigation_button(icon="folder", title="{u}L{/u}oad Game", action=ShowMenu('load'))
+            if uconf["features"]["enable_dreams"]:
+                use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
+            use navigation_button(icon="settings", title="S{u}e{/u}ttings", action=ShowMenu('preferences'))
+            use navigation_button(icon="help-circle", title="{u}H{/u}elp", action=ShowMenu('help'))
+            use navigation_button(icon="power", title="Quit Game", action=Quit(confirm=False))
 
 style main_menu_frame is empty
 style main_menu_vbox is vbox
@@ -160,6 +165,7 @@ style nav_button_base:
 style nav_button_title_large is gui_text
 
 style nav_button_title_large_text is gui_text:
+    font AS_FONTS_DIR + "Medium.ttf"
     properties gui.text_properties("version")
     color "#f4f4f4"
     outlines [(1, "#3333331C", 0, 1), (0.5, "#3333331C", 0, 0)]

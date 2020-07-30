@@ -19,10 +19,10 @@ screen ProfileNameView():
     default identify = "male"
     default language = "Python"
 
-    add "core/assets/artwork/1.png"
-    add "#0000004D"
+    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]) at blur
+    add "#000000BB"
 
-    vbox:
+    vbox at main_menu_enter:
         xalign 0.5
         yalign 0.5
         spacing 16

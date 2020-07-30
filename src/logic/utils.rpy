@@ -16,12 +16,21 @@ init -10 python:
     import collections
     from subprocess import check_call
     from datetime import datetime
+    from enum import Enum
 
     class InventoryMismatchError(Exception):
+        """The inventory between AliceOS and the player's doesn't match."""
         pass
 
     class FeatherAssetError(Exception):
+        """The Feather icon could not be found."""
         pass
+
+    class TimeOfDay(Enum):
+        """An enumeration class for the different times of day (see dynamic backgrounds)."""
+        morning = "morning"
+        day = "day"
+        night = "night"
 
     # MARK: Inventory
     def acquire_item(item_key):
@@ -232,7 +241,7 @@ init -10 python:
         theme = Theme(filepath=os.path.join("core", "themes", name, "theme.toml"))
         return theme
 
-    def dynamic_background(image_path):
+    def dynamic_background(image_path, include=[TimeOfDay.day, TimeOfDay.night]):
         """Get the background based on the time of day, relative to \"Catalina City\" time.
 
         This utility assumes that Catalina City is occurring during the summer where the day is
@@ -243,15 +252,17 @@ init -10 python:
 
         Args:
             image_path (str): The path to the image to use.
+            include (list): A list of the different times of day to include in the dynamic
+                background.
 
         Returns:
             path (str): The path to the image according to the time of day.
         """
         img = image_path.replace(".jpg", "")
         current_hour = datetime.now().hour
-        if current_hour in [0, 1, 2, 3, 4, 21, 21, 23, 24]:
+        if TimeOfDay.night in include and current_hour in [0, 1, 2, 3, 4, 21, 21, 23, 24]:
             return img + "_night.jpg"
-        elif current_hour in [5, 6, 7, 18, 19, 20]:
+        elif TimeOfDay.morning in include and current_hour in [5, 6, 7, 18, 19, 20]:
             return img + "_morning.jpg"
         else:
             return img + ".jpg"
