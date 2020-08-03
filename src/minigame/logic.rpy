@@ -93,6 +93,11 @@ init 10 python:
             In levels that contain coins, the writer will automatically add the respective alloc
                 and push commands to instantiate the coins in the virtual machine.
             """
+            renpy.call_screen("ASNotificationAlert",
+                              "Classic Mode is unsupported.",
+                              "Some parts of the minigame may break when using the classic mode."
+                              + " Using the new interactive mode is recommended as it provides"
+                              + " better support and offers more features.")
             if self.writer.instructions:
                 self.writer.clear()
 
