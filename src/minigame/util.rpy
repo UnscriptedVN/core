@@ -41,11 +41,16 @@ init python:
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
         if lvl == 0:
-            msg = "Mia needs help getting her office running again. Navigate around the world and "\
-            + "turn on all of the desktop computers to help her!"
-            renpy.call_screen("ASNotificationAlert",
-                              "Let's help Mia!",
-                              msg)
+            quick_menu = False
+            mia_speak("Ugh...")
+            mia_speak("Where... did everyone go?")
+            mia_speak("Maybe everyone went home. How long have I been here?")
+            mia_speak("Jeez, I must've been here all night...")
+            mia_speak(
+                "Well, I guess since I'm here early enough,"
+                + "I might as well start turning things on..."
+            )
+            mia_speak("And maybe get some clues about what happened.")
         try:
             renpy.invoke_in_new_context(__puzzle.run)
         except Exception as err:
@@ -179,3 +184,13 @@ init python:
         }
 
         return options.get(walls, "north")
+
+    def mia_speak(what):
+        """Bootstrapper to get Mia to speak in-game."""
+        mi(
+            what,
+            what_font="core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf",
+            what_color="#f4f4f4",
+            who_font="core/assets/fonts/jb_mono/JetBrainsMono-Bold.ttf",
+            who_color="#f4f4f4"
+        )

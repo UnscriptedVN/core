@@ -45,6 +45,8 @@ define m = Character('[mname]',
                      what_suffix='"',
                      ctc='ctc')
 
+define mi = Character("Mia", what_prefix='"', what_suffix='"', window_background="mg_window")
+
 # Generate default values for the names of the characters if nothing
 # is found. This should be overwritten in script.rpy to `???`.
 init -1:

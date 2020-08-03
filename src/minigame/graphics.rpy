@@ -17,6 +17,12 @@ image mg_bg_alt = "#000909"
 
 image mg_overlay = "#1c0b190D"
 
+image mg_window:
+    MG_CONFIG["assets_path"] + "/gui/textbox.png"
+    nearest True
+    xalign 0.5
+    yalign 1.1
+
 image mg_floor:
     MG_CONFIG["assets_path"] + "/tilemap/floor.png"
     nearest True

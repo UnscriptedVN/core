@@ -25,10 +25,10 @@ screen say(who, what):
                 style "namebox"
                 hbox:
                     spacing 8
-                    add "gui/history/" + get_history_name(who) + ".png":
-                        size (24, 24)
-                        xalign 0.0
-
+                    if who != "Mia":
+                        add "gui/history/" + get_history_name(who) + ".png":
+                            size (24, 24)
+                            xalign 0.0
                     text who id "who"
 
         text what id "what"
