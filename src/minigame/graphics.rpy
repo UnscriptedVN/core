@@ -117,3 +117,43 @@ image mg_player_happy:
         MG_CONFIG["assets_path"] + "sprite/smile2.png"
         pause 0.5
         repeat
+
+image mg_player_c:
+    MG_CONFIG["assets_path"] + "sprite/c/idle.png"
+    nearest True
+
+image mg_player_move_c:
+    nearest True
+    block:
+        MG_CONFIG["assets_path"] + "sprite/c/walk1.png"
+        pause 0.5
+        MG_CONFIG["assets_path"] + "sprite/c/walk2.png"
+        pause 0.5
+        "mg_player_c"
+
+image mg_player_confused_c:
+    nearest True
+    block:
+        MG_CONFIG["assets_path"] + "sprite/c/confused1.png"
+        pause 0.5
+        MG_CONFIG["assets_path"] + "sprite/c/confused2.png"
+        pause 0.5
+        "mg_player_c"
+
+image mg_player_cry_c:
+    nearest True
+    block:
+        MG_CONFIG["assets_path"] + "sprite/c/cry1.png"
+        pause 0.5
+        MG_CONFIG["assets_path"] + "sprite/c/cry2.png"
+        pause 0.5
+        repeat
+
+image mg_player_happy_c:
+    nearest True
+    block:
+        MG_CONFIG["assets_path"] + "sprite/c/smile1.png"
+        pause 0.5
+        MG_CONFIG["assets_path"] + "sprite/c/smile2.png"
+        pause 0.5
+        repeat
