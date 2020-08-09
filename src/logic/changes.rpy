@@ -16,7 +16,7 @@ init python:
     from simplechanges import SimpleChangesParser
     import logging
 
-    if renpy.loadable("DEVCHANGES.changes") or renpy.loadable("CHANGELOG.changes"):
+    if renpy.loadable("../DEVCHANGES.changes") or renpy.loadable("../CHANGELOG.changes"):
         _changelog_obj = SimpleChangesParser(
             "CHANGELOG.changes" if uconf["info"]["channel"] == "stable" else "DEVCHANGES.changes"
         )
