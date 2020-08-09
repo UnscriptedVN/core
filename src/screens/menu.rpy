@@ -10,7 +10,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
-init offset = -1
+init offset = 1
 
 transform main_menu_enter:
     on show:
@@ -33,6 +33,9 @@ screen main_menu():
         alpha 0.25
         additive 0.3
     add "#0000001F"
+
+    if not persistent._viewed_release_notes:
+        timer 0.1 action Show("changelog", version=changelog_notes)
 
     key "n" action Start()
     key "l" action ShowMenu("load")
