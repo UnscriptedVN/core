@@ -255,7 +255,7 @@ init python:
 
     # Filter out the DEVCHANGES file in stable builds.
     if uconf["info"]["build_channel"] == "stable":
-        build.classify("**/DEVCHANGES.txt", None)
+        build.classify("**/DEVCHANGES.changes", None)
 
     # Mark as documentation. If this build is the demo, exclude the
     # source code license.
@@ -267,6 +267,7 @@ init python:
 
     build.documentation('*.html')
     build.documentation('*.txt')
+    build.documentation("*.changes")
 
 # Used for itch.io uploads in Ren'Py Launcher. Unnecessary if
 # using the distribute tool from Poetry (poetry run distribute).

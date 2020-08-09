@@ -16,11 +16,14 @@ init python:
     from simplechanges import SimpleChangesParser
     import logging
 
-    _changelog_obj = SimpleChangesParser(
-        "CHANGELOG.changes" if uconf["info"]["channel"] == "stable" else "DEVCHANGES.changes"
-    )
-    _changelog_obj.parse()
-    changelog_notes = _changelog_obj.latest
+    if renpy.loadable("DEVCHANGES.changes") or renpy.loadable("CHANGELOG.changes"):
+        _changelog_obj = SimpleChangesParser(
+            "CHANGELOG.changes" if uconf["info"]["channel"] == "stable" else "DEVCHANGES.changes"
+        )
+        _changelog_obj.parse()
+        changelog_notes = _changelog_obj.latest
+    else:
+        changelog_notes = ("MISSINGNO", ["MISSINGNO"])
 
     if changelog_notes[0] not in uconf["info"]["version"]:
         persistent._viewed_release_notes = False
