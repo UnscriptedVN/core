@@ -119,7 +119,6 @@ label mg_interactive_experience(vm, world):
         _mg_current_command = None
         _mg_bugs_list = world.bugs
         _mg_last_command = ""
-        _mg_call_id = False
 
         # Add interactive capabilities.
         if not vm.is_interactive:
@@ -255,16 +254,11 @@ label mg_interactive_experience(vm, world):
         _mg_state = _mg_state_manager.get_state()
         while False in _mg_state.checks:
             _mg_current_command = renpy.call_screen("mg_interactive_input", last=_mg_last_command)
-            if _mg_current_command == "~c":
-                _mg_call_id = True
-                _mg_current_command = "collect"
             _current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", _current_instruction)
             _mg_binding = vm.get_binding(_current_instruction)
             _mg_current_count = _mg_state.count
             _mg_last_command = _mg_current_command
-            _mg_c_id = "_c" if _mg_call_id else ""
-
             if _mg_binding:
                 logging.info("Note: %s is a binding of %s.", _current_instruction, _mg_binding)
                 _current_instruction = _mg_binding
@@ -273,13 +267,13 @@ label mg_interactive_experience(vm, world):
                 logging.info("VM return stack: %s", _ret_stack)
             except:
                 logging.error("Command %s failed." % (_current_instruction))
-                renpy.show("mg_player_confused" + _mg_c_id,
+                renpy.show("mg_player_confused",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
                             zorder=3)
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
                 continue
-            renpy.show("mg_player" + _mg_c_id,
+            renpy.show("mg_player",
                         at_list=[minigame_player_pos(_mg_prev_player_pos[0],
                                                     _mg_prev_player_pos[1])],
                         tag="player",
@@ -321,7 +315,7 @@ label mg_interactive_experience(vm, world):
                     else:
                         renpy.hide("effect glitch")
 
-                    renpy.show("mg_player_move" + _mg_c_id,
+                    renpy.show("mg_player_move",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
                             zorder=3)
@@ -329,7 +323,7 @@ label mg_interactive_experience(vm, world):
                 # Turn on the device if available. Otherwise, display a confused look.
                 elif _current_instruction == "collect":
                     if _mg_player_pos not in world.data.devices().as_list():
-                        renpy.show("mg_player_confused" + _mg_c_id,
+                        renpy.show("mg_player_confused",
                                    at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                                    tag="player",
                                    zorder=3)
@@ -346,14 +340,14 @@ label mg_interactive_experience(vm, world):
                                 tag="matrix_DESK_%s_%s" % (vm.get_position()))
                 elif _current_instruction == "exit":
                     if False in _mg_state.checks:
-                        renpy.show("mg_player_cry" + _mg_c_id,
+                        renpy.show("mg_player_cry",
                                     at_list=[minigame_player_pos(_mg_prev_player_pos[0],
                                                                 _mg_prev_player_pos[1])],
                                     tag="player",
                                     zorder=3)
                 else:
                     logging.warn("Command seems to have no effect.")
-                    renpy.show("mg_player_confused" + _mg_c_id,
+                    renpy.show("mg_player_confused",
                             at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
                             tag="player",
                             zorder=3)
@@ -364,7 +358,7 @@ label mg_interactive_experience(vm, world):
             _mg_state = _mg_state_manager.get_state()
             logging.info("Current check state: %s", _mg_state)
 
-        renpy.show("mg_player_happy" + _mg_c_id,
+        renpy.show("mg_player_happy",
                     at_list=[minigame_player_pos(_mg_prev_player_pos[0],
                                                  _mg_prev_player_pos[1])],
                     tag="player",
