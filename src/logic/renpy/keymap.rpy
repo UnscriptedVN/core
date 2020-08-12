@@ -20,7 +20,7 @@ init -10 python:
     config.keymap["director"] = []  # Disables the interactive director
     config.keymap["open_bug_reports"] = ['B']
 
-    config.keymap["open_glossary"] = ["g"] if "enable-glossary" in uconf["labs"]["current"] else []
+    config.keymap["open_glossary"] = ["g"]
 
     if not config.developer:
         config.keymap["open_desktop"].append("D")

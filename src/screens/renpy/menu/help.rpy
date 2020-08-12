@@ -44,8 +44,7 @@ screen help(pre_tab="about"):
                 textbutton _("License") action SetScreenVariable("tab", "license")
                 if uconf["features"]["enable_minigame_adv_mode"]:
                     textbutton _("Documentation") action Function(open_api_docs)
-                if "enable-glossary" in uconf["labs"]["current"]:
-                    textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
+                textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
                 if GamepadExists():
