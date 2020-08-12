@@ -79,6 +79,8 @@ label start:
     # Finally, call the credits at the end of the script.
     call credits
 
+    scene expression _scene_bg
+
     # If the survey link key in the build configuration is set, prompt the user to fill out the
     # form.
     python:

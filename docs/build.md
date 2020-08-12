@@ -23,7 +23,6 @@ channel = "stable"
 
 The features section controls what features are enabled in the game by default. The following keys exist in the features section:
 
-- `enable_youtrack_link` - (Deprecated) Whether to show the bug reporter link in the game.
 - `enable_dreams` - Whether the Dreams modding functionality should be enabled.
 - `enable_minigame_adv_mode` - Whether to enable the minigame's advanced mode. This does _not_ turn the feature on, but it allows for the option to exist in the game.
 
