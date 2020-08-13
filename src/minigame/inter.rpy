@@ -149,8 +149,8 @@ label mg_interactive_experience(vm, world):
                 vm.input("push world_coins %s" % _mg_devices.index(coin))
 
         # Execute all pre-loaded commands before starting.
-        while vm.has_more_instructions():
-            vm.next()
+        # while vm.has_more_instructions():
+        #     vm.next()
         logging.info("Pre-populated VM with namespaces and commands.")
         logging.info("Current origin: %s.", world.data.to_grid().first("PLAYER"))
 
@@ -261,7 +261,7 @@ label mg_interactive_experience(vm, world):
             _mg_last_command = _mg_current_command
             if _mg_binding:
                 logging.info("Note: %s is a binding of %s.", _current_instruction, _mg_binding)
-                _current_instruction = _mg_binding
+                _current_instruction = _mg_binding.value
             try:
                 _ret_stack = vm.input(_mg_current_command)
                 logging.info("VM return stack: %s", _ret_stack)

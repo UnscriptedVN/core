@@ -218,6 +218,8 @@ init python:
         build.classify("game/core/**.txt", "source")
         build.classify("game/core/**.md", "source")
 
+    build.classify("game/python-packages/**", "patches all")
+
     # Remove caches, thumbnail databases, and Ren'Py script source files that aren't part of the
     # Unscripted Core.
     build.classify('**~', None)

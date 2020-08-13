@@ -61,8 +61,7 @@ init -100 python:
                     self.__dict__[special] = kwargs[special]
 
             if "filepath" in kwargs:
-                split_filepath = [str(x) for x in kwargs["filepath"].split("/")]
-                xpath = os.path.join(*split_filepath)
+                xpath = kwargs["filepath"]
 
                 if renpy.loadable(xpath):
                     with renpy.file(xpath) as conf:

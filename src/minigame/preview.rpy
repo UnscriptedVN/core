@@ -35,7 +35,7 @@ label mg_preview(vm, world):
         quick_menu = config.allow_skipping = allow_skipping = skipping = False
         floor_grid = []
         mg_return_code = 0
-        mg_rows, mg_columns = world.data.to_grid().shape()
+        _mg_rows, _mg_columns = world.data.to_grid().shape()
         mg_preview_player_pos = 0, 0
         mg_player_pos = world.data.to_grid().first("PLAYER")
         mg_exit_pos = world.data.to_grid().first("EXIT")
@@ -70,13 +70,13 @@ label mg_preview(vm, world):
         random_seed = renpy.random.randint(1, 50)
 
         # Render a floor underneath the world grid, and then render the grid.
-        for _r in range(mg_rows):
-            for _c in range(mg_columns):
+        for _r in range(_mg_rows):
+            for _c in range(_mg_columns):
                 element = world.data.to_grid().element_at(_r, _c)
 
                 curr_tag = "matrix_base_%s_%s" % (_r, _c)
                 floor_grid.append(curr_tag)
-                img_xpos, img_ypos = matrix_to_scene((_r, _c), (mg_rows, mg_columns))
+                img_xpos, img_ypos = matrix_to_scene((_r, _c), (_mg_rows, _mg_columns))
                 use_alt_design = _c % 2 == 0
 
                 _use_void = element == "VOID"
@@ -134,7 +134,7 @@ label mg_preview(vm, world):
             # If the current instruction is a game-related instruction and not a VM management
             # command, play the required animations.
             if current_instruction not in ["alloc", "set", "push", "pop"]:
-                mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+                mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (_mg_rows, _mg_columns))
                 if current_instruction == "move":
                     vx, vy = vm.get_position()
                     _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
@@ -154,7 +154,7 @@ label mg_preview(vm, world):
 
                     mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", mg_player_pos)
-                    mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+                    mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (_mg_rows, _mg_columns))
                     mg_preview_player_pos = mg_player_x, mg_player_y
 
                     if CSWorldConfigBugType.skip_collisions in _mg_bugs_list\
@@ -177,7 +177,7 @@ label mg_preview(vm, world):
                                    zorder=3)
                     else:
                         _mg_current_count += 1
-                        img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (mg_rows, mg_columns))
+                        img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (_mg_rows, _mg_columns))
                         renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
                         renpy.show("mg_device_on",
                                 at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
