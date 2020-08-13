@@ -265,10 +265,11 @@ label mg_interactive_experience(vm, world):
             try:
                 _ret_stack = vm.input(_mg_current_command)
                 logging.info("VM return stack: %s", _ret_stack)
-            except:
-                logging.error("Command %s failed." % (_current_instruction))
+            except Exception as error:
+                _mg_player_x, _mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
+                logging.error("Command %s failed. Reason: %s" % (_current_instruction, str(error)))
                 renpy.show("mg_player_confused",
-                            at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                            at_list=[minigame_player_pos(_mg_player_x, _mg_player_y)],
                             tag="player",
                             zorder=3)
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
@@ -282,7 +283,7 @@ label mg_interactive_experience(vm, world):
             # If the current instruction is a game-related instruction and not a VM management
             # command, play the required animations.
             if _current_instruction not in ["alloc", "set", "push", "pop", "bind", "cast"]:
-                mg_player_x, mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
+                _mg_player_x, _mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
 
                 if _current_instruction == "move":
                     vx, vy = vm.get_position()
@@ -295,7 +296,7 @@ label mg_interactive_experience(vm, world):
                             logging.warn("Position %s is not valid. Skipping move command.",
                                         (vx, vy))
                             renpy.show("mg_player_confused",
-                                    at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                    at_list=[minigame_player_pos(_mg_player_x, _mg_player_y)],
                                     tag="player",
                                     zorder=3)
                             renpy.pause(1.5 * persistent.mg_speed, hard=True)
@@ -303,11 +304,11 @@ label mg_interactive_experience(vm, world):
 
                     _mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", _mg_player_pos)
-                    mg_player_x, mg_player_y = matrix_to_scene(
+                    _mg_player_x, _mg_player_y = matrix_to_scene(
                         _mg_player_pos,
                         (_mg_rows, _mg_columns)
                     )
-                    _mg_prev_player_pos = mg_player_x, mg_player_y
+                    _mg_prev_player_pos = _mg_player_x, _mg_player_y
 
                     if CSWorldConfigBugType.skip_collisions in _mg_bugs_list\
                         and (_reached_max or _colliding):
@@ -316,7 +317,7 @@ label mg_interactive_experience(vm, world):
                         renpy.hide("effect glitch")
 
                     renpy.show("mg_player_move",
-                            at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                            at_list=[minigame_player_pos(_mg_player_x, _mg_player_y)],
                             tag="player",
                             zorder=3)
 
@@ -324,7 +325,7 @@ label mg_interactive_experience(vm, world):
                 elif _current_instruction == "collect":
                     if _mg_player_pos not in world.data.devices().as_list():
                         renpy.show("mg_player_confused",
-                                   at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                                   at_list=[minigame_player_pos(_mg_player_x, _mg_player_y)],
                                    tag="player",
                                    zorder=3)
                     else:
@@ -348,7 +349,7 @@ label mg_interactive_experience(vm, world):
                 else:
                     logging.warn("Command seems to have no effect.")
                     renpy.show("mg_player_confused",
-                            at_list=[minigame_player_pos(mg_player_x, mg_player_y)],
+                            at_list=[minigame_player_pos(_mg_player_x, _mg_player_y)],
                             tag="player",
                             zorder=3)
                     pass
