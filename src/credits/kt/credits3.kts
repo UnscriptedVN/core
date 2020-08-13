@@ -6,6 +6,7 @@ val specialThanks = listOf(
     "Dr. Jill Zimmerman",
     "Prof. Katherine Cottle",
     "DDLC Modding Community",
+    "Anjali Kunapaneni",
     "You, [username]"
 )
 

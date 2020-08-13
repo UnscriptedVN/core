@@ -75,7 +75,7 @@ Unscripted Core is made possible with the following open-source software:
 [renpy]: https://img.shields.io/badge/renpy-7.3.5-orange.svg
 [license]: https://img.shields.io/badge/license-MPLv2-green.svg?logo=mozilla
 [fira]: https://github.com/UnscriptedVN/fira
-[uvn]: https://unscripted.marquiskurt.net
+[uvn]: https://unscriptedvn.dev
 [ci]: https://github.com/UnscriptedVN/core/workflows/CI/badge.svg?event=push
 [mozilla]: https://img.shields.io/github/license/UnscriptedVN/core
-[devlog]: https://unscripted.marquiskurt.net/posts/2020/06/15/captains-devlog-may-june-2020/
+[devlog]: https://unscriptedvn.dev/posts/2020/06/15/captains-devlog-may-june-2020/

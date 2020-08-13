@@ -12,15 +12,25 @@
 
 # Load the Unscripted build configuration defined in build.toml.
 init -2000 python:
+    import os
     import toml
     import logging
 
     log_filename = "uvn.log" if not renpy.macintosh else config.savedir \
-        + "/../../Logs/net.marquiskurt.unscripted.log"
+        + "/../../Logs/dev.unscriptedvn.game.log"
 
     logging.basicConfig(format='%(asctime)s - [%(levelname)s] %(message)s',
                         level=logging.INFO,
                         filename=log_filename)
+
+    if renpy.macintosh:
+        app_support = config.savedir.replace(
+            "/RenPy/dev.unscriptedvn.game",
+            "/Application Support/Unscripted"
+        )
+        if not os.path.exists(app_support):
+            os.symlink(config.savedir, app_support)
+            logging.info("Unscripted symlink created in %s", app_support)
 
     class UnscriptedCoreConfigError(Exception):
         """Could not load the build configuration."""
@@ -68,7 +78,7 @@ init -100 python:
 define config.name = _("Unscripted")
 define config.version = uconf["info"]["version"] or "1.0.0"
 define build.name = "Unscripted"
-define config.save_directory = "net.marquiskurt.unscripted"
+define config.save_directory = "dev.unscriptedvn.game"
 
 # GUI Information
 define gui.show_name = True
