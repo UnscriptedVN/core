@@ -16,6 +16,16 @@ screen changelog(version):
     tag changelog
     style_prefix "changelog"
 
+    on "show":
+        action [
+                Function(SetThumbnailFull),
+                FileTakeScreenshot(),
+                Function(SetThumbnailOriginal)
+                ]
+
+    add FileCurrentScreenshot() at blur
+    add "#000000CC"
+
     frame:
         vbox:
             xalign 0.5
@@ -32,6 +42,7 @@ screen changelog(version):
                 xalign 0.5
             viewport id "changelog_vp":
                 scrollbars "vertical"
+                mousewheel True
                 style "changelog_viewport"
 
                 vbox:
@@ -44,8 +55,9 @@ screen changelog(version):
 style changelog_frame is gui_frame:
     xalign 0.5
     yalign 0.5
-    xmaximum 600
+    xmaximum 625
     ymaximum 625
+    padding (20, 20)
 
 style changelog_label is gui_label
 style changelog_label_text is gui_label_text:
