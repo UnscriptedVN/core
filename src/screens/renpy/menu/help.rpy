@@ -90,7 +90,7 @@ screen keyboard_help():
         text _("Hides the user interface.")
 
     hbox:
-        label "S"
+        label "S/F12"
         text _("Takes a screenshot.")
 
     hbox:
