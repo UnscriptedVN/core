@@ -17,7 +17,8 @@ style mg_editor_frame is gui_frame:
     margin (0, 0)
     padding (16, 16)
 
-style mg_editor_frame_vbox is gui_vbox
+style mg_editor_frame_vbox is gui_vbox:
+    spacing 0
 
 style mg_editor_toolbar is gui_hbox:
     background "#000000"
@@ -37,31 +38,4 @@ style mg_editor_main_view_hbox is gui_hbox:
 
 style mg_editor_main_view_vbox is gui_vbox:
     xmaximum 616
-
-style mg_editor_programmable_buttons_hbox is gui_hbox:
-    spacing 4
-    xfill True
-
-style mg_editor_programmable_buttons_button is gui_button:
-    hover_foreground Frame(MG_CONFIG["assets_path"] + "gui/button_hover_overlay.png", MG_CONFIG["button_size"], MG_CONFIG["button_size"], tile=False)
-    xysize (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-    padding (0, 0)
-    margin (0, 0)
-
-style mg_vm_input is gui_frame:
-    xsize 584
-    margin (0, 0)
-    padding (16, 16)
-    background "#00000010"
-
-style mg_vm_viewport is ASInterfaceScrollbar
-style mg_vm_viewport_vscrollbar is gui_vscrollbar:
-    unscrollable "hide"
-
-style mg_vm_viewport_vbox is gui_vbox
-style mg_vm_viewport_text is gui_text:
-    font "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"
-    size 20
-
-style mg_vm_viewport_hidden_text is mg_vm_viewport_text:
-    color "#999999"
+    spacing 0

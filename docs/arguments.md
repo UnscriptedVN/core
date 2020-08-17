@@ -20,6 +20,7 @@ The arguments should contain a single dictionary at the root, `args`. The follow
 - `disable-minigame`: Whether to disable the minigame and prevent it from running at all.
 - `disable_experiments`: Defines the list of experiments to turn off when running the game. Should be a list of strings that matches the experiments defined in the build configuration.
 - `mg-classic-mode`: Whether to use the classic minigame input mode (button selection) or to use the new input mode
+- `use-classic-music`: Whether to use the older-style music, written by Stray Objects
 
 ## Example
 

@@ -10,18 +10,17 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+
 init -10 python:
     # Remove the mouse scroll rollback function in the game when not in developer mode (or if the)
     if not config.developer and uconf["info"]["channel"] == "stable":
         config.keymap["rollback"] = [ 'K_PAGEUP', 'repeat_K_PAGEUP', 'K_AC_BACK']
-
+    config.keymap["director"] = []                  # Disables the interactive director
+    config.keymap["screenshot"].append("K_F12")     # Makes F12 an option screenshot key
+    config.keymap["open_bug_reports"] = ['B']
+    config.keymap["open_glossary"] = ["g"]
     config.keymap["open_log"] = ['l', 'L']
     config.keymap["open_desktop"] = ['d']
-    config.keymap["director"] = []  # Disables the interactive director
-    config.keymap["open_bug_reports"] = ['B']
-
-    config.keymap["open_glossary"] = ["g"]
-
     if not config.developer:
         config.keymap["open_desktop"].append("D")
 

@@ -53,25 +53,14 @@ screen mg_editor(config, vm_writer, lvl=0):
                         size 44, 44
                     vbox:
                         text "[config.title] (Level [lvl])"
-
-                        if persistent.mg_adv_mode:
-                            text "Minigame - Advanced Mode":
-                                style "pref_text"
-                        else:
-                            text "Minigame":
-                                style "pref_text"
+                        text "Minigame - Advanced Mode":
+                            style "pref_text"
 
                 hbox:
                     style_prefix "mg_editor_toolbar_buttons"
-
-                    if not persistent.mg_adv_mode:
-                        textbutton "Undo" action Function(vm_writer.undo, ignore_collect=False)
-                        textbutton "Clear" action Function(vm_writer.clear)
-                        null width 8
-                    else:
-                        textbutton "Help" action Function(open_api_docs)
-                        textbutton "Open Folder" action Function(open_directory, mg_scripts_dir)
-                        null width 8
+                    textbutton "Help" action Function(open_api_docs)
+                    textbutton "Open Folder" action Function(open_directory, mg_scripts_dir)
+                    null width 8
                     textbutton "Run" action [Function(vm_writer.write), Return()]
 
         null height 16
@@ -83,137 +72,70 @@ screen mg_editor(config, vm_writer, lvl=0):
             null width 4
 
             vbox:
+                spacing 0
                 vbox:
-                    if not persistent.mg_adv_mode:
-                        hbox:
-                            style_prefix "mg_editor_programmable_buttons"
-                            if "move" in config.allowed:
-                                hbox:
-                                    xfill False
-                                    vbox:
-                                        button action [Function(vm_writer.move, "north"), SetScreenVariable("var_ppos", update_position(var_ppos, "north"))]:
-                                            add MG_CONFIG["assets_path"] + "gui/button_move_up.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Move north":
-                                            xalign 0.5 size 12
-                                    vbox:
-                                        button action [Function(vm_writer.move, "south"), SetScreenVariable("var_ppos", update_position(var_ppos, "south"))]:
-                                            add MG_CONFIG["assets_path"] + "gui/button_move_down.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Move south":
-                                            xalign 0.5 size 12
-                                    vbox:
-                                        button action [Function(vm_writer.move, "west"), SetScreenVariable("var_ppos", update_position(var_ppos, "west"))]:
-                                            add MG_CONFIG["assets_path"] + "gui/button_move_left.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Move west":
-                                            xalign 0.5 size 12
-                                    vbox:
-                                        button action [Function(vm_writer.move, "east"), SetScreenVariable("var_ppos", update_position(var_ppos, "east"))]:
-                                            add MG_CONFIG["assets_path"] + "gui/button_move_right.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Move east":
-                                            xalign 0.5 size 12
-                            hbox:
-                                xfill False
+                    vbox:
+                        xalign 0.5
+                        xsize tile_size * __c
 
-                                if "collect" in config.allowed:
-                                    vbox:
-                                        button action Function(smart_collect, vm_writer, config.data, var_ppos):
-                                            add MG_CONFIG["assets_path"] + "gui/button_collect.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Get coin":
-                                            xalign 0.5 size 12
-                                if "exit" in config.allowed:
-                                    vbox:
-                                        button action Function(vm_writer.exit):
-                                            add MG_CONFIG["assets_path"] + "gui/button_exit.png":
-                                                size (MG_CONFIG["button_size"] + 8, MG_CONFIG["button_size"] + 8)
-                                        text "Exit map":
-                                            xalign 0.5 size 12
-                    else:
-                        vbox:
+                        text "Start coding here.":
                             xalign 0.5
-                            xsize tile_size * __c
-
-                            text "Start coding here.":
-                                xalign 0.5
-                            text "Edit the script provided in the scripts folder and then click \"Run\" to compile it.":
-                                style "pref_text"
-                                xalign 0.5
-
+                        text "Edit the script provided in the scripts folder and then click \"Run\" to compile it.":
+                            style "pref_text"
+                            xalign 0.5
                     null height 10
-
                 vbox:
-                    xsize tile_size * __c
-                    ysize tile_size * __r
                     spacing 0
+                    vbox:
+                        xsize tile_size * __c
+                        ysize tile_size * __r
+                        spacing 0
 
-                    for row in range(__r):
+                        for row in range(__r):
 
-                        hbox:
-                            for column in range(__c):
-                                $ _is_void = grid.element_at(row, column) == "VOID"
-                                if _is_void:
-                                    add "mg_air":
-                                        size (tile_size, tile_size)
-                                else:
-                                    add "mg_floor":
-                                        size (tile_size, tile_size)
-                vbox:
-                    yoffset tile_size * -1 * __r
-                    xsize tile_size * __c
-                    ysize tile_size * __r
-                    spacing 0
-
-                    for row in range(__r):
-                        hbox:
-                            for column in range(__c):
-                                $ element = grid.element_at(row, column)
-
-                                if element == "WALL":
-                                    $ full_wall =  is_full_wall(world_matrix, (row, column))
-                                    if full_wall:
-                                        add "mg_wall_full":
+                            hbox:
+                                for column in range(__c):
+                                    $ _is_void = grid.element_at(row, column) == "VOID"
+                                    if _is_void:
+                                        add "mg_air":
                                             size (tile_size, tile_size)
                                     else:
-                                        add "mg_wall":
+                                        add "mg_floor":
                                             size (tile_size, tile_size)
-                                elif element == "EXIT":
-                                    $ _direction = stairway_type(walls, exit_position)[0]
-                                    add "mg_exit_[_direction]":
-                                        size (tile_size, tile_size)
-                                elif element == "DESK":
-                                    add "mg_device_off":
-                                        size (tile_size, tile_size)
-                                elif element == "PLAYER":
-                                    add "mg_player":
-                                        size (tile_size, tile_size)
-                                else:
-                                    null width tile_size
+                    vbox:
+                        yoffset tile_size * -1 * __r
+                        xsize tile_size * __c
+                        ysize tile_size * __r
+                        spacing 0
 
-            if not persistent.mg_adv_mode:
-                $ _mg_spacing = -16 if persistent.mg_condensed_font else 4
-                vbox:
-                    text "Virtual Machine Input"
+                        for row in range(__r):
+                            hbox:
+                                spacing 0
+                                for column in range(__c):
+                                    $ element = grid.element_at(row, column)
 
-                    frame:
-                        style "mg_vm_input"
-                        viewport:
-                            mousewheel True
-                            yfill True
-                            scrollbars "vertical"
-                            style_prefix "mg_vm_viewport"
-
-                            vbox:
-                                spacing _mg_spacing
-                                for ins in code:
-                                    if persistent.mg_vm_show_all:
-                                        text "[ins]":
-                                            if not visible_command(ins):
-                                                style "mg_vm_viewport_hidden_text"
+                                    if element == "WALL":
+                                        $ full_wall =  is_full_wall(world_matrix, (row, column))
+                                        if full_wall:
+                                            add "mg_wall_full":
+                                                size (tile_size, tile_size)
+                                        else:
+                                            add "mg_wall":
+                                                size (tile_size, tile_size)
+                                    elif element == "EXIT":
+                                        $ _direction = stairway_type(walls, exit_position)[0]
+                                        add "mg_exit_[_direction]":
+                                            size (tile_size, tile_size)
+                                    elif element == "DESK":
+                                        add "mg_device_off":
+                                            size (tile_size, tile_size)
+                                    elif element == "PLAYER":
+                                        add "mg_player":
+                                            size (tile_size, tile_size)
+                                    elif element == "VOID":
+                                        add "mg_air":
+                                            size (tile_size, tile_size)
                                     else:
-                                        if visible_command(ins):
-                                            text "[ins]"
+                                        null width tile_size
         null height 16
         null height 16

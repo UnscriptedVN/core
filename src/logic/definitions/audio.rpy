@@ -25,9 +25,14 @@ init 1000 python hide:
     if not persistent._set_preferences:
         _preferences.set_volume("ambient", 0.2)
 
+# Switch to the old theme music if passed in via arguments.
+init -10 python:
+    _theme_music = "bgm/theme.ogg"
+    if "use-classic-music" in arguments and arguments["use-classic-music"]:
+        _theme_music = "bgm/otheme.ogg"
 
 # MARK: BGM
-define audio.theme = "bgm/theme.ogg"        # Simulated Reality
+define audio.theme = _theme_music
 define audio.t1 = "bgm/t1.ogg"              # Euphoria
 define audio.t2 = "bgm/t2.ogg"              # Winter
 define audio.t3 = "bgm/t3.ogg"              # Calm

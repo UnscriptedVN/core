@@ -52,7 +52,7 @@ init 10 python:
             self.vm_path = os.path.join(*path)
             self.writer = CSNadiaVMWriterBuilder(self.vm_path)
 
-            if not persistent.mg_adv_mode and "mg-classic-mode" not in arguments:
+            if not persistent.mg_adv_mode:
                 if not renpy.loadable(self.vm_path):
                     with open(self.vm_path, "w+") as filewrite:
                         filewrite.write("")
@@ -95,25 +95,8 @@ init 10 python:
             """
             renpy.call_screen("ASNotificationAlert",
                               "Classic Mode is unsupported.",
-                              "Some parts of the minigame may break when using the classic mode."
-                              + " Using the new interactive mode is recommended as it provides"
-                              + " better support and offers more features.")
-            if self.writer.instructions:
-                self.writer.clear()
-
-            coins = self.map.data.coins().as_list()
-            if len(coins) > 0:
-                self.writer.alloc("world_coins", len(coins))
-                self.writer.alloc("inventory", len(coins))
-
-                for coin in coins:
-                    self.writer.set(coin)
-                    self.writer.push("world_coins", coins.index(coin))
-
-            renpy.call_screen("mg_editor", self.map, self.writer, self.level)
-            self.vm = CSNadiaVM(path=self.vm_path,
-                                player_origin=self.map.data.to_grid().first("PLAYER"))
-            logging.info("Loaded VM from %s.", self.vm_path)
+                              "The classic mode GUI may not be called anymore.")
+            raise Exception("Classic mode is unsupported.")
 
         def _preview(self):
             """Run the preview scene with the current map and virtual machine.
@@ -136,20 +119,12 @@ init 10 python:
             If the "Force Python compiler" option is not turned on, the first iteration will skip
                 the editor by making `show_editor` false. If the first iteration results in a bad
                 solution, `show_editor` will be re-enabled and will run on subsequent runs.
-
-            If the argument "mg-classic-mode" is passed to the game's CLI arguments, the minigame
-                will use the classic editor instead of the REPL-like input method.
             """
             solved = False
             show_editor = True
             attempted_existing_vm = False
-            classic_mode = False
 
-            if "mg-classic-mode" in arguments and arguments["mg-classic-mode"]:
-                logging.info("Classic mode requested in arguments. Using instead...")
-                classic_mode = True
-
-            if not persistent.mg_adv_mode and not classic_mode:
+            if not persistent.mg_adv_mode:
                 self.vm = CSNadiaVM(path=self.vm_path,
                                     player_origin=self.map.data.to_grid().first("PLAYER"),
                                     is_interactive=True)
@@ -161,22 +136,15 @@ init 10 python:
                     else:
                         show_editor = False
                         logging.info("Reading from existing VM code at %s.", self.vm_path)
-
                 while not solved:
                     if show_editor:
                         logging.info("Calling code editor for level %s...", self.level)
-                        if persistent.mg_adv_mode:
-                            self._compile_advanced()
-                        else:
-                            self._compile_basic()
-
+                    self._compile_advanced()
                     if "vm" not in self.__dict__:
                         logging.error("VM was not initialized. Returning out this run...")
                         break
-
                     logging.info("Starting preview...")
                     self._preview()
-
                     if mg_return_code != 0:
                         renpy.call_screen("ASNotificationAlert",
                                         "Uh oh!",

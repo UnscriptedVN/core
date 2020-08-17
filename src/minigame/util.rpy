@@ -78,7 +78,7 @@ init python:
             "west": (0, -1),
             "east": (0, 1)
         }
-        trans_x, trans_y = transforms.get(direction, "east")
+        trans_x, trans_y = transforms.get(direction, transforms["east"])
         curr_x, curr_y = player
         pplayer = curr_x + trans_x, curr_y + trans_y
         return pplayer
