@@ -48,10 +48,6 @@ label start:
         for item in inventory.export():
             inventory.removeItem(item)
 
-        # Request for the notification permissions to receive in-game emails.
-        if "opt-in-quickmail" not in uconf["labs"]["current"]:
-            emails.requestPermission(forPermission=AS_REQUIRES_NOTIFICATIONKIT)
-
         # Update the email location to point to the emails folder.
         emails.email_location = "story/emails/"
 
