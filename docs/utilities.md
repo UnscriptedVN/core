@@ -76,6 +76,7 @@ Get the path to a Feather icon.
 ### Args
 
 - name (str): The name of the Feather icon.
+- mode (Optional[str]): The mode to register the icon as ("light" or "dark"). Defaults to None.
 
 ## `reset_playername()`
 
