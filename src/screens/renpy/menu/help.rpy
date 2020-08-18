@@ -25,6 +25,11 @@ init -1 python:
     else:
         logging.warn("Glossary file couldn't be loaded.")
 
+    CONTRIBS = {
+        "Andy Kurnia": "kofi",
+        "Jim Kearney": "kofi",
+    }
+
 screen help(pre_tab="about"):
     tag menu
 
@@ -45,12 +50,30 @@ screen help(pre_tab="about"):
                 if uconf["features"]["enable_minigame_adv_mode"]:
                     textbutton _("Documentation") action Function(open_api_docs)
                 textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
+                textbutton _("Contributors") action SetScreenVariable("tab", "contributors")
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
                 if GamepadExists():
                     textbutton _("Gamepad") action SetScreenVariable("tab", "gamepad")
 
             use expression tab + "_help"
+
+screen contributors_help():
+    text "Thanks to the following people that helped make Unscripted possible!":
+        xalign 0.5
+    null height 16
+
+    for contributor in CONTRIBS:
+        python:
+            _i = "coffee" if CONTRIBS[contributor] == "kofi" else "github"
+        hbox:
+            hbox:
+                xsize 250
+                add get_feather_icon(_i):
+                    size (24, 24)
+                    xalign 1.0
+                    xoffset -20
+            text "[contributor]"
 
 screen keyboard_help():
     hbox:
