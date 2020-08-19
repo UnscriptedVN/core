@@ -27,9 +27,11 @@ init 1000 python hide:
 
 # Switch to the old theme music if passed in via arguments.
 init -10 python:
+    import logging
     _theme_music = "bgm/theme.ogg"
     if "use-classic-music" in arguments and arguments["use-classic-music"]:
-        _theme_music = "bgm/otheme.ogg"
+        logging.warn("use-classic-music argument will be deprecated in a future build.")
+        _theme_music = "bgm/otheme.ogg"     # Simulated Reality
 
 # MARK: BGM
 define audio.theme = _theme_music

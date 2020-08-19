@@ -13,7 +13,6 @@
 init -10 python:
     import os
     import logging
-    import collections
     from subprocess import check_call
     from datetime import datetime
     from enum import Enum
@@ -109,7 +108,7 @@ init -10 python:
 
             # Ensure that the checks worked correctly.
             ainv = inventory.export(filter=lambda i: i.itemId)
-            if collections.Counter(pinv) != collections.Counter(ainv):
+            if sorted(pinv) != sorted(ainv):
                 logging.error("Inventories don't match: %s vs. %s",
                               pinv,
                               ainv)
@@ -142,9 +141,13 @@ init -10 python:
         """
         use_light = (mode == "light") if mode else (current_theme().type == ThemeType.LIGHT)
         fname = ("%s.png" if use_light else "%s-dark.png") % (name)
-        fpath = os.path.join("core", "assets", "feather", fname)
         if not renpy.loadable("core/assets/feather/" + fname):
-            logging.error("Icon %s cannot be found or doesn't exist. (Path: %s)" % (name, fpath))
+            logging.error(
+                "Icon %s cannot be found or doesn't exist. (Path: %s)" % (
+                    name,
+                    "core/assets/feather/" + fname
+                )
+            )
             raise FeatherAssetError("Icon %s cannot be found or doesn't exist." % (name))
         return "core/assets/feather/" + fname
 
@@ -181,12 +184,11 @@ init -10 python:
         Args:
             who: The name of the character.
         """
-        if who == "???":
-            return "unknown"
-        elif who == store.player.name:
-            return "player"
-        else:
-            return who.lower()[0]
+        specials = {
+            "???": "unknown",
+            store.player.name: "player"
+        }
+        return specials.get(who, who.lower()[0])
 
     # MARK: Conversations
     def finished_talks(a):
@@ -225,10 +227,10 @@ init -10 python:
             theme (Theme): The theme object that corresponds to the GUI preference for the theme.
                 If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        theme = Theme(filepath=os.path.join("core", "themes", "ruby-light", "theme.toml"))
+        theme = Theme(filepath="core/themes/ruby-light/theme.toml")
+        path = "core/themes/%s/theme.toml" % (gui.preference("theme", "ruby-light"))
         try:
-            theme = Theme(filepath=os.path.join("core", "themes",
-                                           gui.preference("theme", "ruby-light"), "theme.toml"))
+            theme = Theme(filepath=path)
         except:
             pass
         return theme
@@ -240,7 +242,7 @@ init -10 python:
             theme (Theme): The theme object that corresponds to the GUI preference for the theme.
                 If the theme object cannot be loaded, it will attempt to use the Ring theme.
         """
-        theme = Theme(filepath=os.path.join("core", "themes", name, "theme.toml"))
+        theme = Theme(filepath="core/themes/" + name + "/theme.toml")
         return theme
 
     def dynamic_background(image_path, include=[TimeOfDay.day, TimeOfDay.night]):

@@ -17,8 +17,7 @@ init 10 python:
         This works by effectively searching for scripts that start with
         'script_dream_'.
         """
-        return filter(lambda label: label.startswith("script_dream_"),
-                      renpy.get_all_labels())
+        return [label for label in renpy.get_all_labels() if label.startswith("script_dream_")]
 
 # This is the bootstrap for a Dream. The Dreams screen calls this bootstrap
 # to set up the dream so that developers do not need to write any pre-setup
