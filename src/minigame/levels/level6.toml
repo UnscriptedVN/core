@@ -1,0 +1,14 @@
+[level.config]
+name = "Behind Closed Doors"
+allowed_blocks = ["move", "collect", "exit"]
+check = ["player-powers-all-devices", "player-at-exit"]
+bug = ["exit-changes-randomly", "collision-checks-fail"]
+
+[level.map]
+layout = """
+%%%%%%%
+%P  %E%
+%.  % %
+%  .%.%
+%%%%%%%
+"""
