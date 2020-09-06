@@ -52,7 +52,7 @@ init python:
             mia_speak("Maybe everyone went home. How long have I been here?")
             mia_speak("Jeez, I must've been here all night...")
             mia_speak(
-                "Well, I guess since I'm here early enough,"
+                "Well, I guess since I'm here early enough, "
                 + "I might as well start turning things on..."
             )
             mia_speak("And maybe get some clues about what happened.")
