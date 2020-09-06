@@ -25,7 +25,7 @@ init python:
     else:
         changelog_notes = ("MISSINGNO", ["MISSINGNO"])
 
-    if changelog_notes[0] not in uconf["info"]["version"]:
+    if uconf["info"]["version"] not in changelog_notes[0]:
         persistent._viewed_release_notes = False
         logging.info("Ready to display release notes.")
 
