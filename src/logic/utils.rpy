@@ -57,6 +57,13 @@ init -10 python:
         """
 
         item = inventory_items[item_key]
+
+        if not inventory.getItemById(item.itemId):
+            logging.warn("Item %s is not in the inventory, so it cannot be removed."
+                         + " Are you rolling back?",
+                         item_key)
+            return
+
         inventory.useItem(item)
 
         if remove:
