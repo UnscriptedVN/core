@@ -15,6 +15,10 @@ init offset = 5
 init python:
     import logging
 
+    def fallthrough_quit():
+        """Force-throw out of a context."""
+        renpy.jump_out_of_context("quit")
+
     def call_puzzle(lvl=0):
         """Call the minigame in a new context.
 
@@ -40,6 +44,7 @@ init python:
         renpy.show("mg_bg", at_list=[], zorder=5)
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
+        old_quit = renpy.config.quit_action
         if lvl == 0:
             quick_menu = False
             mia_speak("Ugh...")
@@ -52,12 +57,23 @@ init python:
             )
             mia_speak("And maybe get some clues about what happened.")
         try:
+            renpy.config.quit_action = fallthrough_quit
             renpy.invoke_in_new_context(__puzzle.run)
+
+        # In cases where the user is actually trying to quit, exit out of the context and
+        # prompt the quit dialog.
+        except renpy.game.JumpException as err:
+            renpy.config.quit_action = old_quit
+            renpy.run(Quit(confirm=True))
+
         except Exception as err:
+            print(type(err))
             logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
-                          err if err is not None else "unknown error")
+                          str(err) if err is not None else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
+        finally:
+            renpy.config.quit_action = old_quit
         renpy.hide("mg_bg")
         renpy.with_statement(dissolve)
         quick_menu = True
