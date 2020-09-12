@@ -22,3 +22,4 @@ default persistent.mg_adv_mode = False
 default persistent.mg_condensed_font = False
 default persistent.mg_vm_show_all = False
 default persistent.mg_vm_force_editor = True
+default persistent.prefers_dynamic_bg = True

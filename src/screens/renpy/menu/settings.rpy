@@ -81,12 +81,20 @@ screen appearance_settings():
         box_wrap True
 
         vbox:
-            style_prefix "radio"
-            label "Theme"
-            # textbutton "Ring" action gui.SetPreference("theme", "ring")
-            textbutton "Ayu Light Blue" action gui.SetPreference("theme", "ruby-light")
-            textbutton "Ayu Mirage Blue" action gui.SetPreference("theme", "ruby-mirage")
-            textbutton "Ayu Dark Blue" action gui.SetPreference("theme", "ruby-dark")
+            vbox:
+                style_prefix "radio"
+                label "Theme"
+                # textbutton "Ring" action gui.SetPreference("theme", "ring")
+                textbutton "Ayu Light Blue" action gui.SetPreference("theme", "ruby-light")
+                textbutton "Ayu Mirage Blue" action gui.SetPreference("theme", "ruby-mirage")
+                textbutton "Ayu Dark Blue" action gui.SetPreference("theme", "ruby-dark")
+            vbox:
+                style_prefix "check"
+                label "Main menu"
+                textbutton "Use dynamic backgrounds" action ToggleField(persistent, "prefers_dynamic_bg")
+                text "When dynamic backgrounds are enabled, the main menu background will change depending on the time of day in your location.":
+                    style "pref_text"
+
 
         vbox:
             if renpy.variant("pc"):

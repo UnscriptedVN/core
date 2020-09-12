@@ -28,7 +28,10 @@ screen main_menu():
     if uconf["discord"]["enable_rpc"] and persistent.use_discord:
         timer 0.10 action Function(discord.update_presence, title="Idle", detail="Main Menu", image="mmenu_1024")
 
-    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night])
+    python:
+        _bg = dynamic_background("assets/gui/main/main.jpg",
+                                 include=[TimeOfDay.day, TimeOfDay.night]) if persistent.prefers_dynamic_bg else "assets/gui/main/main.jpg"
+    add _bg
     add "assets/gui/overlay/main_menu.png" at main_menu_enter:
         alpha 0.25
         additive 0.3
