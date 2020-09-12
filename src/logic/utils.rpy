@@ -96,6 +96,9 @@ init -10 python:
             event: The callback event
             interact: Whether the dialogue causes an interaction
         """
+        if not "player" not in store.__dict__ or "current_inventory" not in store.player.__dict__:
+            return
+
         pinv = store.player.current_inventory
         ainv = inventory.export(filter=lambda i: i.itemId)
 
