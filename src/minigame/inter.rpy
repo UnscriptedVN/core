@@ -288,7 +288,6 @@ label mg_interactive_experience(vm, world):
 
                 if _current_instruction == "move":
                     vx, vy = _virtual.get_position()
-                    print("Current position: " + str((vx, vy)))
                     _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
                     _reached_min = vx < 0 or vy < 0
                     try:
@@ -339,10 +338,11 @@ label mg_interactive_experience(vm, world):
                                    zorder=3)
                     else:
                         vm.input(_mg_current_command)
-                        _mg_current_count += 1
                         _mg_item_index = world.data.devices().as_list().index(_mg_player_pos)
-                        vm.input("pop world_coins %s" % _mg_item_index)
-                        vm.input("push inventory %s" % _mg_item_index)
+                        if not vm.get_namespace("inventory")[_mg_item_index]:
+                            _mg_current_count += 1
+                            vm.input("pop world_coins %s" % _mg_item_index)
+                            vm.input("push inventory %s" % _mg_item_index)
 
                         img_xpos, img_ypos = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
                         renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
