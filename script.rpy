@@ -18,7 +18,7 @@ label start:
         cname = zname = mname = kname = mname = "???"
 
         # Disable the quick menu.
-        quick_menu = False
+        $ quick_menu = False
 
         # Get the player's name, pronouns, and language and create a new Player object.
         player_name, player_pronouns, player_language = renpy.call_screen("ProfileNameView")
@@ -64,6 +64,7 @@ label start:
     stop music fadeout 1.5
     show black with fade
     $ quick_menu = True
+    $ renpy.block_rollback()
 
     # Run the story script bootstrapper. This bootstrapper points to the story scripts and will
     # execute the story. As this code is not open-source, we call the bootstrapper instead of
