@@ -128,7 +128,7 @@ label mg_preview(vm, world):
         while vm.has_more_instructions():
             current_instruction = vm.preview_next_instruction()
             logging.info("Current instruction in VM stack: %s", current_instruction)
-            vm.next()
+            _virtual = vm.test_next()
             _mg_current_count = _mg_state.count
 
             # If the current instruction is a game-related instruction and not a VM management
@@ -138,6 +138,7 @@ label mg_preview(vm, world):
                 if current_instruction == "move":
                     vx, vy = vm.get_position()
                     _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
+                    _reached_min = vx < 0 or vy < 0
                     try:
                         _element_at = world.data.to_grid().element_at(vx, vy)
                         _colliding = _element_at in ["WALL", "VOID"]
@@ -146,7 +147,7 @@ label mg_preview(vm, world):
 
                     # Display a confused animation if the player is in an invalid position.
                     if CSWorldConfigBugType.skip_collisions in _mg_bugs_list:
-                        if _reached_max or _colliding:
+                        if _reached_max or _reached_min or _colliding:
                             logging.warn("Position %s is not valid. Skipping move command.",
                                         mg_player_pos)
                             renpy.show("mg_player_confused",
@@ -155,7 +156,7 @@ label mg_preview(vm, world):
                                     zorder=3)
                             renpy.pause(1.5 * persistent.mg_speed, hard=True)
                             continue
-
+                    vm.next()
                     mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", mg_player_pos)
                     mg_player_x, mg_player_y = matrix_to_scene(mg_player_pos, (_mg_rows, _mg_columns))
@@ -180,6 +181,7 @@ label mg_preview(vm, world):
                                    tag="player",
                                    zorder=3)
                     else:
+                        vm.next()
                         _mg_current_count += 1
                         img_xpos, img_ypos = matrix_to_scene(mg_player_pos, (_mg_rows, _mg_columns))
                         renpy.hide("matrix_DESK_%s_%s" % (vm.get_position()))
@@ -190,7 +192,8 @@ label mg_preview(vm, world):
                     pass
 
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
-
+            else:
+                vm.next()
             _mg_states.update_state(mg_player_pos, _mg_current_count)
             _mg_state = _mg_states.get_state()
 
