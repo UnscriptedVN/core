@@ -70,6 +70,12 @@ init -10 python:
             inventory.removeItem(item)
             store.player.current_inventory.remove(item_key)
 
+    def clear_inventory():
+        """Clear the AliceOS inventory."""
+        current_inv = inventory.export(filter=lambda a: a.itemId)
+        for item_key in current_inv:
+            inventory.removeItem(inventory.getItemById(item_key))
+
     def restore_inventory():
         """Restore the inventory to the state listed in the player's
         inventory.
