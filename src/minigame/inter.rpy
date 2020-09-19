@@ -263,7 +263,8 @@ label mg_interactive_experience(vm, world):
                 logging.info("Note: %s is a binding of %s.", _current_instruction, _mg_binding)
                 _current_instruction = _mg_binding.value
             try:
-                _ret_stack = vm.input(_mg_current_command)
+                _virtual = vm.test_input(_mg_current_command)
+                _ret_stack = _virtual.get_vm_stack()
                 logging.info("VM return stack: %s", _ret_stack)
             except Exception as error:
                 _mg_player_x, _mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
@@ -286,13 +287,20 @@ label mg_interactive_experience(vm, world):
                 _mg_player_x, _mg_player_y = matrix_to_scene(_mg_player_pos, (_mg_rows, _mg_columns))
 
                 if _current_instruction == "move":
-                    vx, vy = vm.get_position()
+                    vx, vy = _virtual.get_position()
+                    print("Current position: " + str((vx, vy)))
                     _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
-                    _colliding = world.data.to_grid().element_at(vx, vy) in ["WALL", "VOID"]
+                    _reached_min = vx < 0 or vy < 0
+                    try:
+                        _element_at = world.data.to_grid().element_at(vx, vy)
+                        _colliding = _element_at in ["WALL", "VOID"]
+                    except:
+                        _reached_max = True
+                        _colliding = True
 
                     # Display a confused animation if the player is in an invalid position.
                     if CSWorldConfigBugType.skip_collisions not in _mg_bugs_list:
-                        if _reached_max or _colliding:
+                        if _reached_max or _reached_min or _colliding:
                             logging.warn("Position %s is not valid. Skipping move command.",
                                         (vx, vy))
                             renpy.show("mg_player_confused",
@@ -302,6 +310,7 @@ label mg_interactive_experience(vm, world):
                             renpy.pause(1.5 * persistent.mg_speed, hard=True)
                             continue
 
+                    vm.input(_mg_current_command)
                     _mg_player_pos = vm.get_position()
                     logging.info("New position set: %s", _mg_player_pos)
                     _mg_player_x, _mg_player_y = matrix_to_scene(
@@ -329,6 +338,7 @@ label mg_interactive_experience(vm, world):
                                    tag="player",
                                    zorder=3)
                     else:
+                        vm.input(_mg_current_command)
                         _mg_current_count += 1
                         _mg_item_index = world.data.devices().as_list().index(_mg_player_pos)
                         vm.input("pop world_coins %s" % _mg_item_index)
@@ -354,6 +364,8 @@ label mg_interactive_experience(vm, world):
                             zorder=3)
                     pass
                 renpy.pause(1.5 * persistent.mg_speed, hard=True)
+            else:
+                vm.input(_mg_current_command)
 
             _mg_state_manager.update_state(_mg_player_pos, _mg_current_count)
             _mg_state = _mg_state_manager.get_state()

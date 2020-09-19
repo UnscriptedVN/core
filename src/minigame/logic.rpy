@@ -128,7 +128,19 @@ init 10 python:
                 self.vm = CSNadiaVM(path=self.vm_path,
                                     player_origin=self.map.data.to_grid().first("PLAYER"),
                                     is_interactive=True)
-                renpy.call_in_new_context("mg_interactive_experience", self.vm, self.map)
+                old_quit = renpy.config.quit_action
+                renpy.config.quit_action = fallthrough_quit
+                try:
+                    renpy.call_in_new_context("mg_interactive_experience", self.vm, self.map)
+                except renpy.game.JumpException as err:
+                    print(err)
+                    store.quick_menu = True
+                    renpy.config.quit_action = old_quit
+                    renpy.run(Quit(confirm=True))
+                except Exception as err:
+                    quick_menu = True
+                finally:
+                    renpy.config.quit_action = old_quit
             else:
                 if not persistent.mg_vm_force_editor and not attempted_existing_vm:
                     if not os.path.isfile(self.vm_path):

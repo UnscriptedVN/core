@@ -138,7 +138,11 @@ label mg_preview(vm, world):
                 if current_instruction == "move":
                     vx, vy = vm.get_position()
                     _reached_max = vx > _mg_rows - 1 or vy > _mg_columns - 1
-                    _colliding = world.data.to_grid().element_at(vx, vy) in ["WALL", "VOID"]
+                    try:
+                        _element_at = world.data.to_grid().element_at(vx, vy)
+                        _colliding = _element_at in ["WALL", "VOID"]
+                    except:
+                        _colliding = True
 
                     # Display a confused animation if the player is in an invalid position.
                     if CSWorldConfigBugType.skip_collisions in _mg_bugs_list:

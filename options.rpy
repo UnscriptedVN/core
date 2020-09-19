@@ -124,7 +124,7 @@ define config.has_autosave = False
 define config.save_json_callbacks = [save_player, save_chaptername]
 
 # Say callbacks. These run whenever dialogue is presented.
-define config.all_character_callbacks = [match_inventory_scheme]
+define config.all_character_callbacks = [match_inventory_scheme, restore_quick_menu]
 
 # Image and layering information.
 define config.search_prefixes = ["", "System/", "assets/", "assets/images/" , "gui/"]

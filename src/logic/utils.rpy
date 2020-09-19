@@ -281,6 +281,10 @@ init -10 python:
         else:
             return img + ".jpg"
 
+    def restore_quick_menu(event, interact=True, **kwargs):
+        if "quick_menu" not in vars() or not quick_menu:
+            quick_menu = True
+
 init -500 python:
     def open_directory(path):
         # Source: https://stackoverflow.com/a/16204023
