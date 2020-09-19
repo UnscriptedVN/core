@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     paths:
-      - "src/**.rpy"
+      - "**/**.rpy"
       - "build.toml"
       - "requirements.txt"
       - ".github/workflows/lint.yml"
