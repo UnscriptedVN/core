@@ -58,7 +58,7 @@ init python:
             mia_speak("And maybe get some clues about what happened.")
         try:
             renpy.config.quit_action = fallthrough_quit
-            renpy.invoke_in_new_context(__puzzle.run)
+            __puzzle.run()
 
         # In cases where the user is actually trying to quit, exit out of the context and
         # prompt the quit dialog.

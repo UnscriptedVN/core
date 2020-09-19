@@ -55,9 +55,6 @@ label splashscreen:
 
 label before_main_menu:
     python:
-        if "quick_menu" not in vars() or not quick_menu:
-            quick_menu = True
-
         # Update the rich presence to indicate idling on the main menu.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             discord.update_presence("Idle - Main Menu")
