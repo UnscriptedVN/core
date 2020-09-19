@@ -37,4 +37,8 @@ label after_load:
         # player name.
         if uconf["discord"]["enable_rpc"] and persistent.use_discord:
             change_playing_state()
+
+        # Enable the quick menu if it was disabled.
+        if "quick_menu" not in vars() or not quick_menu:
+            quick_menu = True
     return

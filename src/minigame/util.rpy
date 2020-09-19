@@ -63,20 +63,22 @@ init python:
         # In cases where the user is actually trying to quit, exit out of the context and
         # prompt the quit dialog.
         except renpy.game.JumpException as err:
+            quick_menu = True
             renpy.config.quit_action = old_quit
             renpy.run(Quit(confirm=True))
 
         except Exception as err:
-            print(type(err))
+            quick_menu = True
             logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
                           str(err) if err is not None else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
         finally:
+            quick_menu = True
             renpy.config.quit_action = old_quit
+
         renpy.hide("mg_bg")
         renpy.with_statement(dissolve)
-        quick_menu = True
 
     def update_position(player, direction):
         """Get the coordinates of a player when moved in a specific direction.

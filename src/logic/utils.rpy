@@ -22,7 +22,7 @@ init -10 python:
         pass
 
     class FeatherAssetError(Exception):
-        """The Feather icon could not be found."""
+        """The Feather ifcon could not be found."""
         pass
 
     class TimeOfDay(Enum):
