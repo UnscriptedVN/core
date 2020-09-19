@@ -24,7 +24,7 @@ screen choice(items):
 
     if choice_timeout:
         timer choice_timeout action [Function(logging.warn, "Choice timed out. Selecting last choice automatically."),
-                                     Return(len(items) - 1)]
+                                     Return(len(items))]
 
 ## When this is true, menu captions will be spoken by the narrator. When false,
 ## menu captions will be displayed as empty buttons.
