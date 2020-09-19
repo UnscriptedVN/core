@@ -18,7 +18,7 @@ label start:
         cname = zname = mname = kname = mname = "???"
 
         # Disable the quick menu.
-        quick_menu = False
+        $ quick_menu = False
 
         # Get the player's name, pronouns, and language and create a new Player object.
         player_name, player_pronouns, player_language = renpy.call_screen("ProfileNameView")
