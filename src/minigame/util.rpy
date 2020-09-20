@@ -65,12 +65,25 @@ init python:
         except renpy.game.JumpException as err:
             store.quick_menu = True
             renpy.config.quit_action = old_quit
-            renpy.run(Quit(confirm=True))
+
+            if err == "quit":
+                renpy.run(Quit(confirm=True))
+
+        # If the user is trying to quit from the menu, quit immediately.
+        except renpy.game.QuitException as err:
+            renpy.run(Quit(confirm=False))
+
+        # If the user is trying to get to the main menu, redirect them properly.
+        except renpy.game.FullRestartException as err:
+            _, label, _ = err.reason
+            if label == "_invoke_main_menu":
+                renpy.run(MainMenu(confirm=False))
 
         except Exception as err:
             store.quick_menu = True
             logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
-                          str(err) if err is not None else "unknown error")
+                          (str(err) + " " + type(err).__name__) if err is not None \
+                          else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
         finally:
