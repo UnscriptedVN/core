@@ -288,8 +288,17 @@ init -10 python:
             return img + ".jpg"
 
     def restore_quick_menu(event, interact=True, **kwargs):
+        restore_vn_state()
+
+    def restore_vn_state():
+        """Restore the VN state."""
+        # First, restore the quick menu.
         if "quick_menu" not in vars() or not quick_menu:
             quick_menu = True
+
+        # Restore the skipping functionality if it got disabled.
+        if not config.allow_skipping:
+            config.allow_skipping = True
 
 init -500 python:
     def open_directory(path):

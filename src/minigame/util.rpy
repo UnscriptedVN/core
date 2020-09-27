@@ -63,7 +63,7 @@ init python:
         # In cases where the user is actually trying to quit, exit out of the context and
         # prompt the quit dialog.
         except renpy.game.JumpException as err:
-            store.quick_menu = True
+            restore_vn_state()
             renpy.config.quit_action = old_quit
 
             if err == "quit":
@@ -80,14 +80,14 @@ init python:
                 renpy.run(MainMenu(confirm=False))
 
         except Exception as err:
-            store.quick_menu = True
+            restore_vn_state()
             logging.error("Minigame failed to run: %s. Rolling back to last checkpoint...",
                           (str(err) + " " + type(err).__name__) if err is not None \
                           else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
         finally:
-            store.quick_menu = True
+            restore_vn_state()
             renpy.config.quit_action = old_quit
 
         renpy.hide("mg_bg")

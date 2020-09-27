@@ -41,6 +41,5 @@ label after_load:
             change_playing_state()
 
         # Enable the quick menu if it was disabled.
-        if "quick_menu" not in vars() or not quick_menu:
-            quick_menu = True
+        restore_vn_state()
     return
