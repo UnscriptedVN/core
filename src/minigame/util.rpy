@@ -71,10 +71,12 @@ init python:
 
         # If the user is trying to quit from the menu, quit immediately.
         except renpy.game.QuitException as err:
+            restore_vn_state()
             renpy.run(Quit(confirm=False))
 
         # If the user is trying to get to the main menu, redirect them properly.
         except renpy.game.FullRestartException as err:
+            restore_vn_state()
             _, label, _ = err.reason
             if label == "_invoke_main_menu":
                 renpy.run(MainMenu(confirm=False))
@@ -86,6 +88,7 @@ init python:
                           else "unknown error")
             renpy.rollback()
             renpy.notify("The minigame couldn't run, so the game has rolled back.")
+
         finally:
             restore_vn_state()
             renpy.config.quit_action = old_quit
