@@ -22,5 +22,6 @@ default default_chapter_names = [
     "Forks",
     "Exhibit",
     "Focus",
-    "Story"
+    "Story",
+    "Encouragement"
 ]
