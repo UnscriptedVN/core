@@ -57,6 +57,7 @@ screen help(pre_tab="about"):
                     textbutton _("Gamepad") action SetScreenVariable("tab", "gamepad")
 
             use expression tab + "_help"
+            null height 128
 
 screen contributors_help():
     text "Thanks to the following people that helped make Unscripted possible!":
@@ -126,7 +127,7 @@ screen keyboard_help():
 
     hbox:
         label "E"
-        text _("Opens the inventory HUD.")
+        text _("Opens the Inventory HUD.")
 
     hbox:
         label "L"

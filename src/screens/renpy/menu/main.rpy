@@ -58,17 +58,21 @@ screen game_menu(title, scroll=None):
 
     label title
 
-    hbox:
+    frame:
         yalign 1.0
         yoffset -16
         xoffset 16
-        spacing -8
+        style "pref_footer"
+        has hbox:
+            xfill True
 
-        add "assets/gui/icon.png":
-            size (32, 32)
+            hbox:
+                spacing -8
+                add "assets/gui/icon.png":
+                    size (32, 32)
 
-        $ _channel = uconf["info"]["channel"]
-        text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
+                $ _channel = uconf["info"]["channel"]
+                text "[config.name!t] v[config.version]. Release channel: [_channel]\n© 2020 Marquis Kurt. All rights reserved."
 
     if main_menu:
         key "game_menu" action ShowMenu("main_menu")
@@ -127,3 +131,8 @@ style game_menu_label_text:
     color current_theme().colors().INTERFACE.value
     yalign 0.5
     size 32
+
+style pref_footer is gui_frame:
+    margin (0, 0)
+    padding (0, 8)
+    background current_theme().colors().BACKGROUND.value + "DE"

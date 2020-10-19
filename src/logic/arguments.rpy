@@ -39,8 +39,3 @@ init -100 python:
             logging.info("Disabling experiment '%s'...", experiment)
             if experiment in uconf["labs"]["current"]:
                 uconf["labs"]["current"].remove(experiment)
-
-    if "mg-classic-mode" in arguments:
-        logging.warn(
-            "mg-classic-mode is no longer supported. The game will continue as normal."
-        )

@@ -1,14 +1,14 @@
-# 
+#
 # inventory_hud.rpy
 # Unscripted
-# 
+#
 # Created by Marquis Kurt on 12/25/19.
 # Copyright © 2019-2020 Marquis Kurt. All rights reserved.
-# 
+#
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-# 
+#
 
 screen InventoryHUD():
     style_prefix "ASInterface"
@@ -53,3 +53,6 @@ screen InventoryHUD():
 style Inventory_button:
     hover_background "#00000033"
     ysize 164
+
+style Inventory_button_text:
+    color current_theme().colors().INTERFACE.value

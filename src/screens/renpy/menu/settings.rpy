@@ -41,10 +41,18 @@ screen general_settings():
 
         vbox:
             style_prefix "radio"
-            label _("When rolling back: ")
+
+            python:
+                rollback_image = "core/assets/interface/previews/rollback_" + preferences.desktop_rollback_side  + ".png"
+            label _("Rollback gesture")
+            add rollback_image:
+                zoom 0.95
+
             textbutton _("Don't roll back") action Preference("rollback side", "disable")
-            textbutton _("Roll to the left") action Preference("rollback side", "left")
-            textbutton _("Roll to the right") action Preference("rollback side", "right")
+            textbutton _("Click on the left side") action Preference("rollback side", "left")
+            textbutton _("Click on the right side") action Preference("rollback side", "right")
+            text "When enabled, clicking in the specified region will go back to the previous sentence.":
+                style "pref_text"
 
         vbox:
             style_prefix "check"
@@ -279,12 +287,8 @@ screen minigame_settings():
                     vbox:
                         style_prefix "radio"
                         textbutton "Basic mode" action SetField(persistent, "mg_adv_mode", False)
-                        if "mg-classic-mode" in arguments:
-                            text "Basic mode uses a GUI with buttons to solve puzzles. The GUI compiles the NadiaVM code for you.":
-                                style "pref_text"
-                        else:
-                            text "Basic mode lets you type NadiaVM commands into an interpreter to solve puzzles. No code is compiled and happens in real time.":
-                                style "pref_text"
+                        text "Basic mode lets you type NadiaVM commands into an interpreter to solve puzzles. Commands happen in real time without compilation.":
+                            style "pref_text"
                         textbutton "Advanced mode" action SetField(persistent, "mg_adv_mode", True)
                         text "Advanced mode lets you write code to solve puzzles, either using the {a=https://fira.marquiskurt.net}Fira API{/a} and Python or another tool and NadiaVM.":
                             style "pref_text"
@@ -306,24 +310,8 @@ screen minigame_settings():
                 textbutton "Faster (~1.5x)" action SetField(persistent, "mg_speed", 0.75)
                 textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
                 textbutton "Warp Speed (~10x)" action SetField(persistent, "mg_speed", 0.1)
-
-        if "mg-classic-mode" in arguments:
-            vbox:
-                style_prefix "check"
-                label "Basic Editor"
-                vbox:
-                    spacing 10
-                    vbox:
-                        textbutton "Reduce spacing in VM input" action ToggleField(persistent, "mg_condensed_font")
-                        text "Enabling this option will reduce the spacing between commands in the VM preview pane in Basic Mode.":
-                            style "pref_text"
-                    vbox:
-                        textbutton "Show hidden VM commands" action ToggleField(persistent, "mg_vm_show_all")
-                        text "Enabling this option will show all virtual machine commands in the VM preview pane.":
-                            style "pref_text"
-        else:
-            vbox:
-                null height 8
+        vbox:
+            null height 8
 
         vbox:
             label "Advanced"
@@ -336,9 +324,13 @@ screen minigame_settings():
                     text "Show the editor preview and compile using Python, even if VM code exists.":
                         style "pref_text"
                 vbox:
+                    python:
+                        savedir = config.savedir + "/minigame"
+                        if renpy.windows:
+                            savedir = savedir.replace("/", "\\")
                     style_prefix "standard"
                     textbutton "Open Scripts Folder" action Function(open_directory, config.savedir + "/minigame")
-                    text "Save directory: " + config.savedir + "/minigame":
+                    text "Save directory: " + savedir:
                         style "pref_text"
                 vbox:
                     style_prefix "standard"
