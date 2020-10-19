@@ -12,5 +12,5 @@ mainDev.develop(withLove=true)
 val artists = listOf(Artist("Minikle", "background"), Artist("Raseruuu", "sprites"))
 for (artist in artists) { artist.draw() }
 
-val musicians = listOf(Musician("Stray Objects"), Musician("Marek Domagala"))
+val musicians = listOf(Musician("Stray Objects"), Musician("Marek Domagała"))
 for (musician in musicians) { musicians.compose() }

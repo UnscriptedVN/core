@@ -21,7 +21,7 @@ default inventory_items = {
                                  canBeUsedOnce=False),
     "chess_piece": ASInventoryItem(itemId="chess_piece",
                                    name="Chess Piece",
-                                   description="This was the chess piece Christina gave me that one morning when she told me that 'reality is whatever I perceive it to be'.\n\nI'm not sure what to do with it or how long I'm supposed to keep it for, though...",
+                                   description="This was the chess piece Christina gave me that one morning.\n\nI'm not sure what to do with it or how long I'm supposed to keep it for, though... Don't know why I have it, either.",
                                    imageName="gui/items/chess_piece.png",
                                    canBeUsedOnce=False)
 }
