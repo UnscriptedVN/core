@@ -36,7 +36,7 @@ init python:
             """
             self.tokens = []
             with renpy.file(path) as file:
-                self._filestream = list(file.read())
+                self._filestream = list(unicode(file.read(), "utf-8"))
 
         def _has_more_tokens(self):
             """Determine if there are more tokens to tokenize."""
@@ -243,4 +243,3 @@ init python:
             while self._has_more_tokens():
                 self.tokens.append(self.advance())
             return self.tokens
-
