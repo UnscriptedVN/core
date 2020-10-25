@@ -5,9 +5,10 @@
 # Created by Marquis Kurt on 7/11/19.
 # Copyright © 2019-2020 Marquis Kurt. All rights reserved.
 #
-# All background music herein is owned and licensed by Stray Objects.
-# For more information on licensing for this project, contact Stray
-# Objects at <admin@strayobjects.com> or visit https://strayobjects.com.
+# Apart from the theme music written by Marek Domagała, all background music
+# herein is owned and licensed by Stray Objects. For more information on
+# licensing for this project, contact Stray Objects at <admin@strayobjects.com>
+# or visit https://strayobjects.com.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -18,7 +19,15 @@ init offset = -1
 
 # MARK: Additional channels
 init -50 python:
+    # The ambient channel is registered as the channel responsible for handling ambient sounds such
+    # as town noises, beach waves, etc.
     renpy.music.register_channel("ambient", mixer="ambient", loop=True)
+
+    # The following music channels are registered as a subset of the music channel and are used to
+    # handle the dynamic music effect achieved for the soundtrack. These channels will host melodic
+    # content over the base track in the standard music track.
+    renpy.music.register_channel("music_char", mixer="music", loop=True)    # For character melodies
+    renpy.music.register_channel("music_scene", mixer="music", loop=True)   # For scene melodies
 
 # Ambient channel setup
 init 1000 python hide:
@@ -35,6 +44,10 @@ init -10 python:
 
 # MARK: BGM
 define audio.theme = _theme_music
+
+# TODO: Replace the audio segments with the dynamic music from Marek. Implementations of the music
+# in the story will need to be updated as well, respective to the tracks provided. Current tracks
+# from Stray Objects can be used in the minigame scenes instead.
 define audio.t1 = "bgm/t1.ogg"              # Euphoria
 define audio.t2 = "bgm/t2.ogg"              # Winter
 define audio.t3 = "bgm/t3.ogg"              # Calm
