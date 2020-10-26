@@ -202,7 +202,8 @@ init -10 python:
         """
         specials = {
             "???": "unknown",
-            store.player.name: "player"
+            store.player.name: "player",
+            "Fira": "meredith"
         }
         return specials.get(who, who.lower()[0])
 
