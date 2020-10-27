@@ -29,7 +29,7 @@ Enqueues _track_ into _channel_ and waits until the next loop iteration to play 
 **Arguments**
 
 - `channel`: The channel to update. Can be `base`, `mood`, or `char`.
-- `track`: The path to an audio file or an audio definition to enqueue in that channel.
+- `track`: The path to an audio file or an audio definition to enqueue in that channel. If set to `None`, the channel will load an empty queue, effectively stopping that channel.
 
 ### `musicloop end`
 
