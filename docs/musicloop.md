@@ -34,3 +34,7 @@ Enqueues _track_ into _channel_ and waits until the next loop iteration to play 
 ### `musicloop end`
 
 Waits for the current loop iteration to play, then ends the music loop session.
+
+### `musicloop kill`
+
+Kill the music loop, stopping all tracks immediately.
