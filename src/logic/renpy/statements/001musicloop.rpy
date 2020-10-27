@@ -51,7 +51,6 @@ python early hide:
 
     def execute_update_loop(o):
         channel, ut = o
-        print(o)
         track = eval(ut, locals=store.audio.__dict__)
         kwargs = {}
         kwargs[channel] = track
