@@ -32,7 +32,7 @@ init -50 python:
     #
     # Likewise, to stop all music immediately, use the killphrase statement.
     renpy.music.register_channel("music_char", mixer="music", loop=True)
-    renpy.music.register_channel("music_scene", mixer="music", loop=True)
+    renpy.music.register_channel("music_mood", mixer="music", loop=True)
 
 # Ambient channel setup
 init 1000 python hide:
