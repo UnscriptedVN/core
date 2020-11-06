@@ -26,11 +26,6 @@ init -50 python:
     # The following music channels are registered as a subset of the music channel and are used to
     # handle the dynamic music effect achieved for the soundtrack. These channels will host melodic
     # content over the base track in the standard music track.
-    #
-    # To make use of these channels when playing music, the phrase statement is used:
-    #   phrase <base_filename.ogg> <scene_filename.ogg> <character_filename.ogg>
-    #
-    # Likewise, to stop all music immediately, use the killphrase statement.
     renpy.music.register_channel("music_char", mixer="music", loop=True)
     renpy.music.register_channel("music_mood", mixer="music", loop=True)
 
