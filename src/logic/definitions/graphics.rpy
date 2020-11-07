@@ -67,6 +67,11 @@ image cg cg1_fg1 = "images/cg/cg1/fg1.png"
 image cg cg1_fg2 = "images/cg/cg1/fg2.png"
 image cg cg1_fg3 = "images/cg/cg1/fg3.png"
 
+image bg cg2 = "images/cg/cg2/base.png"
+image cg cg2_fg1 = "images/cg/cg2/fg1.png"
+image cg cg2_fg2 = "images/cg/cg2/fg2.png"
+image cg cg2_fg3 = "images/cg/cg2/fg3.png"
+
 # MARK: Credits
 image credits_with_love = "images/bg/special/clove.png"
 

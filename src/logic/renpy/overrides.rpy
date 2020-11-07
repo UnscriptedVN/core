@@ -38,4 +38,4 @@ init 10 python:
 
 init 1000:
     # Override the Desktop image picture.
-    define AS_DESKTOP_IMG = "core/assets/artwork/1.png"
+    define AS_DESKTOP_IMG = "core/assets/artwork/wallpaper.png"
