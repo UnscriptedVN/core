@@ -1,5 +1,5 @@
 #
-# 001libmusicshop.rpy
+# 001libmusiclayer.rpy
 # Unscripted Core - Custom Statements
 #
 # Created by Marquis Kurt on 11/06/20.
@@ -13,12 +13,22 @@
 python early:
 
     def _push_mus_layer(trackname, layer):
+        """Push a given track to the specified layer.
+
+        The channel will attempt to play the track from where other music channels are currently
+            playing, then queue the full track into that channel.
+
+        Args:
+            trackname (str): The track to play.
+            layer (str): The music channel to push the track to.
+        """
         position = renpy.music.get_pos(channel="music") or 0.0
         bit = "<from %s>%s" % (position, trackname)
         renpy.music.play(bit, channel=layer, fadein=3.0)
         renpy.music.queue(trackname, channel=layer, loop=True, clear_queue=True)
 
     def _pop_mus_layer(layer):
+        """Pop the current track from the specified layer."""
         renpy.music.stop(channel=layer, fadeout=3.0)
 
     def _parse_musiclayer_push(lex):
