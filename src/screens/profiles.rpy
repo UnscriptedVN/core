@@ -76,10 +76,10 @@ screen ProfileNameView():
                     vbox:
                         style_prefix "radio"
 
+                        textbutton "Swift" action SetScreenVariable("language", "Swift")
                         textbutton "Python" action SetScreenVariable("language", "Python")
                         textbutton "C++" action SetScreenVariable("language", "C++")
                         textbutton "Kotlin" action SetScreenVariable("language", "Kotlin")
-                        textbutton "OcellusScript" action SetScreenVariable("language", "OcellusScript")
 
                 null height 32
 
