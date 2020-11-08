@@ -12,6 +12,24 @@
 
 python early:
 
+    def _music_eligible(channel_name):
+        """Returns if the channel is eligible to be added to the music channels list."""
+        return renpy.audio.is_playing(channel_name) and type(channel_name) is str
+
+    def _music_channels(without_layer=None):
+        """Returns a list of channels with audio being played, excluding a supplied layer.
+
+        Args:
+            without_layer (str): The channel to exclude from the list or None.
+
+        Returns:
+            A list of channels with audio being played, excluding a supplied layer.
+        """
+        channels = [c for c in renpy.audio.audio.channels.keys() if _music_eligible(c)]
+        if with_layer in channels:
+            channels.remove(with_layer)
+        return channels
+
     def _push_mus_layer(trackname, layer):
         """Push a given track to the specified layer.
 
@@ -22,8 +40,17 @@ python early:
             trackname (str): The track to play.
             layer (str): The music channel to push the track to.
         """
-        position = renpy.music.get_pos(channel="music") or 0.0
+        accepted = _music_channels(without_layer=layer)
+        reference_channel = "music"
+        if not renpy.music.is_playing("music"):
+            reference_channel = accepted[0]
+
+        position = renpy.music.get_pos(channel=accepted) or 0.0
         bit = "<from %s>%s" % (position, trackname)
+
+        if renpy.music.is_playing(layer):
+            _pop_mus_layer(layer)
+
         renpy.music.play(bit, channel=layer, fadein=3.0)
         renpy.music.queue(trackname, channel=layer, loop=True, clear_queue=True)
 
