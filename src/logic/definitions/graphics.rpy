@@ -62,15 +62,29 @@ image bg mc_apartment bedroom_night = "images/bg/mc/bedroom_night.jpg"
 # image main_menu = "gui/main_menu.png"
 
 # MARK: CGs
+
+# TV CG
 image bg cg1 = "images/cg/cg1/base.png"
 image cg cg1_fg1 = "images/cg/cg1/fg1.png"
 image cg cg1_fg2 = "images/cg/cg1/fg2.png"
 image cg cg1_fg3 = "images/cg/cg1/fg3.png"
 
+# Kanban Board CG
 image bg cg2 = "images/cg/cg2/base.png"
 image cg cg2_fg1 = "images/cg/cg2/fg1.png"
 image cg cg2_fg2 = "images/cg/cg2/fg2.png"
 image cg cg2_fg3 = "images/cg/cg2/fg3.png"
+
+# Meredith Reveal CG
+image bg cg2b = "images/cg/cg2b/base.png"
+image cg cg2b_fg1:
+    zoom 0.5
+    "images/cg/cg2b/fg1.png"
+
+# Zen'no TV CG
+image bg cg3 = "images/cg/cg3/base.png"
+image cg cg3_fg1 = "images/cg/cg3/fg1.png"
+image cg cg3_fg2 = "images/cg/cg3/fg2.png"
 
 # MARK: Credits
 image credits_with_love = "images/bg/special/clove.png"
