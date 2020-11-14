@@ -14,7 +14,7 @@ python early:
 
     def _music_eligible(channel_name):
         """Returns if the channel is eligible to be added to the music channels list."""
-        return renpy.audio.is_playing(channel_name) and type(channel_name) is str
+        return renpy.music.is_playing(channel_name) and type(channel_name) is str
 
     def _music_channels(without_layer=None):
         """Returns a list of channels with audio being played, excluding a supplied layer.
@@ -26,8 +26,8 @@ python early:
             A list of channels with audio being played, excluding a supplied layer.
         """
         channels = [c for c in renpy.audio.audio.channels.keys() if _music_eligible(c)]
-        if with_layer in channels:
-            channels.remove(with_layer)
+        if without_layer in channels:
+            channels.remove(without_layer)
         return channels
 
     def _push_mus_layer(trackname, layer):
@@ -42,10 +42,10 @@ python early:
         """
         accepted = _music_channels(without_layer=layer)
         reference_channel = "music"
-        if not renpy.music.is_playing("music"):
+        if not renpy.music.is_playing("music") and accepted:
             reference_channel = accepted[0]
 
-        position = renpy.music.get_pos(channel=accepted) or 0.0
+        position = renpy.music.get_pos(channel=reference_channel) or 0.0
         bit = "<from %s>%s" % (position, trackname)
 
         if renpy.music.is_playing(layer):
@@ -61,7 +61,6 @@ python early:
     def _parse_musiclayer_push(lex):
         trackname = lex.simple_expression()
         channel = lex.simple_expression()
-        print(trackname, channel)
         return (trackname, channel)
 
     def _parse_musiclayer_pop(lex):
@@ -76,8 +75,8 @@ python early:
     def _execute_musiclayer_push(o):
         trackname, channel = o
         track = eval(trackname, locals=store.audio.__dict__)
-        layer = eval(channel, locals=store.audio.__dict__)
-        _push_mus_layer(track, layer=layer)
+        # layer = eval(channel, locals=store.audio.__dict__)
+        _push_mus_layer(track, layer=channel)
 
     def _execute_musiclayer_pop(o):
         channel = o
