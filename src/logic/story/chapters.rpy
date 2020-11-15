@@ -23,5 +23,6 @@ default default_chapter_names = [
     "Exhibit",
     "Focus",
     "Story",
-    "Encouragement"
+    "Encouragement",
+    "Tribulation"
 ]
