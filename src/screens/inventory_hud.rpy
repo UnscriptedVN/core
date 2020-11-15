@@ -16,6 +16,7 @@ screen InventoryHUD():
     modal True
 
     key 'e' action Hide("InventoryHUD")
+    key 'K_ESCAPE' action Hide("InventoryHUD")
 
     default items = []
 
@@ -45,7 +46,8 @@ screen InventoryHUD():
                     has vbox:
                         yfill True
 
-                        add AS_DEFAULT_APP_DIR + "Inventories.aosapp/Resources/OpenMore.png"
+                        add get_feather_icon("external-link"):
+                            size (128, 128)
                         text "Open Inventories" xalign 0.5
     else:
         on "show" action [Notify("You aren't carrying anything."), Hide("InventoryHUD")]
