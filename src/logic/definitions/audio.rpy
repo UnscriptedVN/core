@@ -48,6 +48,9 @@ define audio.theme = _theme_music
 # TODO: Replace the audio segments with the dynamic music from Marek. Implementations of the music
 # in the story will need to be updated as well, respective to the tracks provided. Current tracks
 # from Stray Objects can be used in the minigame scenes instead.
+define audio.c1_support = "bgm/c1_sup.ogg"
+define audio.c1_main = "bgm/c1_main.ogg"
+
 define audio.t1 = "bgm/t1.ogg"              # Euphoria
 define audio.t2 = "bgm/t2.ogg"              # Winter
 define audio.t3 = "bgm/t3.ogg"              # Calm
