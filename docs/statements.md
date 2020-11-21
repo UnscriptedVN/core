@@ -14,3 +14,9 @@ Push a given track to the specified audio channel, with respect to the music cha
 Pop the current track from the specified audio channel. Fades are automatically applied.
 
 - **channel**: The audio channel to stop playing music from.
+
+## `puzzle number`
+
+Run the minigame puzzle with the corresponding level number. If `disable-minigame` is present in the arguments manifest or "Enable minigame experience" in user settings is disabled, this command will effectively do nothing.
+
+- **number**: The level number to run, starting from 0.
