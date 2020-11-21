@@ -27,16 +27,9 @@ default persistent.lexend_width = 1
 # Whether to show screenshots in the save/load menu.
 default persistent.use_detailed_saves = False
 
-# Whether to announce chapter names when a chapter starts.
-default persistent.announce_chapters = False
-
 
 
 # - MARK: MINIGAME
-
-# Whether to run the minigame. This can be turned off for those that may encounter accessibility
-# issues with the minigame or wish for a kinetic experience.
-default persistent.mg_enabled = True
 
 # The execution speed for the animations in the minigame.
 default persistent.mg_speed = 1.0
@@ -49,7 +42,21 @@ default persistent.mg_vm_force_editor = True
 
 
 
-# - MARK: CONNECTIVITY
+# - MARK: ACCESSIBILITY
+
+# Whether to run the minigame. This can be turned off for those that may encounter accessibility
+# issues with the minigame or wish for a kinetic experience.
+default persistent.mg_enabled = True
+
+# Whether to announce chapter names when a chapter starts.
+default persistent.announce_chapters = False
+
+# Whether to allow inventory interactions.
+default persistent.enable_item_callbacks = True
+
+
+
+# - MARK: EXTRAS
 
 # Whether to connect to the Discord client.
 default persistent.use_discord = uconf["discord"]["enable_rpc"] or False

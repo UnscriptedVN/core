@@ -289,9 +289,13 @@ screen accessibility_settings():
             style_prefix "check"
             spacing 10
             vbox:
-                label "Minigame"
+                label "Interactions"
                 textbutton _("Enable minigame experience") action ToggleField(persistent, "mg_enabled")
                 text "This may be optimal if you are encountering accessibility issues with the input methods or prefer a kinetic experience.":
+                    style "pref_text"
+
+                textbutton _("Enable item interactions") action ToggleField(persistent, "enable_item_callbacks")
+                text "When enabled, scenes with inventory item interactions will prompt you to use items.":
                     style "pref_text"
 
 
