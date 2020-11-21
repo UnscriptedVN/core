@@ -30,7 +30,8 @@ init python:
             what to do to solve the minigame puzzle.
 
         Additionally, if `disable-minigame` is present in the game's arguments file, this function
-            will do nothing and exit out of the minigame session.
+            will do nothing and exit out of the minigame session. This also remains true for the
+            mg_enabled setting in user defaults.
 
         Args:
             lvl (int): The level number. Defaults to 0.
@@ -40,6 +41,11 @@ init python:
                 "Minigame level has been skipped because the disable-minigame argument is present."
             )
             return
+
+        if not persistent.mg_enabled:
+            logging.info("Minigame level has been skipped due to user preference.")
+            return
+
         quick_menu = False
         renpy.show("mg_bg", at_list=[], zorder=5)
         renpy.with_statement(dissolve)

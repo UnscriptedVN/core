@@ -12,6 +12,8 @@
 
 init offset = -1
 
+
+# MARK: - SPRINGBOARD
 screen preferences(pre_tab="general"):
     tag menu
 
@@ -34,6 +36,8 @@ screen preferences(pre_tab="general"):
 
             use expression settings_page + "_settings"
 
+
+# MARK: - GENERAL
 screen general_settings():
     style_prefix "pref"
     hbox:
@@ -83,6 +87,8 @@ screen general_settings():
             text afm_time:
                 style "pref_text"
 
+
+# MARK: - APPEARANCE
 screen appearance_settings():
     style_prefix "pref"
     hbox:
@@ -154,6 +160,8 @@ screen appearance_settings():
             text "For some fonts, changing the text size to larger sizes may cut off dialogue.":
                 style "pref_text"
 
+
+# MARK: - LEXEND
 screen lexend_settings():
     style_prefix "pref"
 
@@ -183,6 +191,7 @@ screen lexend_settings():
             style "pref_font_zetta"
 
 
+# MARK: - SOUND
 screen sound_settings():
     style_prefix "pref"
     hbox:
@@ -251,6 +260,8 @@ screen sound_settings():
                 text "When enabled, the music volume will be adjusted so\nyou can hear sound effects and ambience more clearly.":
                     style "pref_text"
 
+
+# MARK: - ACCESSIBILITY
 screen accessibility_settings():
     style_prefix "pref"
     hbox:
@@ -258,10 +269,12 @@ screen accessibility_settings():
 
         vbox:
             style_prefix "check"
-            label "Self-Voicing"
-            textbutton "Use self voicing" action Preference("self voicing", "toggle")
-            text "Self-voicing will read out the current\nline and any interface elements.":
-                style "pref_text"
+            spacing 10
+            vbox:
+                label "Self-Voicing"
+                textbutton "Use self voicing" action Preference("self voicing", "toggle")
+                text "Self-voicing will read out the current\nline and any interface elements.":
+                    style "pref_text"
 
         vbox:
             style_prefix "check"
@@ -272,6 +285,17 @@ screen accessibility_settings():
                 text "Show a toast with the chapter number and name when entering a new chapter.":
                     style "pref_text"
 
+        vbox:
+            style_prefix "check"
+            spacing 10
+            vbox:
+                label "Minigame"
+                textbutton _("Enable minigame experience") action ToggleField(persistent, "mg_enabled")
+                text "This may be optimal if you are encountering accessibility issues with the input methods or prefer a kinetic experience.":
+                    style "pref_text"
+
+
+# MARK: - MINIGAME
 screen minigame_settings():
     style_prefix "pref"
 
@@ -338,6 +362,8 @@ screen minigame_settings():
                     text "Documentation is also available in Help.":
                         style "pref_text"
 
+
+# MARK: - EXTRAS
 screen extras_settings():
     style_prefix "pref"
     hbox:
@@ -373,6 +399,8 @@ screen extras_settings():
             text "Clicking this button will open the Unscripted logs, which may be useful for troubleshooting.":
                 style "pref_text"
 
+
+# MARK - STYLES
 style pref_tab_group is hbox
 style pref_tab_group_button is gui_button
 style pref_tab_group_button_text is gui_text
