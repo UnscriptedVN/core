@@ -37,26 +37,47 @@ init 1000 python hide:
 # Switch to the old theme music if passed in via arguments.
 init -10 python:
     import logging
-    _theme_music = "bgm/theme.ogg"
     if "use-classic-music" in arguments and arguments["use-classic-music"]:
-        logging.warn("use-classic-music argument will be deprecated in a future build.")
-        _theme_music = "bgm/otheme.ogg"     # Simulated Reality
+        logging.warn("use-classic-music has been removed.")
 
 # MARK: BGM
-define audio.theme = _theme_music
+define audio.theme = "bgm/theme.ogg"
 
 # TODO: Replace the audio segments with the dynamic music from Marek. Implementations of the music
 # in the story will need to be updated as well, respective to the tracks provided. Current tracks
 # from Stray Objects can be used in the minigame scenes instead.
-define audio.c1_support = "bgm/c1_sup.ogg"
-define audio.c1_main = "bgm/c1_main.ogg"
+define audio.p1 = "bgm/perc/p1.ogg"
+define audio.p2 = "bgm/perc/p2.ogg"
+define audio.p3 = "bgm/perc/p3.ogg"
+define audio.p4 = "bgm/perc/p4.ogg"
 
-define audio.t1 = "bgm/t1.ogg"              # Euphoria
-define audio.t2 = "bgm/t2.ogg"              # Winter
-define audio.t3 = "bgm/t3.ogg"              # Calm
-define audio.t4 = "bgm/t4.ogg"              # Dreaming of Another World
-define audio.t5 = "bgm/t5.ogg"              # Halls of Tibet
-define audio.t6 = "bgm/t6.ogg"              # Life
+define audio.p1c = "bgm/perc/p1c.ogg"
+define audio.p2c = "bgm/perc/p2c.ogg"
+define audio.p3c = "bgm/perc/p3c.ogg"
+define audio.p4c = "bgm/perc/p4c.ogg"
+
+define audio.t1_new = "bgm/layer/t1.ogg"
+define audio.t1b_new = "bgm/layer/t1b.ogg"
+
+define audio.t3_new = "bgm/layer/t3.ogg"
+define audio.t4_new = "bgm/layer/t4.ogg"
+define audio.t5_new = "bgm/layer/t5.ogg"
+define audio.t6_new = "bgm/layer/t6.ogg"
+
+define audio.tz = "bgm/char/tz.ogg"
+define audio.tk = "bgm/char/tk.ogg"
+define audio.tc = "bgm/char/tc.ogg"
+define audio.tf = "bgm/char/tf.ogg"
+
+define audio.mg_interactive = "bgm/mg_inter.ogg"
+
+# NOTE: These tracks will be deprecated in a future release.
+define audio.t1 = "bgm/deprecated/t1.ogg"              # Euphoria
+define audio.t2 = "bgm/deprecated/t2.ogg"              # Winter
+define audio.t3 = "bgm/deprecated/t3.ogg"              # Calm
+define audio.t4 = "bgm/deprecated/t4.ogg"              # Dreaming of Another World
+define audio.t5 = "bgm/mg_inter.ogg"                   # Halls of Tibet
+define audio.t6 = "bgm/deprecated/t6.ogg"              # Life
 
 # MARK: Ambience
 define audio.town = "ambient/town.ogg"
