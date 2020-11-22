@@ -69,6 +69,11 @@ define audio.tk = "bgm/char/tk.ogg"
 define audio.tc = "bgm/char/tc.ogg"
 define audio.tf = "bgm/char/tf.ogg"
 
+define audio.tzc = "bgm/char/tzc.ogg"
+define audio.tkc = "bgm/char/tkc.ogg"
+define audio.tcc = "bgm/char/tcc.ogg"
+define audio.tfc = "bgm/char/tfc.ogg"
+
 define audio.mg_interactive = "bgm/mg_inter.ogg"
 
 # NOTE: These tracks will be deprecated in a future release.
