@@ -46,6 +46,9 @@ init python:
             logging.info("Minigame level has been skipped due to user preference.")
             return
 
+        for chan in ["music", "music_char", "music_mood"]:
+            renpy.music.stop(chan, fadeout=0.25)
+
         quick_menu = False
         renpy.show("mg_bg", at_list=[], zorder=5)
         renpy.with_statement(dissolve)
@@ -64,12 +67,14 @@ init python:
             mia_speak("And maybe get some clues about what happened.")
         try:
             renpy.config.quit_action = fallthrough_quit
+            renpy.music.play("bgm/mg_inter.ogg", channel="music", fadein=0.25)
             __puzzle.run()
 
         # In cases where the user is actually trying to quit, exit out of the context and
         # prompt the quit dialog.
         except renpy.game.JumpException as err:
             restore_vn_state()
+            renpy.music.stop("music", fadeout=0.25)
             renpy.config.quit_action = old_quit
 
             if err == "quit":
@@ -78,11 +83,13 @@ init python:
         # If the user is trying to quit from the menu, quit immediately.
         except renpy.game.QuitException as err:
             restore_vn_state()
+            renpy.music.stop("music", fadeout=0.25)
             renpy.run(Quit(confirm=False))
 
         # If the user is trying to get to the main menu, redirect them properly.
         except renpy.game.FullRestartException as err:
             restore_vn_state()
+            renpy.music.stop("music", fadeout=0.25)
             _, label, _ = err.reason
             if label == "_invoke_main_menu":
                 renpy.run(MainMenu(confirm=False))
@@ -98,6 +105,7 @@ init python:
         finally:
             restore_vn_state()
             renpy.config.quit_action = old_quit
+            renpy.music.stop("music", fadeout=0.25)
 
         renpy.hide("mg_bg")
         renpy.with_statement(dissolve)
