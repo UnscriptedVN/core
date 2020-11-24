@@ -30,7 +30,7 @@ python early:
             channels.remove(without_layer)
         return channels
 
-    def _push_mus_layer(trackname, layer):
+    def _push_mus_layer(trackname, layer, fadein=True):
         """Push a given track to the specified layer.
 
         The channel will attempt to play the track from where other music channels are currently
@@ -51,7 +51,7 @@ python early:
         if renpy.music.is_playing(layer):
             _pop_mus_layer(layer)
 
-        renpy.music.play(bit, channel=layer, fadein=3.0)
+        renpy.music.play(bit, channel=layer, fadein=(3.0 if fadein else 0.0))
         renpy.music.queue(trackname, channel=layer, loop=True, clear_queue=True)
 
     def _pop_mus_layer(layer):
@@ -61,7 +61,8 @@ python early:
     def _parse_musiclayer_push(lex):
         trackname = lex.simple_expression()
         channel = lex.simple_expression()
-        return (trackname, channel)
+        fadein = lex.rest() != "sharp"
+        return (trackname, channel, fadein)
 
     def _parse_musiclayer_pop(lex):
         channel = lex.rest()
@@ -73,10 +74,10 @@ python early:
         pass
 
     def _execute_musiclayer_push(o):
-        trackname, channel = o
+        trackname, channel, fadein = o
         track = eval(trackname, locals=store.audio.__dict__)
         # layer = eval(channel, locals=store.audio.__dict__)
-        _push_mus_layer(track, layer=channel)
+        _push_mus_layer(track, layer=channel, fadein=fadein)
 
     def _execute_musiclayer_pop(o):
         channel = o
