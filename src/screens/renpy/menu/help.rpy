@@ -47,8 +47,6 @@ screen help(pre_tab="about"):
 
                 textbutton _("About") action SetScreenVariable("tab", "about")
                 textbutton _("License") action SetScreenVariable("tab", "license")
-                if uconf["features"]["enable_minigame_adv_mode"]:
-                    textbutton _("Documentation") action Function(open_api_docs)
                 textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
                 textbutton _("Contributors") action SetScreenVariable("tab", "contributors")
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
