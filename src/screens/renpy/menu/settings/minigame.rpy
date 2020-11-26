@@ -84,5 +84,5 @@ screen minigame_settings():
                     text "The following links will open help pages that may assist you in playing the minigame or writing code in Advanced Mode.":
                         style "pref_text"
 
-                    textbutton "NadiaVM Reference..." action Function(open_api_docs)
+                    textbutton "NadiaVM Reference..." action Function(open_nvm_reference)
                     textbutton "API Documentation..." action Function(open_api_docs)

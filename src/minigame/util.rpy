@@ -13,7 +13,13 @@
 init offset = 5
 
 init python:
+    import webbrowser
     import logging
+
+    def open_nvm_reference():
+        url = "file://" + config.basedir + "/game/nadia/index.html"
+        webbrowser.open(url)
+        renpy.notify("The NadiaVM reference has been opened in your web browser.")
 
     def fallthrough_quit():
         """Force-throw out of a context."""

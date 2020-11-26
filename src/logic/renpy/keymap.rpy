@@ -55,7 +55,7 @@ init -130 python:
         """Open the API documentation for Advanced Mode of the minigame."""
         url = "file://" + config.basedir + "/game/docs/index.html"
         webbrowser.open(url)
-        renpy.notify("The documentation has been opened in your browser.")
+        renpy.notify("The API documentation has been opened in your browser.")
 
     # Create a custom keymap with the respective functions and details.
     _uvn_keymap = renpy.Keymap(
