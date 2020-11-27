@@ -50,6 +50,9 @@ init screen mg_interactive_input(last=""):
                 hbox:
                     label "<NadiaVM expression>"
                     text "Evaluates the NadiaVM expression."
+                hbox:
+                    label "help"
+                    text "Opens the NadiaVM reference book."
 
             hbox:
                 yalign 1.0
@@ -256,6 +259,12 @@ label mg_interactive_experience(vm, world):
             _mg_current_command = renpy.call_screen("mg_interactive_input", last=_mg_last_command)
             _current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", _current_instruction)
+
+            if _current_instruction == "help":
+                logging.info("Help command detected. Opening reference page...")
+                open_nvm_reference()
+                continue
+
             _mg_binding = vm.get_binding(_current_instruction)
             _mg_current_count = _mg_state.count
             _mg_last_command = _mg_current_command
