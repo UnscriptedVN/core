@@ -18,6 +18,7 @@
 [game.dictionary]
 agile = "A software development method that breaks tasks into small phases, re-assesses plans, and adapts to change."
 continous_integration = "(aka. CI) a philosophy of making small changes and uploading code to validate it."
+jVM = "Short for Java Virtual Machine, a virtual machine JVM-based languages can compile to so that it runs on all platforms. Included with the Java runtime."
 kanban_board = "A program that represents a board with columns that track different stages of tasks."
 nginx = "Web server software (pronounced \"Engine X\")."
 pull_request = "In Git, a request to add changes from one codebase or repository to another."
