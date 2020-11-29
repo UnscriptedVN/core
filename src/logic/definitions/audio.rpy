@@ -56,13 +56,13 @@ define audio.p2c = "bgm/perc/p2c.ogg"
 define audio.p3c = "bgm/perc/p3c.ogg"
 define audio.p4c = "bgm/perc/p4c.ogg"
 
-define audio.t1_new = "bgm/layer/t1.ogg"
-define audio.t1b_new = "bgm/layer/t1b.ogg"
+define audio.t1 = "bgm/layer/t1.ogg"
+define audio.t1b = "bgm/layer/t1b.ogg"
 
-define audio.t3_new = "bgm/layer/t3.ogg"
-define audio.t4_new = "bgm/layer/t4.ogg"
-define audio.t5_new = "bgm/layer/t5.ogg"
-define audio.t6_new = "bgm/layer/t6.ogg"
+define audio.t3 = "bgm/layer/t3.ogg"
+define audio.t4 = "bgm/layer/t4.ogg"
+define audio.t5 = "bgm/layer/t5.ogg"
+define audio.t6 = "bgm/layer/t6.ogg"
 
 define audio.tz = "bgm/char/tz.ogg"
 define audio.tk = "bgm/char/tk.ogg"
@@ -77,12 +77,12 @@ define audio.tfc = "bgm/char/tfc.ogg"
 define audio.mg_interactive = "bgm/mg_inter.ogg"
 
 # NOTE: These tracks will be deprecated in a future release.
-define audio.t1 = "bgm/deprecated/t1.ogg"              # Euphoria
-define audio.t2 = "bgm/deprecated/t2.ogg"              # Winter
-define audio.t3 = "bgm/deprecated/t3.ogg"              # Calm
-define audio.t4 = "bgm/deprecated/t4.ogg"              # Dreaming of Another World
-define audio.t5 = "bgm/mg_inter.ogg"                   # Halls of Tibet
-define audio.t6 = "bgm/deprecated/t6.ogg"              # Life
+define audio.t1_old = "bgm/deprecated/t1.ogg"              # Euphoria
+define audio.t2_old = "bgm/deprecated/t2.ogg"              # Winter
+define audio.t3_old = "bgm/deprecated/t3.ogg"              # Calm
+define audio.t4_old = "bgm/deprecated/t4.ogg"              # Dreaming of Another World
+define audio.t5_old = "bgm/mg_inter.ogg"                   # Halls of Tibet
+define audio.t6_old = "bgm/deprecated/t6.ogg"              # Life
 
 # MARK: Ambience
 define audio.town = "ambient/town.ogg"
