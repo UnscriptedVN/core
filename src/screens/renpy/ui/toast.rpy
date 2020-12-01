@@ -22,7 +22,7 @@ screen notify(message):
     frame at notify_appear:
         text message
 
-    if notify_timeout:
+    if "notify_timeout" in vars() and notify_timeout:
         timer notify_timeout action Hide('notify')
 
 
