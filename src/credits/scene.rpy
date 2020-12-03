@@ -10,13 +10,20 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 #
 
+init python:
+    def force_quit():
+        renpy.run(Quit(confirm=False))
+
 init offset = 10
 
 image credits_bg = current_theme().colors().BACKGROUND.value
 
 label credits:
-    $ config.allow_skipping = allow_skipping = skipping = quick_menu = False
-    $ config.keymap["game_menu"] = [ ]
+    python:
+        config.allow_skipping = allow_skipping = skipping = quick_menu = False
+        old_quit = renpy.config.quit_action
+        renpy.config.quit_action = force_quit
+
     scene black with fade
     $ username = get_username()
     play music theme
@@ -33,6 +40,7 @@ label credits:
     python:
         config.allow_skipping = allow_skipping = quick_menu = True
         username = None
-        config.keymap["game_menu"] = [ 'K_ESCAPE', 'K_MENU', 'mouseup_3' ]
+        renpy.config.quit_action = old_quit
+
     show splash_bg at truecenter with dissolve
     return

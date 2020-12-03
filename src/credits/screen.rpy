@@ -16,11 +16,18 @@ screen credits(tokens=[]):
     tag credits
     zorder 100
     modal True
+    layer "overlay"
     style_prefix "ce"
 
     default _token_list = tokens
     default _text_timer = 0
     default _current_row_count = 0
+
+    key "game_menu" action NullAction()
+    key "K_TAB" action NullAction()
+    key "a" action NullAction()
+    key "d" action NullAction()
+    key "h" action NullAction()
 
     frame:
         has vbox:
