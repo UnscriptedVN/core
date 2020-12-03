@@ -55,13 +55,14 @@ init python:
         for chan in ["music", "music_char", "music_mood"]:
             renpy.music.stop(chan, fadeout=0.25)
 
-        quick_menu = False
+        store.quick_menu = False
         renpy.show("mg_bg", at_list=[], zorder=5)
         renpy.with_statement(dissolve)
         __puzzle = MinigameLogicHandler(lvl)
         old_quit = renpy.config.quit_action
+
         if lvl == 0:
-            quick_menu = False
+            store.`quick_menu = False
             mia_speak("Ugh...")
             mia_speak("Where... did everyone go?")
             mia_speak("Maybe everyone went home. How long have I been here?")
@@ -79,12 +80,13 @@ init python:
         # In cases where the user is actually trying to quit, exit out of the context and
         # prompt the quit dialog.
         except renpy.game.JumpException as err:
-            restore_vn_state()
+            if str(err) == "quit":
+                renpy.run(Quit(confirm=True))
+
             renpy.music.stop("music", fadeout=0.25)
             renpy.config.quit_action = old_quit
+            restore_vn_state()
 
-            if err == "quit":
-                renpy.run(Quit(confirm=True))
 
         # If the user is trying to quit from the menu, quit immediately.
         except renpy.game.QuitException as err:
