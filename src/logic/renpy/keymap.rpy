@@ -47,9 +47,10 @@ init -130 python:
 
     def open_glossary_menu():
         """Open the Help menu to the glossary page."""
-        if config.help_screen and renpy.has_screen(config.help_screen):
-            renpy.run(ShowMenu(config.help_screen, pre_tab="glossary"))
-            return
+        try:
+            renpy.run(ShowTransient("GlossaryAppUIView", glossary=glossary_app.load_glossary()))
+        except:
+            pass
 
     def open_api_docs():
         """Open the API documentation for Advanced Mode of the minigame."""

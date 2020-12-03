@@ -31,7 +31,7 @@ screen quick_menu():
             textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Glossary") action ShowTransient("GlossaryAppUIView")
+            textbutton _("Glossary") action ShowTransient("GlossaryAppUIView", glossary=glossary_app.load_glossary())
             textbutton _("Use Item") action ShowTransient("InventoryHUD")
             textbutton _("Desktop") action ShowTransient("ASDesktopShellView")
             textbutton _("Save") action ShowMenu('save')

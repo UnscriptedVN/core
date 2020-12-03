@@ -13,18 +13,6 @@
 init offset = -1
 
 init -1 python:
-    import toml
-    import logging
-
-    glossary = {}
-    if renpy.loadable("core/glossary.toml"):
-        with renpy.file("core/glossary.toml") as gloss:
-            glossary = toml.load(gloss)["game"]["dictionary"]
-        logging.info("Glossary from glossary file updated with %s terms.",
-                     len(glossary))
-    else:
-        logging.warn("Glossary file couldn't be loaded.")
-
     CONTRIBS = {
         "Andy Kurnia": "kofi",
         "Jim Kearney": "kofi",
