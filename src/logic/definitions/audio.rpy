@@ -5,10 +5,8 @@
 # Created by Marquis Kurt on 7/11/19.
 # Copyright © 2019-2020 Marquis Kurt. All rights reserved.
 #
-# Apart from the theme music written by Marek Domagała, all background music
-# herein is owned and licensed by Stray Objects. For more information on
-# licensing for this project, contact Stray Objects at <admin@strayobjects.com>
-# or visit https://strayobjects.com.
+# Music for this game is composed by Marek Domagała. See the LICENSE
+# for details on what you can and can't do with the game music.
 #
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -19,6 +17,7 @@ init offset = -1
 
 # MARK: Additional channels
 init -50 python:
+
     # The ambient channel is registered as the channel responsible for handling ambient sounds such
     # as town noises, beach waves, etc.
     renpy.music.register_channel("ambient", mixer="ambient", loop=True)
@@ -34,18 +33,9 @@ init 1000 python hide:
     if not persistent._set_preferences:
         _preferences.set_volume("ambient", 0.2)
 
-# Switch to the old theme music if passed in via arguments.
-init -10 python:
-    import logging
-    if "use-classic-music" in arguments and arguments["use-classic-music"]:
-        logging.warn("use-classic-music has been removed.")
-
 # MARK: BGM
 define audio.theme = "bgm/theme.ogg"
 
-# TODO: Replace the audio segments with the dynamic music from Marek. Implementations of the music
-# in the story will need to be updated as well, respective to the tracks provided. Current tracks
-# from Stray Objects can be used in the minigame scenes instead.
 define audio.p1 = "bgm/perc/p1.ogg"
 define audio.p2 = "bgm/perc/p2.ogg"
 define audio.p3 = "bgm/perc/p3.ogg"
@@ -74,15 +64,10 @@ define audio.tkc = "bgm/char/tkc.ogg"
 define audio.tcc = "bgm/char/tcc.ogg"
 define audio.tfc = "bgm/char/tfc.ogg"
 
+# LICENSE NOTE: The interactive minigame track has been licensed to the Unscripted team by Stray
+# Objects. For more information on licensing for this project, contact Stray Objects at
+# <admin@strayobjects.com> or visit https://strayobjects.com.
 define audio.mg_interactive = "bgm/mg_inter.ogg"
-
-# NOTE: These tracks will be deprecated in a future release.
-define audio.t1_old = "bgm/deprecated/t1.ogg"              # Euphoria
-define audio.t2_old = "bgm/deprecated/t2.ogg"              # Winter
-define audio.t3_old = "bgm/deprecated/t3.ogg"              # Calm
-define audio.t4_old = "bgm/deprecated/t4.ogg"              # Dreaming of Another World
-define audio.t5_old = "bgm/mg_inter.ogg"                   # Halls of Tibet
-define audio.t6_old = "bgm/deprecated/t6.ogg"              # Life
 
 # MARK: Ambience
 define audio.town = "ambient/town.ogg"
