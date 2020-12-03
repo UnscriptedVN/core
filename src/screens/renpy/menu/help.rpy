@@ -47,7 +47,6 @@ screen help(pre_tab="about"):
 
                 textbutton _("About") action SetScreenVariable("tab", "about")
                 textbutton _("License") action SetScreenVariable("tab", "license")
-                textbutton _("Glossary") action SetScreenVariable("tab", "glossary")
                 textbutton _("Contributors") action SetScreenVariable("tab", "contributors")
                 textbutton _("Keyboard") action SetScreenVariable("tab", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("tab", "mouse")
@@ -184,15 +183,6 @@ screen gamepad_help():
         text _("Hides the user interface.")
 
     textbutton _("Calibrate") action GamepadCalibrate()
-
-screen glossary_help():
-    for word in sorted(glossary):
-        python:
-            _wd = word.replace("_", " ")
-            _definition = glossary[word]
-        hbox:
-            label "[_wd!c]"
-            text "[_definition]"
 
 screen license_help():
     default license = ""
