@@ -42,5 +42,9 @@ label credits:
         username = None
         renpy.config.quit_action = old_quit
 
-    show splash_bg at truecenter with dissolve
+        _scene_bg = dynamic_background(
+                "assets/gui/main/main.jpg",
+                include=[TimeOfDay.day, TimeOfDay.night]
+            )
+    show expression _scene_bg at truecenter with dissolve
     return
