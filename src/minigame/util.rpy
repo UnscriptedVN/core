@@ -62,7 +62,7 @@ init python:
         old_quit = renpy.config.quit_action
 
         if lvl == 0:
-            store.`quick_menu = False
+            store.quick_menu = False
             mia_speak("Ugh...")
             mia_speak("Where... did everyone go?")
             mia_speak("Maybe everyone went home. How long have I been here?")
