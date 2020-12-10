@@ -46,9 +46,6 @@ image bg apartment day = "images/bg/apartment/living_day.jpg"
 image bg apartment night = "images/bg/apartment/living_night.jpg"
 image bg apartment room_day = "images/bg/apartment/room_day.jpg"
 image bg apartment room_night = "images/bg/apartment/room_night.jpg"
-image bg apartment zenno_room = "images/bg/apartment/zenno_room_day.png"
-image bg apartment zenno_room_morning = "images/bg/apartment/zenno_room_morning.png"
-image bg apartment zenno_room_night = "images/bg/apartment/zenno_room_night.png"
 
 image bg mc_apartment entrance = "images/bg/mc/entrance.jpg"
 image bg mc_apartment entrance_morning = "images/bg/mc/entrance_morning.jpg"
@@ -90,27 +87,6 @@ image cg cg3_fg2 = "images/cg/cg3/fg2.png"
 image credits_with_love = "images/bg/special/clove.png"
 
 image bg blueprint = "images/bg/special/blueprint.png"
-
-# MARK: Effects
-init image blood_attacked_layer:
-    "gui/overlay/blood1.png"
-    alpha 0.0
-    on start, show, replace:
-        easein_cubic 1.5 alpha 0.10 additive 1.0
-
-layeredimage effect blood_overlay:
-    always:
-        "gui/overlay/blood2.png"
-    if effects.blood_attacked:
-        "blood_attacked_layer"
-
-image effect wtf_dark = "gui/overlay/why_the_fuck_is_it_so_dark.png"
-image effect glitch:
-    "gui/overlay/glitch.png"
-    additive 1.0
-    nearest True
-
-default effects.blood_attacked = False
 
 # MARK: Christina
 layeredimage christina:
