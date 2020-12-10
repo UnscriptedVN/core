@@ -239,7 +239,7 @@ init python:
     build.classify('**.rpy', None)
 
     # Pack entitlements.plist and other macOS-specific file to the macOS build
-    build.classify("entitlements.plist", "mac")
+    build.classify("**/entitlements.plist", "mac")
 
     # Remove unnecessary developer files that come with the project.
     build.classify('docs/**', None)
@@ -267,6 +267,7 @@ init python:
     # Filter out the DEVCHANGES file in stable builds.
     if uconf["info"]["build_channel"] == "stable":
         build.classify("**/DEVCHANGES.changes", None)
+        build.classify("**/beta.icns", None)
 
     # Mark as documentation. If this build is the demo, exclude the
     # source code license.
