@@ -60,8 +60,7 @@ screen game_menu(title, scroll=None):
 
     frame:
         yalign 1.0
-        yoffset -16
-        xoffset 16
+        padding (16, 16)
         style "pref_footer"
         has hbox:
             xfill True
