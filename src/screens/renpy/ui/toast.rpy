@@ -24,6 +24,8 @@ screen notify(message):
 
     if "notify_timeout" in vars() and notify_timeout:
         timer notify_timeout action Hide('notify')
+    else:
+        timer 3.25 action Hide('notify')
 
 
 transform notify_appear:
