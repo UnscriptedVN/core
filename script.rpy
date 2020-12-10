@@ -71,10 +71,8 @@ label start:
     # directly calling it here.
     #
     # Mods can write their own verson of story_bootstrap and override the story to the mod's story.
+    # The bootstrapper should also handle calling the credits sequence.
     call story_bootstrap
-
-    # Finally, call the credits at the end of the script.
-    call credits
 
     scene expression _scene_bg
 
