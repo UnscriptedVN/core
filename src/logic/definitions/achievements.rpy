@@ -11,6 +11,6 @@
 #
 
 init python:
-    for id in range(3):
+    for id in range(7):
         achievement.register("UVN" + str(id))
     achievement.sync()
