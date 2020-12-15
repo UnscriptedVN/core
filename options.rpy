@@ -197,7 +197,7 @@ init python:
     # amount of days specified in the build configuration (config.demo.demo_max_count).
     else:
         # Grab all the labels with 'script_ch' first.
-        story_labels = [label for label in renpy.get_all_labels() if a.startswith("script_ch")]
+        story_labels = [lab for lab in renpy.get_all_labels() if lab.startswith("script_ch")]
 
         # Iterate over every label in order.
         for slabel in sorted(story_labels):
