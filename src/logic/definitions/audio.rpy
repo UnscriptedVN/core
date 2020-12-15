@@ -76,3 +76,11 @@ define audio.waves = "ambient/waves.ogg"
 # MARK: SFX
 define audio.knock = "sfx/knock.ogg"
 define audio.beep = "sfx/mbeep.ogg"
+
+# MARK: VOICE-OVER
+define audio.vo_ch12_m0 = ""
+define audio.vo_ch12_m1 = ""
+define audio.vo_ch12_m2 = ""
+define audio.vo_ch12_m3 = ""
+define audio.vo_ch12_m4 = ""
+define audio.vo_ch12_m5 = ""
