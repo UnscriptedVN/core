@@ -18,7 +18,8 @@ init python:
 
     if renpy.loadable("../DEVCHANGES.changes") or renpy.loadable("../CHANGELOG.changes"):
         _changelog_obj = SimpleChangesParser(
-            "CHANGELOG.changes" if uconf["info"]["channel"] == "stable" else "DEVCHANGES.changes"
+            config.basedir + "/%s.changes" %
+                ("CHANGELOG" if uconf["info"]["channel"] == "stable" else "DEVCHANGES")
         )
         _changelog_obj.parse()
         changelog_notes = _changelog_obj.latest
