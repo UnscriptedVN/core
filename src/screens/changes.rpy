@@ -33,9 +33,10 @@ screen changelog(version):
             spacing 8
 
 
-            add wicon:
-                size (76, 76)
-                xalign 0.5
+            if wicon:
+                add wicon:
+                    size (76, 76)
+                    xalign 0.5
 
             $ _ver, _notes = version
             label "What's New in [_ver]":
