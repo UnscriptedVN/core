@@ -56,6 +56,11 @@ image bg mc_apartment night = "images/bg/mc/landing_night.jpg"
 image bg mc_apartment bedroom = "images/bg/mc/bedroom.jpg"
 image bg mc_apartment bedroom_night = "images/bg/mc/bedroom_night.jpg"
 
+# MARK: Effects
+image effect glitch:
+    "gui/overlay/glitch.png"
+    additive 1.0
+
 # image main_menu = "gui/main_menu.png"
 
 # MARK: CGs
