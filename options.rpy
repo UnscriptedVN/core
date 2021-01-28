@@ -76,7 +76,7 @@ init -100 python:
 
 # Basic configuration info such as the product name, version, and save directory.
 define config.name = _("Unscripted")
-define config.version = uconf["info"]["version"] or "1.0.0"
+define config.version = uconf["info"]["version"] if "uconf" in vars() and "info" in uconf else "2.1.0"
 define build.name = "Unscripted"
 define config.save_directory = "dev.unscriptedvn.game"
 
@@ -134,18 +134,24 @@ init:
     $ config.tag_layer['bg'] = 'background'
 
 # Build instructions for Ren'Py.
+
 init python:
 
     # Create a package type called "patches" where patched files can go. This contains only the
     # archives needed.
     build.package("patches", "zip", "patches", "Patch Files")
+    
+    # Create a package for the Snapcraft version of Unscripted, since this changes some behaviors
+    # in the game.
+    
+    build.package("snapcraft", "tar.bz2", "linux all snapcraft", "Linux x86/x86_64 (Snapcraft)")
 
     # Create the archives that will be compiled with the game. Scripts will contain the story code,
     # logic contains all of the Unscripted Core logic, and assets contains all of the required
     # images, audio files, etc.
-    build.archive("scripts", "patches all")
-    build.archive("assets", "patches all")
-    build.archive("logic", "patches all")
+    build.archive("scripts", "patches snapcraft all")
+    build.archive("assets", "patches snapcraft all")
+    build.archive("logic", "patches snapcraft all")
 
     # To maintain compatibility with the license, a new archive is added to bundle the source code
     # to Unscripted Core. This archive will not appear in the demo version of the game as this code
@@ -153,7 +159,7 @@ init python:
     # build settings is enabled. The source code is also available on GitHub at the following link:
     # https://github.com/UnscriptedVN/core.
     if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
-        build.archive("source", "patches all")
+        build.archive("source", "patches snapcraft all")
 
     # Target any of the AliceOS-specific files first. The compiled targets and assets will be added
     # to the logic archive, while the source code will be added to the source archive.
@@ -227,7 +233,11 @@ init python:
         build.classify("game/core/**.txt", "source")
         build.classify("game/core/**.md", "source")
 
-    build.classify("game/python-packages/**", "patches all")
+    # Ensure that all of the Python packages are included.
+    build.classify("game/python-packages/**", "patches snapcraft all")
+    
+    # Add the snap file to the snap build.
+    build.classify("game/.snap", "snapcraft")
 
     # Remove caches, thumbnail databases, and Ren'Py script source files that aren't part of the
     # Unscripted Core.
