@@ -301,6 +301,11 @@ init -10 python:
             config.allow_skipping = True
 
 init -500 python:
+
+    def is_snap():
+        """Dummy function to return false."""
+        return False
+
     def open_directory(path):
         # Source: https://stackoverflow.com/a/16204023
         """Open the directory with the system's file browser.

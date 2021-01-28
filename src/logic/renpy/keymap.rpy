@@ -44,6 +44,11 @@ init -130 python:
         url_key = "stable" if uconf["info"]["channel"] == "stable" else "beta"
         webbrowser.open(uconf["analytics"]["links"][url_key])
         renpy.notify("The bug reporter has been opened in your browser.")
+        
+    def buy_me_a_coffee():
+        """Buys me a coffee."""
+        webbrowser.open("https://ko-fi.com/marquiskurt")
+        renpy.notify("The link has been opened in your browser.")
 
     def open_glossary_menu():
         """Open the Help menu to the glossary page."""
