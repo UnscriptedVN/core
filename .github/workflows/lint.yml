@@ -28,9 +28,9 @@ jobs:
           cp -r themes/* core/themes/
           cp -r assets/* core/assets/
       - name: Lint project
-        uses: ProjectAliceDev/renpy-lint-action@v1.1.0
+        uses: ProjectAliceDev/renpy-lint-action@v1.1.1
         with:
-          sdk-version: 7.3.5
+          sdk-version: 7.4.1
           project-dir: "."
         env:
           SDL_AUDIODRIVER: dummy
