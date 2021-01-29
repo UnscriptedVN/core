@@ -18,8 +18,12 @@ screen ProfileNameView():
     default player_name = "MC"
     default identify = "male"
     default language = "Python"
+    default candella_profile = True
 
-    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]) at blur
+    # add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]) at blur
+    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]):
+        blur CABlurType["default"]
+    
     add "#000000BB"
 
     vbox at main_menu_enter:
@@ -51,10 +55,17 @@ screen ProfileNameView():
 
                         text "Name"
                         vbox:
+                            xfill True
                             input default "" value ScreenVariableInputValue("player_name"):
                                 length 16
                                 allow "ABCDEFGHIJKLMNOPQRSTUVXWYZabcedfghijklmnopqurstuvwxyz ._"
                             text "Acceptable characters include alphanumeric characters, underscores, spaces, and periods.":
+                                style "ProfileNameView_info_text"
+                            vbox:
+                                style_prefix "check"
+                                null height 8
+                                textbutton "Create Candella user profile" action ToggleScreenVariable("candella_profile")
+                            text "Creating a profile with this name will let you add custom settings and data to Candella such as desktop wallpapers and apps list.":
                                 style "ProfileNameView_info_text"
 
                     vbox:
@@ -93,7 +104,7 @@ screen ProfileNameView():
                         style_prefix "standard"
 
                         textbutton "Back" action MainMenu()
-                        textbutton "Start" action [Return((player_name or "MC", identify, language))]
+                        textbutton "Start" action [Return((player_name or "MC", identify, language, candella_profile))]
 
 style ProfileNameView_label is gui_label
 style ProfileNameView_label_text is gui_label_text:

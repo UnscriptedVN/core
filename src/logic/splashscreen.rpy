@@ -24,8 +24,17 @@ label splashscreen:
     stop music
     python:
         import logging
+        import os
 
         in_splash = True
+        
+        # If the user directory does not exist, create it and the default user session.
+        if not os.path.isdir(config.savedir + "/.causerland"):
+            logging.warn("Userland folder doesn't exist yet. Creating default user session 'candella'.")
+            CAAccountsService().add_user("candella")
+            CAAccountsService().change_current_user("candella")
+            logging.info("Default user session created. Restarting game to ensure changes take effect.")
+            renpy.utter_restart()
 
         # Update the rich presence.
         if 'uconf' not in vars():

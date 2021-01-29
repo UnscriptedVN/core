@@ -85,6 +85,9 @@ define gui.show_name = True
 define gui.about = _("")
 define config.window_icon = wicon or "core/core.png"
 
+# Graphics configuration
+define config.gl2 = True
+
 # Volume configurations
 define config.has_sound = True
 define config.has_music = True
