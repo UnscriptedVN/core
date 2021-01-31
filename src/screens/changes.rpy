@@ -23,10 +23,11 @@ screen changelog(version):
                 Function(SetThumbnailOriginal)
                 ]
 
-    add FileCurrentScreenshot() at blur
+    add FileCurrentScreenshot():
+        blur CABlurType["default"]
     add "#000000CC"
 
-    frame:
+    frame at ASDynamicBlurTransition:
         vbox:
             xalign 0.5
             yalign 0.5

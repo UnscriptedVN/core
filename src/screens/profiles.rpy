@@ -29,9 +29,9 @@ screen ProfileNameView():
     vbox at main_menu_enter:
         xalign 0.5
         yalign 0.5
-        spacing 16
+        # spacing 8
         xmaximum 1000
-        ymaximum 670
+        ymaximum 550
 
         hbox:
             spacing 8
@@ -39,8 +39,10 @@ screen ProfileNameView():
             add get_feather_icon("git-merge", mode="dark") size (128, 128)
 
             vbox:
-                spacing 16
+                spacing 8
                 yfit True
+                ymaximum 976
+                
                 vbox:
                     spacing 8
 
@@ -61,13 +63,6 @@ screen ProfileNameView():
                                 allow "ABCDEFGHIJKLMNOPQRSTUVXWYZabcedfghijklmnopqurstuvwxyz ._"
                             text "Acceptable characters include alphanumeric characters, underscores, spaces, and periods.":
                                 style "ProfileNameView_info_text"
-                            vbox:
-                                style_prefix "check"
-                                null height 8
-                                textbutton "Create Candella user profile" action ToggleScreenVariable("candella_profile")
-                            text "Creating a profile with this name will let you add custom settings and data to Candella such as desktop wallpapers and apps list.":
-                                style "ProfileNameView_info_text"
-
                     vbox:
                         text "Personal Pronouns"
                         vbox:
@@ -76,7 +71,13 @@ screen ProfileNameView():
                             textbutton "He/Him/His" action SetScreenVariable("identify", "male")
                             textbutton "She/Her/Hers" action SetScreenVariable("identify", "female")
                             textbutton "They/Them/Their" action SetScreenVariable("identify", "they")
-
+                vbox:
+                    vbox:
+                        style_prefix "check"
+                        null height 8
+                        textbutton "Integrate with Candella" action ToggleScreenVariable("candella_profile")
+                    text "Integrating with Candella will let you use a custom profile with your name, which lets you have custom settings such as the apps list and desktop wallpaper. You can switch user profiles by clicking on your name on the desktop.":
+                        style "ProfileNameView_info_text"
                 vbox:
                     text "Programming language"
                     text "New projects on RepoHive will set the language to the language specified here.":
