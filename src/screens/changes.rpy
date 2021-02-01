@@ -22,9 +22,12 @@ screen changelog(version):
                 FileTakeScreenshot(),
                 Function(SetThumbnailOriginal)
                 ]
-
-    add FileCurrentScreenshot():
-        blur CABlurType["default"]
+    
+    if config.gl2:
+        add FileCurrentScreenshot():
+            blur CABlurType["default"]
+    else:
+        add FileCurrentScreenshot() at blur
     add "#000000CC"
 
     frame at ASDynamicBlurTransition:

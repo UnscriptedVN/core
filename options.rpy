@@ -86,6 +86,7 @@ define gui.about = _("")
 define config.window_icon = wicon or "core/core.png"
 
 # Graphics configuration
+
 define config.gl2 = True
 
 # Volume configurations
@@ -163,6 +164,9 @@ init python:
     # https://github.com/UnscriptedVN/core.
     if uconf["demo"]["demo_bundle_core"] or not uconf["demo"]["demo"]:
         build.archive("source", "patches snapcraft all")
+        
+    # Add the snap file to the snap build.
+    build.classify("game/.snap", "snapcraft")
 
     # Target any of the AliceOS-specific files first. The compiled targets and assets will be added
     # to the logic archive, while the source code will be added to the source archive.
@@ -238,9 +242,6 @@ init python:
 
     # Ensure that all of the Python packages are included.
     build.classify("game/python-packages/**", "patches snapcraft all")
-    
-    # Add the snap file to the snap build.
-    build.classify("game/.snap", "snapcraft")
 
     # Remove caches, thumbnail databases, and Ren'Py script source files that aren't part of the
     # Unscripted Core.

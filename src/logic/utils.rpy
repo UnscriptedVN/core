@@ -304,7 +304,7 @@ init -500 python:
 
     def is_snap():
         """Dummy function to return false."""
-        return False
+        return renpy.loadable("snapcraft.rpy")
 
     def open_directory(path):
         # Source: https://stackoverflow.com/a/16204023

@@ -211,12 +211,18 @@ screen about_help():
         label "Fira API Version"
         text "[_fv]"
     hbox:
-        label "AliceOS Version"
+        label "Candella Version"
         text "[AS_SYS_INFO[VERSION]] ([AS_SYS_INFO[COMMON_NAME]], [AS_SYS_INFO[BUILD_ID]]) "
     hbox:
         $ _rv = renpy.version().replace("Ren'Py", "")
         label "Ren'Py Version"
         text "[_rv]"
+    
+    if uconf["info"]["channel"] != "stable":
+        hbox:
+            $ _gl2_enabled = config.gl2
+            label "Model-based Render"
+            text "[_gl2_enabled]"
 
 style help_button is gui_button
 style help_button_text is gui_button_text

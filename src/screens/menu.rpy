@@ -44,6 +44,7 @@ screen main_menu():
     key "l" action ShowMenu("load")
     key "e" action ShowMenu("preferences")
     key "?" action ShowMenu("help")
+    key "d" action NullAction() # This ensures that Caberto Shell doesn't load
 
     frame:
         pass

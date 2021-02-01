@@ -20,11 +20,11 @@ screen ProfileNameView():
     default language = "Python"
     default candella_profile = True
 
-    # add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]) at blur
-    add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]):
-        blur CABlurType["default"]
-    
-    add "#000000BB"
+    if config.gl2:
+        add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]):
+            blur CABlurType["default"]
+        
+        add "#000000BB"
 
     vbox at main_menu_enter:
         xalign 0.5

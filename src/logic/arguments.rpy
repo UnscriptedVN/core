@@ -33,7 +33,7 @@ init -100 python:
         except:
             pass
 
-    # Disable running experiments if any are specified
+    # Disable running experiments if any are specified.
     if "disable_experiments" in arguments:
         for experiment in arguments["disable_experiments"]:
             logging.info("Disabling experiment '%s'...", experiment)
