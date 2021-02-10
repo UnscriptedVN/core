@@ -27,7 +27,11 @@ label splashscreen:
         import os
 
         in_splash = True
-        
+
+        # If the Roland boot manager is available, load Candella.
+        if "roland" in vars():
+            roland.boot(run_setup=False)
+
         # If the user directory does not exist, create it and the default user session.
         if not os.path.isdir(config.savedir + "/.causerland"):
             logging.warn("Userland folder doesn't exist yet. Creating default user session 'candella'.")
@@ -78,6 +82,10 @@ label before_main_menu:
 label quit:
     python:
         import logging
+
+        # If the Roland boot manager is available, shut down Candella via Roland.
+        if "roland" in vars():
+            roland.shutdown()
 
         # Try to disconnect the Discord client if enabled.
         if 'uconf' not in vars():
