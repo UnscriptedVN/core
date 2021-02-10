@@ -31,7 +31,7 @@ screen quick_menu():
             textbutton _("History") action ShowMenu('history')
             textbutton _("Skip") action Skip() alternate Skip(fast=True, confirm=True)
             textbutton _("Auto") action Preference("auto-forward", "toggle")
-            textbutton _("Glossary") action ShowTransient("GlossaryAppUIView", glossary=glossary_app.load_glossary())
+            textbutton _("Glossary") action ShowTransient("GlossaryAppUIView", glossary=glossary_app.load_glossary(filepath="glossary.json"))
             textbutton _("Use Item") action ShowTransient("InventoryHUD")
             textbutton _("Desktop") action Function(caberto.launch, transient=True)
             textbutton _("Save") action ShowMenu('save')
