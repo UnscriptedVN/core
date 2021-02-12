@@ -39,6 +39,8 @@ jobs:
           cp ./${{ steps.candella.outputs.version }}-System/game/candella.rpa ../
           cd ..
           sudo rm -rf candella
+      - name: Install Python PIP dependencies
+        run: pip install -r requirements.txt --target python-packages --system
       - name: Lint project
         uses: ProjectAliceDev/renpy-lint-action@v1.1.1
         with:
