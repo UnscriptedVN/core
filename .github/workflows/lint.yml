@@ -36,7 +36,7 @@ jobs:
         run: |
           cd ${{ steps.candella.outputs.dir }}
           sudo unzip ${{ steps.candella.outputs.version }}-System.zip
-          cp ./${{ steps.candella.outputs.version }}-System/game/candella.rpa ../core/
+          cp ./${{ steps.candella.outputs.version }}-System/game/candella.rpa ../
           cd ..
           rm -rf candella
       - name: Lint project
