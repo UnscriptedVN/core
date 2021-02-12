@@ -35,7 +35,7 @@ jobs:
       - name: Add Candella build to release
         run: |
           cd ${{ steps.candella.outputs.dir }}
-          unzip ${{ steps.candella.outputs.version }}-System.zip
+          sudo unzip ${{ steps.candella.outputs.version }}-System.zip
           cp ./${{ steps.candella.outputs.version }}-System/game/candella.rpa ../game/game/
           cd ..
       - name: Lint project
