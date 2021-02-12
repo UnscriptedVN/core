@@ -24,7 +24,7 @@ jobs:
       - name: Update Candella release
         run: |
           cd candella
-          ./scripts/version_inject.py
+          python3 ./scripts/version_inject.py
           cd ..
       - name: Build Candella release
         id: candella
