@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone source
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           fetch-depth: 50
       - name: Clone Candella source
@@ -22,7 +22,6 @@ jobs:
           repository: 'UnscriptedVN/candella'
           fetch-depth: 50
           submodules: true
-          token: ${{ secrets.GH_TOKEN }}
       - name: Update Candella release
         run: |
           cd candella
