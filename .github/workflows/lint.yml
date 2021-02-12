@@ -19,7 +19,7 @@ jobs:
       - name: Clone Candella source
         uses: actions/checkout@v2
         with:
-          repostory: 'UnscriptedVN/candella'
+          repository: 'UnscriptedVN/candella'
           fetch-depth: 50
           submodules: true
           token: ${{ secrets.GH_TOKEN }}
