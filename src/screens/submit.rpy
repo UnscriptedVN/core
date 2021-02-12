@@ -97,7 +97,7 @@ screen asc_submit():
                         label "Entitlements Present"
                         text "Yes"
                     vbox:
-                        $ __fdir = AS_FONTS_DIR + "Bold.ttf"
+                        $ __fdir = get_font("Interface", variant="Bold")
                         label "Achievements"
                         text "{font=[__fdir]}Completionist (50){/font} - Complete the game."
 
@@ -121,15 +121,15 @@ style asc_text is gui_text:
 style asc_label is gui_label
 
 style asc_label_text is gui_label_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
     size 18
 
 style asc_name is gui_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
     size 18
 
 style asc_game_title is gui_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
     size 32
 
 style asc_detail_hbox is gui_hbox:

@@ -22,7 +22,7 @@ screen changelog(version):
                 FileTakeScreenshot(),
                 Function(SetThumbnailOriginal)
                 ]
-    
+
     if config.gl2:
         add FileCurrentScreenshot():
             blur CABlurType["default"]
@@ -66,7 +66,7 @@ style changelog_frame is gui_frame:
 
 style changelog_label is gui_label
 style changelog_label_text is gui_label_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
 
 style changelog_text is gui_text:
     size 16
@@ -74,7 +74,7 @@ style changelog_text is gui_text:
 style changelog_button is standard_button
 
 style changelog_button_text is standard_button_text:
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     size 14
 
 style changelog_viewport is gui_viewport:

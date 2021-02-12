@@ -81,7 +81,7 @@ style navigation_button:
 
 style navigation_button_text:
     properties gui.button_text_properties("navigation_button")
-    font AS_FONTS_DIR + "medium.ttf"
+    font get_font("Interface", variant="Medium")
     color current_theme().colors().INTERFACE.value
     hover_color current_theme().colors().INTERFACE_ACTIVE.value
     size 16

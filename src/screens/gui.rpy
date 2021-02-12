@@ -70,13 +70,13 @@ define gui.interface_text_color = current_theme().colors().INTERFACE.value
 ## MARK: Fonts and Font Sizes
 
 ## The font used for in-game text.
-define gui.text_font = gui.preference("text_font", AS_FONTS_DIR + "Medium.ttf")
+define gui.text_font = gui.preference("text_font", get_font("Interface", variant="Medium"))
 
 ## The font used for character names.
-define gui.name_text_font = AS_FONTS_DIR + "Bold.ttf"
+define gui.name_text_font = get_font("Interface", variant="Bold")
 
 ## The font used for out-of-game text.
-define gui.interface_text_font = AS_FONTS_DIR + "Regular.ttf"
+define gui.interface_text_font = get_font("Interface")
 
 ## The size of normal dialogue text.
 define gui.text_size = gui.preference("text_size", 20)
@@ -227,7 +227,7 @@ define gui.choice_button_width = 700
 define gui.choice_button_height = None
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(100, 8, 100, 8)
-define gui.choice_button_text_font = AS_FONTS_DIR + "Regular.ttf"
+define gui.choice_button_text_font = get_font("Interface")
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
 define gui.choice_button_text_idle_color = current_theme().colors().INTERFACE.value

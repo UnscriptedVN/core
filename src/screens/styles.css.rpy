@@ -125,7 +125,7 @@ style tab_group_button is gui_button:
 
 style tab_group_button_text is gui_button_text:
     color current_theme().colors().INTERFACE.value
-    selected_font AS_FONTS_DIR + "Medium.ttf"
+    selected_font get_font("Interface", variant="Medium")
     size 16
 
 style slider_slider:

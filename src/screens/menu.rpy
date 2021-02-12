@@ -81,16 +81,16 @@ screen main_menu():
 
             use navigation_button(icon="plus", title="{u}N{/u}ew " + ("Demo" if uconf["demo"]["demo"] else "Game"), action=Start())
             use navigation_button(icon="folder", title="{u}L{/u}oad Game", action=ShowMenu('load'))
-            
+
             if uconf["features"]["enable_dreams"]:
                 use navigation_button(icon="moon", title="Dreams", action=ShowMenu('dreams'))
-            
+
             use navigation_button(icon="settings", title="S{u}e{/u}ttings", action=ShowMenu('preferences'))
             use navigation_button(icon="help-circle", title="{u}H{/u}elp", action=ShowMenu('help'))
-            
+
             if is_snap():
                 use navigation_button(icon="coffee", title="Buy a Coffee", action=Function(buy_me_a_coffee))
-            
+
             use navigation_button(icon="power", title="Quit Game", action=Quit(confirm=False))
 
 style main_menu_frame is empty
@@ -178,7 +178,7 @@ style nav_button_base:
 style nav_button_title_large is gui_text
 
 style nav_button_title_large_text is gui_text:
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     properties gui.text_properties("version")
     color "#f4f4f4"
     outlines [(1, "#3333331C", 0, 1), (0.5, "#3333331C", 0, 0)]

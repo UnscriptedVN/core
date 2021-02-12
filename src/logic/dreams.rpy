@@ -106,7 +106,7 @@ style dream_slot_button is slot_button:
 
 style dream_title is gui_label
 style dream_title_text is gui_label_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Medium")
 style dream_text is gui_text:
     size 18
     color "#666666"

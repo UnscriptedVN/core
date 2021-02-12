@@ -23,7 +23,7 @@ screen ProfileNameView():
     if config.gl2:
         add dynamic_background("assets/gui/main/main.jpg", include=[TimeOfDay.day, TimeOfDay.night]):
             blur CABlurType["default"]
-        
+
         add "#000000BB"
 
     vbox at main_menu_enter:
@@ -42,7 +42,7 @@ screen ProfileNameView():
                 spacing 8
                 yfit True
                 ymaximum 976
-                
+
                 vbox:
                     spacing 8
 
@@ -109,12 +109,12 @@ screen ProfileNameView():
 
 style ProfileNameView_label is gui_label
 style ProfileNameView_label_text is gui_label_text:
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     color "#f4f4f4"
     size 28
 
 style ProfileNameView_text is gui_text:
-    font AS_FONTS_DIR + "Regular.ttf"
+    font get_font("Interface")
     color "#999999"
     size 18
 

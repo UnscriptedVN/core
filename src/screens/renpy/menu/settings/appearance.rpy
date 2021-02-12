@@ -58,7 +58,7 @@ screen appearance_settings():
 
                 label "Dialogue font"
 
-                textbutton "Inter (default)" action gui.SetPreference("text_font", AS_FONTS_DIR + "Medium.ttf")
+                textbutton "Inter (default)" action gui.SetPreference("text_font", get_font("Interface", variant="Medium"))
                 textbutton "Merriweather" action gui.SetPreference("text_font", "core/assets/fonts/merriweather/Merriweather-Regular.ttf"):
                     style "pref_font_mwthr"
                 textbutton "JetBrains Mono" action gui.SetPreference("text_font", "core/assets/fonts/jb_mono/JetBrainsMono-Regular.ttf"):

@@ -54,4 +54,4 @@ style quick_button:
 style quick_button_text:
     properties gui.button_text_properties("quick_button")
     hover_color current_theme().colors().INTERFACE_HIGHLIGHT.value
-    font AS_FONTS_DIR + "Regular.ttf"
+    font get_font("Interface")

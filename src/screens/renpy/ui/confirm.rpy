@@ -61,7 +61,7 @@ style confirm_prompt_text:
     text_align 0.5
     layout "subtitle"
     size 20
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
 
 style confirm_button:
     properties gui.button_properties("confirm_button")
@@ -70,4 +70,4 @@ style confirm_button:
 style confirm_button_text:
     properties gui.button_text_properties("confirm_button")
     size 16
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")

@@ -126,7 +126,7 @@ style game_menu_text:
     color current_theme().colors().INTERFACE_SECONDARY.value
 
 style game_menu_label_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
     color current_theme().colors().INTERFACE.value
     yalign 0.5
     size 32

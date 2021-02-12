@@ -159,7 +159,7 @@ style slot_button_text:
     properties gui.button_text_properties("slot_button")
 
 style slot_name_text is slot_button_text:
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
     idle_color current_theme().colors().INTERFACE.value
 
 style slot_time_text is slot_button_text:

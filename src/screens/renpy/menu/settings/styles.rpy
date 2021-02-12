@@ -66,10 +66,10 @@ style pref_tab_group is hbox:
 style pref_label:
     top_margin gui.pref_spacing
     bottom_margin 2
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
 
 style pref_label_text:
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     size 20
     yalign 1.0
 
@@ -83,7 +83,7 @@ style radio_vbox:
     spacing gui.pref_button_spacing
 
 style pref_navigation_button_text:
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     idle_color current_theme().colors().INTERFACE.value
     size 20
 
@@ -146,7 +146,7 @@ style link_button:
 
 style link_button_text:
     idle_color current_theme().colors().INTERFACE_ACTIVE.value
-    font AS_FONTS_DIR + "Medium.ttf"
+    font get_font("Interface", variant="Medium")
     size 16
 
 style pref_access_preview is gui_text:

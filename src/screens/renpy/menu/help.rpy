@@ -217,7 +217,7 @@ screen about_help():
         $ _rv = renpy.version().replace("Ren'Py", "")
         label "Ren'Py Version"
         text "[_rv]"
-    
+
     if uconf["info"]["channel"] != "stable":
         hbox:
             $ _gl2_enabled = config.gl2
@@ -245,7 +245,7 @@ style help_label_text:
     size gui.text_size
     xalign 1.0
     text_align 1.0
-    font AS_FONTS_DIR + "Bold.ttf"
+    font get_font("Interface", variant="Bold")
 
 style help_text is gui_text:
     size gui.text_size
