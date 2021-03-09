@@ -31,13 +31,21 @@ init screen mg_interactive_buttons(last=""):
     key "K_LEFT" action Return("move player west")
     key "K_DOWN" action Return("move player south")
     key "K_RIGHT" action Return("move player east")
+    key "g" action NullAction()
+    key "d" action NullAction()
 
     key "p" action Return("collect")
+    key "e" action Return("collect")
+
     if last:
         key "r" action Return(last)
+        key "K_RETURN" action Return(last)
+    else:
+        key "K_RETURN" action NullAction()
 
     hbox:
         align (0.5, 0.95)
+        xsize 1248
         xfill True
 
         vbox:

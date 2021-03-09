@@ -24,12 +24,6 @@ label start:
         player_name, player_pronouns, player_language, player_profile_create = renpy.call_screen("ProfileNameView")
         player = Player(player_name)
         logging.info("Created player %s." % (player_name))
-        
-        # If requested, create a new Candella user profile.
-        if player_profile_create:
-            logging.info("Candella profile creation option selected. Creating a new profile.")
-            CAAccountsService().add_user(player_name.lower().replace(" ", ""), pretty_name=player_name)
-            CAAccountsService().change_current_user(player_name.lower().replace(" ", ""))
 
         # Update the player's personal pronouns and the player's programming language.
         player.update_pronouns(player_pronouns)
@@ -53,6 +47,12 @@ label start:
         # Clear the AliceOS inventory.
         for item in inventory.export():
             inventory.removeItem(item)
+
+        # If requested, create a new Candella user profile.
+        if player_profile_create:
+            logging.info("Candella profile creation option selected. Creating a new profile.")
+            CAAccountsService(None).add_user(player_name.lower().replace(" ", ""), pretty_name=player_name)
+            CAAccountsService(None).change_current_user(player_name.lower().replace(" ", ""))
 
         # Update the email location to point to the emails folder.
         emails.email_location = "story/emails/"
