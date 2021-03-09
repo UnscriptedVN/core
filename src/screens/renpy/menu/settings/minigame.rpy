@@ -39,48 +39,22 @@ screen minigame_settings():
                     add "core/assets/interface/previews/mg_basic.png"
 
         vbox:
-            if uconf["features"]["enable_minigame_adv_mode"]:
-                label "Preview Animation Speed"
-                text "When running code in Advanced Mode step-by-step, run at the selected speed."
+            label "Preview Animation Speed"
 
-                vbox:
-                    style_prefix "radio"
-                    textbutton "Normal (1x)" action SetField(persistent, "mg_speed", 1.0)
-                    textbutton "Faster (~1.5x)" action SetField(persistent, "mg_speed", 0.75)
-                    textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
-                    textbutton "Warp Speed (~10x)" action SetField(persistent, "mg_speed", 0.1)
+            vbox:
+                style_prefix "radio"
+                textbutton "Normal (1x)" action SetField(persistent, "mg_speed", 1.0)
+                textbutton "Faster (~1.5x)" action SetField(persistent, "mg_speed", 0.75)
+                textbutton "Fastest (~2x)" action SetField(persistent, "mg_speed", 0.5)
+                textbutton "Warp Speed (~10x)" action SetField(persistent, "mg_speed", 0.1)
         vbox:
             null height 8
 
         vbox:
             label "Advanced"
-
             vbox:
                 spacing 10
 
-                if uconf["features"]["enable_minigame_adv_mode"]:
-                    vbox:
-                        style_prefix "check"
-                        textbutton "Always show level preview" action ToggleField(persistent, "mg_vm_force_editor")
-                        text "When enabled, a preview of the level will always appear before running the code preview, regardless if compiled code already exists.":
-                            style "pref_text"
-                    vbox:
-                        python:
-                            savedir = config.savedir + "/minigame"
-                            if renpy.windows:
-                                savedir = savedir.replace("/", "\\")
-
-                            if renpy.windows:
-                                file_manager = "File Explorer"
-                            elif renpy.macintosh:
-                                file_manager = "Finder"
-                            else:
-                                file_manager = "File Browser"
-
-                        style_prefix "standard"
-                        textbutton "Reveal scripts in [file_manager]" action Function(open_directory, config.savedir + "/minigame")
-                        text "Save directory: " + savedir:
-                            style "pref_text"
                 vbox:
                     style_prefix "link"
                     label "Documentation"
@@ -88,5 +62,3 @@ screen minigame_settings():
                         style "pref_text"
 
                     textbutton "NadiaVM Reference..." action Function(open_nvm_reference)
-                    if uconf["features"]["enable_minigame_adv_mode"]:
-                        textbutton "API Documentation..." action Function(open_api_docs)
