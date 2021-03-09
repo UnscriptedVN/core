@@ -14,6 +14,7 @@ init 10 python:
     import os
     import logging
     from uvn_fira.core import CSNadiaVM, CSNadiaVMWriterBuilder, CSWorldConfigReader
+    from store.CADeprecated import deprecated
 
     class MinigameLogicHandler(object):
         """The minigame puzzle logic component.
@@ -64,6 +65,7 @@ init 10 python:
             else:
                 logging.warning("VM file for level %s will need to be compiled first.", self.level)
 
+        @deprecated('2.1.0', reason="New advanced mode will be old interactive experience.")
         def _compile_advanced(self):
             """Run the advanced compiler editor."""
             renpy.call_screen("mg_editor", self.map, self.writer, self.level)
@@ -87,6 +89,7 @@ init 10 python:
                                 player_origin=self.map.data.to_grid().first("PLAYER"))
             logging.info("Loaded VM from %s.", self.vm_path)
 
+        @deprecated('2.1.0', reason="No longer in use.")
         def _compile_basic(self):
             """Compile the basic compiler editor.
 
@@ -120,40 +123,7 @@ init 10 python:
                 the editor by making `show_editor` false. If the first iteration results in a bad
                 solution, `show_editor` will be re-enabled and will run on subsequent runs.
             """
-            solved = False
-            show_editor = True
-            attempted_existing_vm = False
-
-            if not persistent.mg_adv_mode:
-                self.vm = CSNadiaVM(path=self.vm_path,
-                                    player_origin=self.map.data.to_grid().first("PLAYER"),
-                                    is_interactive=True)
-                renpy.call_in_new_context("mg_interactive_experience", self.vm, self.map)
-            else:
-                if not persistent.mg_vm_force_editor and not attempted_existing_vm:
-                    if not os.path.isfile(self.vm_path):
-                        logging.warning("Cannot load requested VM file. Calling editor...")
-                    else:
-                        show_editor = False
-                        logging.info("Reading from existing VM code at %s.", self.vm_path)
-                while not solved:
-                    if show_editor:
-                        logging.info("Calling code editor for level %s...", self.level)
-                    self._compile_advanced()
-                    if "vm" not in self.__dict__:
-                        logging.error("VM was not initialized. Returning out this run...")
-                        break
-                    logging.info("Starting preview...")
-                    self._preview()
-                    if mg_return_code != 0:
-                        renpy.call_screen("ASNotificationAlert",
-                                        "Uh oh!",
-                                        "It looks like you didn't reach the goal. Try again!")
-                        if not persistent.mg_vm_force_editor and not attempted_existing_vm:
-                            logging.warning("Existing VM file failed to solve the level. Switching to editor...")
-                            renpy.notify("The editor has been opened because the compiled VM code didn't work.")
-                            attempted_existing_vm = True
-                            show_editor = True
-                    else:
-                        solved = True
-                        logging.info("Minigame level succeeded.")
+            self.vm = CSNadiaVM(path=self.vm_path,
+                                player_origin=self.map.data.to_grid().first("PLAYER"),
+                                is_interactive=True)
+            renpy.call_in_new_context("mg_interactive_experience", self.vm, self.map)

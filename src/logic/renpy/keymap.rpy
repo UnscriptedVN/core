@@ -37,7 +37,7 @@ init -130 python:
     def open_desktop():
         """Open the AliceOS desktop shell."""
         if not in_splash:
-            caberto.launch(transient=True)
+            celeste.launch(transient=True)
 
     def open_issues_url():
         """Open the issue tracker to file a bug report."""

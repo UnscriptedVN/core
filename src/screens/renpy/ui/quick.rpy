@@ -33,7 +33,7 @@ screen quick_menu():
             textbutton _("Auto") action Preference("auto-forward", "toggle")
             textbutton _("Glossary") action ShowTransient("GlossaryAppUIView", glossary=glossary_app.load_glossary(filepath="glossary.json"))
             textbutton _("Use Item") action ShowTransient("InventoryHUD")
-            textbutton _("Desktop") action Function(caberto.launch, transient=True)
+            textbutton _("Desktop") action Function(celeste.launch, transient=True)
             textbutton _("Save") action ShowMenu('save')
             textbutton _("Load") action ShowMenu('load')
             textbutton _("Settings") action ShowMenu('preferences')

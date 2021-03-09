@@ -26,13 +26,12 @@ screen minigame_settings():
                 vbox:
                     style_prefix "radio"
                     textbutton "Basic mode" action SetField(persistent, "mg_adv_mode", False)
-                    text "Basic mode lets you type NadiaVM commands into an interpreter to solve puzzles. Commands happen in real time without compilation.":
+                    text "Basic mode lets you push a series of buttons to guide the player. No code is required.":
                         style "pref_text"
 
-                    if uconf["features"]["enable_minigame_adv_mode"]:
-                        textbutton "Advanced mode" action SetField(persistent, "mg_adv_mode", True)
-                        text "Advanced mode lets you write code to solve puzzles by writing code yourself ahead of time.":
-                            style "pref_text"
+                    textbutton "Advanced mode" action SetField(persistent, "mg_adv_mode", True)
+                    text "Basic mode lets you type NadiaVM commands into an interpreter to solve puzzles. Commands happen in real time without compilation.":
+                        style "pref_text"
                 null height 4
                 if persistent.mg_adv_mode:
                     add "core/assets/interface/previews/mg_advanced.png"

@@ -12,6 +12,51 @@
 
 init offset = 10
 
+# Composable screen element for the minigame buttons.
+init screen mg_button(command, image_name):
+    button action Return(command):
+        xysize (96, 94)
+        add MG_CONFIG["assets_path"] + "gui/" + image_name + ".png":
+            size (96, 94)
+            nearest True
+
+# The screen to handle all input scenarios via GUI. Returns the command that the player submits to it.
+init screen mg_interactive_buttons(last=""):
+    tag minigame
+    zorder 15
+    modal True
+    style_prefix "mg_inter"
+
+    key "K_UP" action Return("move player north")
+    key "K_LEFT" action Return("move player west")
+    key "K_DOWN" action Return("move player south")
+    key "K_RIGHT" action Return("move player east")
+
+    key "p" action Return("collect")
+    if last:
+        key "r" action Return(last)
+
+    hbox:
+        align (0.5, 0.95)
+        xfill True
+
+        vbox:
+            xalign 0.15
+            hbox:
+                null width 96
+                use mg_button("move player north", "move_up")
+                null width 96
+            hbox:
+                use mg_button("move player west", "move_left")
+                use mg_button("move player south", "move_down")
+                use mg_button("move player east", "move_right")
+
+        hbox:
+            xalign 0.85
+            use mg_button("collect", "poweron")
+            if last:
+                use mg_button(last, "repeat")
+
 # The screen to handle all input scenarios. Returns the command that the player submits to it.
 init screen mg_interactive_input(last=""):
     tag minigame
@@ -256,7 +301,10 @@ label mg_interactive_experience(vm, world):
         # Keep receiving instructions until the player has completed the map.
         _mg_state = _mg_state_manager.get_state()
         while False in _mg_state.checks:
-            _mg_current_command = renpy.call_screen("mg_interactive_input", last=_mg_last_command)
+            _mg_current_command = renpy.call_screen(
+                "mg_interactive_input" if persistent.mg_adv_mode else "mg_interactive_buttons",
+                last=_mg_last_command
+            )
             _current_instruction = _mg_current_command.split(" ")[0]
             logging.info("VM received command: %s", _current_instruction)
 
