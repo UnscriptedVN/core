@@ -62,8 +62,8 @@ init screen mg_interactive_buttons(last=""):
         hbox:
             xalign 0.85
             use mg_button("collect", "poweron")
-            if last:
-                use mg_button(last, "repeat")
+            # if last:
+            #     use mg_button(last, "repeat")
 
 # The screen to handle all input scenarios. Returns the command that the player submits to it.
 init screen mg_interactive_input(last=""):
