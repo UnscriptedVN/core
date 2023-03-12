@@ -243,6 +243,7 @@ label mg_interactive_experience(vm, world):
 
                 renpy.show(_mg_img_name,
                            at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
+                           zorder=999,
                            tag=curr_tag)
 
                 img_name = element_image_names.get(element, "mg_air")
@@ -287,6 +288,7 @@ label mg_interactive_experience(vm, world):
                 curr_tag = "player" if element == "PLAYER" else "matrix_%s_%s_%s" \
                                         % (element, _r, _c)
 
+                print("Now showing " + img_name)
                 renpy.show(img_name,
                            at_list=[minigame_matrix_pos(img_xpos, img_ypos)],
                            tag=curr_tag,

@@ -47,7 +47,7 @@ init -2000 python:
         raise UnscriptedCoreConfigError("The build configuration for Unscripted is not loadable.")
 
     # If the config field is missing from the build.toml file, raise an exception.
-    with renpy.file(uconf_path) as uconf_file:
+    with renpy.open_file(uconf_path, encoding="utf-8") as uconf_file:
         toml_load = toml.load(uconf_file)
         if "config" not in toml_load:
             logging.error("Build configuration is either empty or corrupt.")

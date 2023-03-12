@@ -137,7 +137,7 @@ style main_menu_save_button_text:
     hover_color "#999"
 
 
-screen navigation_button(icon=None, title="", subtitle=None, action):
+screen navigation_button(action, icon=None, title="", subtitle=None):
     tag nav_button
     style_prefix "nav_button"
 

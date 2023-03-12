@@ -46,7 +46,7 @@ default persistent.mg_vm_force_editor = True
 
 # Whether to run the minigame. This can be turned off for those that may encounter accessibility
 # issues with the minigame or wish for a kinetic experience.
-default persistent.mg_enabled = True
+default persistent.mg_enabled = False
 
 # Whether to announce chapter names when a chapter starts.
 default persistent.announce_chapters = False
