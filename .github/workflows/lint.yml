@@ -30,7 +30,7 @@ jobs:
         id: candella
         uses: ProjectAliceDev/renpy-build-action@v1.1.3
         with:
-          sdk-version: 7.4.2
+          sdk-version: 8.0.3
           project-dir: 'candella'
       - name: Add Candella build to release
         run: |
@@ -44,7 +44,7 @@ jobs:
       - name: Lint project
         uses: ProjectAliceDev/renpy-lint-action@v1.1.1
         with:
-          sdk-version: 7.4.1
+          sdk-version: 8.0.3
           project-dir: "."
         env:
           SDL_AUDIODRIVER: dummy
