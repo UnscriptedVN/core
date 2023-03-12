@@ -16,6 +16,8 @@ init -1 python:
     CONTRIBS = {
         "Andy Kurnia": "kofi",
         "Jim Kearney": "kofi",
+        "Christine Kearney-Kurt": "kofi",
+        "Suspicious Yak": "kofi"
     }
 
 screen help(pre_tab="about"):
@@ -176,7 +178,7 @@ screen license_help():
     default license = ""
 
     python:
-        with renpy.file("../LICENSE.txt") as file:
+        with renpy.open_file("../LICENSE.txt", encoding="utf-8") as file:
             license = file.read()
 
     hbox:
