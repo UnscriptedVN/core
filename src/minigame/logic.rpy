@@ -40,10 +40,11 @@ init 10 python:
             Arguments:
                 level (int): The level to create the logic handler from.
             """
+            open_file = lambda a: renpy.open_file(a, encoding="utf8")
             self.level = level
             self.map = CSWorldConfigReader("core/src/minigame/levels/level%s.toml" % (level),
                                            exists=renpy.loadable,
-                                           load=renpy.file)
+                                           load=open_file)
             path = [config.savedir,
                     "minigame",
                     "compiled",
@@ -55,7 +56,7 @@ init 10 python:
 
             if not persistent.mg_adv_mode:
                 if not renpy.loadable(self.vm_path):
-                    with open(self.vm_path, "w+") as filewrite:
+                    with open(self.vm_path, 'w+') as filewrite:
                         filewrite.write("")
 
             if os.path.isfile(self.vm_path):
@@ -64,42 +65,6 @@ init 10 python:
                 logging.info("Loaded VM from %s.", self.vm_path)
             else:
                 logging.warning("VM file for level %s will need to be compiled first.", self.level)
-
-        @deprecated('2.1.0', reason="New advanced mode will be old interactive experience.")
-        def _compile_advanced(self):
-            """Run the advanced compiler editor."""
-            renpy.call_screen("mg_editor", self.map, self.writer, self.level)
-            code_stream = ""
-            with open(os.path.join(config.savedir, "minigame")
-                      + "/level%s.py" % (self.level), "r") as file_stream:
-                          code_stream = file_stream.read()
-            executable = compile(code_stream,
-                                 os.path.join(config.savedir, "minigame") + "/level%s.py" % (self.level),
-                                 "exec")
-
-            try:
-                exec executable in py_sandbox()
-                logging.info("Compiled code to %s", self.vm_path)
-            except Exception as e:
-                logging.error("Error in advanced mode compilation: %s" % (e.message))
-                renpy.call_screen("ASNotificationAlert", "Compile Error", e.message)
-                return
-
-            self.vm = CSNadiaVM(path=self.vm_path,
-                                player_origin=self.map.data.to_grid().first("PLAYER"))
-            logging.info("Loaded VM from %s.", self.vm_path)
-
-        @deprecated('2.1.0', reason="No longer in use.")
-        def _compile_basic(self):
-            """Compile the basic compiler editor.
-
-            In levels that contain coins, the writer will automatically add the respective alloc
-                and push commands to instantiate the coins in the virtual machine.
-            """
-            renpy.call_screen("ASNotificationAlert",
-                              "Classic Mode is unsupported.",
-                              "The classic mode GUI may not be called anymore.")
-            raise Exception("Classic mode is unsupported.")
 
         def _preview(self):
             """Run the preview scene with the current map and virtual machine.

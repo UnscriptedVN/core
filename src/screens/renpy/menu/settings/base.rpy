@@ -26,7 +26,6 @@ screen preferences(pre_tab="general"):
                 textbutton _("General") action SetScreenVariable("settings_page", "general")
                 textbutton _("Appearance") action SetScreenVariable("settings_page", "appearance")
                 textbutton _("Sound") action SetScreenVariable("settings_page", "sound")
-                textbutton _("Minigame") action SetScreenVariable("settings_page", "minigame")
                 textbutton _("Accessibility") action SetScreenVariable("settings_page", "accessibility")
                 textbutton _("Extras") action SetScreenVariable("settings_page", "extras")
 

@@ -64,7 +64,7 @@ init -100 python:
                 xpath = kwargs["filepath"]
 
                 if renpy.loadable(xpath):
-                    with renpy.file(xpath) as conf:
+                    with renpy.open_file(xpath, encoding="utf-8") as conf:
                         theme_conf = toml.load(conf)["theme"]
 
                         self.name = theme_conf["name"]
@@ -75,9 +75,9 @@ init -100 python:
 
                         colors = theme_conf["colors"].copy()
                         colors["syntax"] = None
-                        new_colors = dict((k.upper(), v) for k, v in colors.iteritems())
+                        new_colors = dict((k.upper(), v) for k, v in colors.items())
                         syntax = dict(
-                            (k.upper(), v) for k, v in theme_conf["colors"]["syntax"].iteritems()
+                            (k.upper(), v) for k, v in theme_conf["colors"]["syntax"].items()
                         )
 
                         self._ui_colors = Enum("ThemeColor", new_colors)

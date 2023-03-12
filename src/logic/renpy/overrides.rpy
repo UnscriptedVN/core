@@ -27,7 +27,8 @@ init 10 python:
 
     only_levels = lambda a: a.endswith(".toml") and a.startswith("core/src/minigame/levels/level")
 
-    for level in range(len(filter(only_levels, renpy.list_files()))):
+    all_levels = list(filter(only_levels, renpy.list_files()))
+    for level in range(len(all_levels)):
         if "level%s.py" % (level) not in os.listdir(os.path.join(config.savedir, "minigame")):
             logging.warn("Script for level %s is missing. Creating from a new template..." % (level))
             generate_template(os.path.join(config.savedir,
